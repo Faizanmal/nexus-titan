@@ -29,12 +29,15 @@ export interface RuntimeConfig {
 export interface LeasedInferenceTask extends AgentInvocation {
   lease_id: string;
   lease_expires_at: string;
+  incident_id?: string;
   input: {
     text: string;
     modality: Modality;
     template_id: string;
     cloud_approved: boolean;
     image_data_url?: string;
+    allow_restricted_local?: boolean;
+    incident_id?: string;
   };
 }
 

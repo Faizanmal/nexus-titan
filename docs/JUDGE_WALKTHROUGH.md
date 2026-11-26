@@ -35,10 +35,14 @@ Press **`⌘K`** (macOS) or **`Ctrl+K`** (Windows/Linux) from any route in the a
 
 Navigate to **`/demo`** ([Demo Setup & Flagship Scenario](file:///j:/Hackathons/Devpost/nexus-titan/apps/web/src/app/demo/page.tsx)) for the flagship, cryptographically verified evaluation.
 
-### Step 0: Judge Sandbox Onboarding
-1. Under **Contest Judge Sandbox Evaluation**, enter your alias (e.g. `Judge-Alpha`).
-2. Click **Onboard Judge Sandbox**.
-3. *Verified State*: Returns a restricted sandbox profile with quota allocations (e.g., 50 simulation units, 20 agent runs) and explicit denial of destructive production mutations.
+### Step 0: Judge Sandbox Onboarding & Frictionless Entry
+1. Navigate to **`/demo`** in any fresh, signed-out browser window.
+2. In the **Contest Judge & Evaluator Onboarding** gateway card, click **Enter Sandbox (1-Click Dedicated Evaluator Sign-In)** (or enter custom test credentials if preferred).
+3. *Verified State*: Authenticates instantly and returns a restricted sandbox profile (`role: judge`) with quota allocations (50 simulation units, 20 agent runs, 30 req/min rate limit), explicit denial of destructive production mutations, and an isolated session ID (`sess-judge-...`).
+4. *Baseline Telemetry*: Upon onboarding, baseline SCADA telemetry for Pump `P-101` automatically loads.
+5. *Browser Refresh*: Refreshing the page seamlessly restores the active judge session and loads baseline telemetry without requiring re-entry.
+6. *Session Expiry & Recovery*: If authentication or the 8-hour sandbox lease expires, the UI surfaces a clear **Recover Sandbox Session** recovery action to re-authenticate and resume evaluation.
+7. *Multi-Judge Independence*: Opening another judge session in a private/incognito window allocates an independent session ID and quota tracker with zero cross-session state contamination.
 
 ### 14-Step Guided Lifecycle
 Step through each phase using the interactive step cues:
@@ -50,11 +54,11 @@ Step through each phase using the interactive step cues:
 | **3** | **Field Evidence** | `EDGE_CAPTURE` | Technician captures dial readings and QR markers (`QR-P101-DISCHARGE`). Disagreement detection selectable. |
 | **4** | **Offline Local AI** | `LOCAL_ON_DEVICE` | Runs local edge classifier while network is offline. **Zero restricted bytes egressed**; outbox sealed in AES-256-GCM vault. |
 | **5** | **Redaction Approval** | `OPERATOR_CONSENT` | Visual redaction preview. Technician explicitly approves stripped payload (PII and raw photo bytes retained locally). |
-| **6** | **Peer Transfer** | `HYBRID_EDGE` | Evaluates local subnet mesh transfer. Reports honest BLE/Wi-Fi Direct hardware blocker when radio unavailable. |
+| **6** | **Peer Transfer** | `HYBRID_EDGE` | Evaluates local subnet mesh transfer. Reports honest BLE/Wi-Fi Direct hardware blocker (`SIMULATED_AIRGAP_SUBNET`; zero physical hardware transfer claimed). |
 | **7** | **Canonical Sync** | `ED25519_VERIFIED` | Edge node reconnects; syncs events via Ed25519 signatures. Verifies duplicate idempotent rejection. |
-| **8** | **Cloud Inference** | `CLOUD_BACKEND` | Firebase Cloud / Gemini 3.5 Flash inference on sanitized context. Provenance note disallows mock masquerading. |
+| **8** | **Cloud Inference** | `CLOUD_BACKEND` | Firebase Cloud / Gemini 3.5 Flash inference on sanitized context. Provenance derived strictly via SDK mapping; credentials configured without provider output never claim cloud execution. |
 | **9** | **Causal Agent DAG** | `HYBRID_EDGE` | 4-agent parallel execution DAG: Hydraulic Diagnostician, Sensor Validator, Risk Estimator, Planner. |
-| **10** | **Solver Scenarios** | `SOLVER_MATH` | Evaluates counterfactual solver outcomes: Plan A (\$1,250 repair) vs Plan B (\$3,400 switchover) vs No Action (\$65,400 failure). **Asset Preservation: \$64,150**. |
+| **10** | **Solver Scenarios** | `SOLVER_MATH` | Evaluates counterfactual solver outcomes: Plan A ($1,250 repair) vs Plan B ($4,200 switchover) vs No Action ($65,400 failure). **Synthetic Model Projection: $64,150** (mathematical model only; zero real-world savings claimed). |
 | **11** | **Stale Approval Error** | `CONCURRENCY_409` | Proves race condition prevention: submitting an approval against an outdated projection sequence raises HTTP 409 Conflict. |
 | **12** | **Supervisor Plan** | `SUPERVISOR_ROLE` | Authorized supervisor signs the final mitigation action; projection increments deterministically. |
 | **13** | **Twin Update** | `SPATIAL_RECONCILE` | Digital twin state updates; bypass valve throttled to 45% and flow routed to standby pump `P-102`. |

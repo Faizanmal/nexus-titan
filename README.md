@@ -1,6 +1,32 @@
 # NEXUS TITAN
 
-Repository foundation initialized 2026-11-14. This repository began empty; no pre-existing code or user work was present. Product feature work remains subject to the Phase 02 Firebase gates. The project reference prompts (`prompts/reference/*`) remain absent.
+> **Offline AI helps field technicians investigate equipment alarms and share only approved evidence when connectivity returns.**
+>
+> Open-Source Hybrid Edge-Cloud Industrial Intelligence Platform · Licensed under Apache-2.0.
+
+---
+
+## ⚡ Hackathon Judge Quickstart (Clean Browser Evaluation)
+
+NEXUS TITAN includes a dedicated **Judge Sandbox** designed for frictionless, 1-click evaluator testing in any fresh browser profile with zero account setup:
+
+1. **Visit the Live Demo / Local Workbench**: Navigate to [`/demo`](http://127.0.0.1:3000/demo) (or from the homepage [`/`](http://127.0.0.1:3000/), click **"Enter Flagship Incident Walkthrough →"**).
+2. **1-Click Sandbox Entry**: In the **Contest Judge & Evaluator Onboarding** gateway card, click **"Enter Sandbox (1-Click Dedicated Evaluator Sign-In)"**.
+   - Authenticates instantly and issues an isolated sandbox profile (`role: judge`) with quota allocations (50 simulation units, 20 agent runs, 30 req/min rate limit).
+3. **Step Through the 5-Stage Guided Walkthrough**:
+   - **Stage 1 (Alarm & Contradiction)**: Injects synthetic cavitation fault on Pump `P-101` and records physical dial reading (390 kPa normal), detecting sensor transducer drift.
+   - **Stage 2 (Offline Local AI)**: Simulates disconnected field environment (`Network: OFFLINE`) and executes on-device edge triage on restricted technician notes (0 egressed bytes).
+   - **Stage 3 (Approved Cloud Handoff)**: Inspects de-identification preview, strips PII/canary, authorizes cryptographic SHA-256 consent digest, and executes Cloud Vertex AI via Firebase AI Logic.
+   - **Stage 4 (Decision & Mitigation)**: Evaluates counterfactual hydraulic solvers (Plan A throttled bypass saving $64,150) with supervisor signoff (`no_actuator_path: true`).
+   - **Stage 5 (Spatial Twin & Replay)**: Reconciles 3D spatial digital twin and scrubs deterministic timeline with SHA-256 hash digest.
+4. **Independent Judge Isolation**: Opening another session in a private/incognito window allocates an independent session ID and quota tracker with zero cross-session state leakage.
+5. **Run Automated Test Harness**:
+   ```bash
+   pnpm test:suites    # Runs all 14 comprehensive test suites (including judge browser smoke & contradiction tests)
+   pnpm test:api       # Runs all 180 FastAPI pytest tests
+   ```
+
+---
 
 ## Prerequisites
 

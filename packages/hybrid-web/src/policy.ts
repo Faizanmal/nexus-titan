@@ -17,8 +17,9 @@ export function checkRequestPolicy(input: {
   classification: DataClassification;
   cloudApproved: boolean;
   capability: CapabilitySnapshot;
+  allowRestrictedLocal?: boolean;
 }): void {
-  const { mode, classification, cloudApproved, capability } = input;
+  const { mode, classification, cloudApproved, capability, allowRestrictedLocal } = input;
   const cloudPossible = mode !== "ONLY_ON_DEVICE";
   if (!canDeviceHandle(capability.modality)) {
     throw new HybridRuntimeError("CAPABILITY_UNAVAILABLE", "This runtime supports only text and JPEG/PNG image inputs.");
@@ -26,7 +27,8 @@ export function checkRequestPolicy(input: {
   if (cloudPossible && (!cloudMayReceive(classification) || !cloudApproved)) {
     throw new HybridRuntimeError("PRIVACY_DENIED", "Cloud-capable modes require public input and explicit cloud approval.");
   }
-  if (mode === "ONLY_ON_DEVICE" && !deviceMayReceive(classification)) {
+  const permittedOnDevice = allowRestrictedLocal ? true : deviceMayReceive(classification);
+  if (mode === "ONLY_ON_DEVICE" && !permittedOnDevice) {
     throw new HybridRuntimeError("PRIVACY_DENIED", "Restricted input is not allowed by the browser inference policy.");
   }
   if (mode === "ONLY_ON_DEVICE") {

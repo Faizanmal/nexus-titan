@@ -1,6 +1,6 @@
 {
   "audit_version": "1.0.0",
-  "timestamp": "2026-11-23T13:30:38.434147+00:00",
+  "timestamp": "2026-11-26T09:09:04.171029+00:00",
   "summary": {
     "overall_status": "PASS",
     "secrets_found": 0,
@@ -9,7 +9,7 @@
     "industrial_isolation_verified": true
   },
   "secret_scan": {
-    "files_scanned": 371,
+    "files_scanned": 372,
     "findings": [],
     "status": "PASS"
   },

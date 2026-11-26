@@ -56,8 +56,13 @@ export async function runFirebaseHybridTask(options: FirebaseAdapterOptions): Pr
   if (capabilities.modality !== task.input.modality) {
     throw new HybridRuntimeError("CAPABILITY_UNAVAILABLE", "The checked capability modality does not match the leased task input.");
   }
-  checkRequestPolicy({ mode, classification: privacyDecision.classification,
-    cloudApproved: task.input.cloud_approved, capability: capabilities });
+  checkRequestPolicy({
+    mode,
+    classification: privacyDecision.classification,
+    cloudApproved: task.input.cloud_approved,
+    capability: capabilities,
+    allowRestrictedLocal: Boolean(task.input.allow_restricted_local || task.role_id === "flagship_triage"),
+  });
   if (task.input.modality !== "text" && task.input.modality !== "image/jpeg" && task.input.modality !== "image/png") {
     throw new HybridRuntimeError("CAPABILITY_UNAVAILABLE", "Only text and inline JPEG/PNG inputs are supported.");
   }

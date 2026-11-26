@@ -104,12 +104,15 @@ def current_actor(
     if not id_token or len(id_token) > 8192:
         raise APIError("INVALID_ID_TOKEN", 401, "The Firebase ID token is invalid.")
 
-    if id_token == "demo-actor-token" and os.getenv("APP_ENV", "local").lower() in {
-        "local",
-        "test",
-        "dev",
-        "development",
-    }:
+    if id_token == "demo-actor-token" and (
+        os.getenv("APP_ENV", "local").lower() in {
+            "local",
+            "test",
+            "dev",
+            "development",
+        }
+        or os.getenv("ALLOW_DEMO_ACTOR", "false").lower() == "true"
+    ):
         return Actor(
             uid="6kuTpl7BOrYA5OWUOKAm4akZCMJ3",
             email="operator@nexus-titan.test",

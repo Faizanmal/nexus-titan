@@ -1,6 +1,6 @@
 # NEXUS TITAN — Software Bill of Materials (SBOM) & License Inventory
 
-**Generated:** 2026-11-23T13:30:38.433655+00:00
+**Generated:** 2026-11-26T09:09:04.170561+00:00
 **Audit Result:** PASS (100% Permissive Open Source Licenses; Zero Proprietary or Copyleft Risks)
 
 | Component | Ecosystem | Pinned Version | License | Architectural Usage |
