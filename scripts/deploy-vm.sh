@@ -77,16 +77,26 @@ else
     echo -e "${YELLOW}UFW not found; ensure your cloud security group / firewall permits ports 80 and 443.${RESET}"
 fi
 
-# 4. Check .env.production file
+# 4. Check .env.production file (seeded from the single root .env.example)
 echo -e "\n${BOLD}[3/6] Checking production environment file...${RESET}"
 if [ ! -f ".env.production" ]; then
-    echo -e "${YELLOW}No .env.production found! Creating from .env.production.example...${RESET}"
-    cp .env.production.example .env.production
-    
-    # Generate random strong Postgres password
+    if [ ! -f ".env.example" ]; then
+        echo -e "${RED}[ERROR] .env.example is missing; cannot seed .env.production.${RESET}"
+        exit 1
+    fi
+    echo -e "${YELLOW}No .env.production found! Creating from .env.example...${RESET}"
+    cp .env.example .env.production
+
+    # Switch to production defaults and generate a strong Postgres password
     RAND_PASS=$(openssl rand -hex 20 2>/dev/null || date +%s | sha256sum | head -c 32)
+    sed -i "s/^APP_ENV=.*/APP_ENV=production/" .env.production
+    sed -i "s/^POSTGRES_USER=.*/POSTGRES_USER=nexus_admin/" .env.production
+    sed -i "s/^POSTGRES_PASSWORD=.*/POSTGRES_PASSWORD=${RAND_PASS}/" .env.production
+    sed -i "s/^POSTGRES_DB=.*/POSTGRES_DB=nexus_titan/" .env.production
+    sed -i "s|^NEXT_PUBLIC_API_URL=.*|NEXT_PUBLIC_API_URL=https://api.yourdomain.com|" .env.production
+    sed -i "s/^NEXT_PUBLIC_INFERENCE_PROVIDER=.*/NEXT_PUBLIC_INFERENCE_PROVIDER=fixture/" .env.production
     sed -i "s/replace-with-a-secure-random-password/${RAND_PASS}/g" .env.production
-    
+
     echo -e "${RED}[ACTION REQUIRED] A new .env.production has been created.${RESET}"
     echo -e "Please edit ${BOLD}.env.production${RESET} with your real domain name and email:"
     echo -e "  nano .env.production"

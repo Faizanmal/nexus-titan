@@ -92,9 +92,9 @@ cd nexus-titan
 
 ## Step 4: Configure Production Environment (`.env.production`)
 
-Copy the production example configuration:
+There is a single template: root `.env.example`. Copy it to an ignored production env file:
 ```bash
-cp .env.production.example .env.production
+cp .env.example .env.production
 ```
 
 Edit `.env.production` using `nano` or `vim`:
@@ -102,7 +102,7 @@ Edit `.env.production` using `nano` or `vim`:
 nano .env.production
 ```
 
-Set the following variables:
+Set the following variables (see the production section in `.env.example`):
 ```dotenv
 APP_ENV=production
 
@@ -124,6 +124,7 @@ NEXT_PUBLIC_INFERENCE_PROVIDER=fixture
 ```
 
 Save and exit (`Ctrl + O`, then `Enter`, then `Ctrl + X` in nano).
+`./scripts/deploy-vm.sh` can also seed `.env.production` from `.env.example` on first run.
 
 ---
 
