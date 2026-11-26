@@ -1,0 +1,52 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function membershipPath(organizationId, userId) {
+      return /databases/(default)/documents/organizations/$(organizationId)/memberships/$(userId);
+    }
+
+    function siteMember(organizationId, siteId) {
+      return signedIn()
+        && firestore.exists(membershipPath(organizationId, request.auth.uid))
+        && firestore.get(membershipPath(organizationId, request.auth.uid)).data.active == true
+        && (
+          firestore.get(membershipPath(organizationId, request.auth.uid)).data.role in ['owner', 'admin']
+          || siteId in firestore.get(membershipPath(organizationId, request.auth.uid)).data.site_ids
+        );
+    }
+
+    function authorizationPath(organizationId, siteId, authorizationId) {
+      return /databases/(default)/documents/organizations/$(organizationId)/sites/$(siteId)/upload_authorizations/$(authorizationId);
+    }
+
+    function approved(organizationId, siteId, authorizationId) {
+      return firestore.exists(authorizationPath(organizationId, siteId, authorizationId))
+        && firestore.get(authorizationPath(organizationId, siteId, authorizationId)).data.status in ['approved', 'consumed'];
+    }
+
+    match /organizations/{organizationId}/sites/{siteId}/artifacts/{authorizationId} {
+      allow read: if siteMember(organizationId, siteId) && approved(organizationId, siteId, authorizationId);
+      allow create: if siteMember(organizationId, siteId)
+        && approved(organizationId, siteId, authorizationId)
+        && firestore.get(authorizationPath(organizationId, siteId, authorizationId)).data.status == 'approved'
+        && firestore.get(authorizationPath(organizationId, siteId, authorizationId)).data.classification in ['PUBLIC', 'INTERNAL']
+        && firestore.get(authorizationPath(organizationId, siteId, authorizationId)).data.user_id == request.auth.uid
+        && firestore.get(authorizationPath(organizationId, siteId, authorizationId)).data.expires_at > request.time
+        && request.resource.size > 0
+        && request.resource.size <= firestore.get(authorizationPath(organizationId, siteId, authorizationId)).data.max_bytes
+        && request.resource.size <= 15 * 1024 * 1024
+        && request.resource.contentType == firestore.get(authorizationPath(organizationId, siteId, authorizationId)).data.content_type
+        && request.resource.contentType in ['application/pdf', 'image/jpeg', 'image/png']
+        && resource == null;
+      allow update, delete: if false;
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,22 @@
+﻿<!doctype html><meta charset="utf-8"><title>LanguageModel diag</title>
+<pre id="out">running…</pre>
+<script>
+(async () => {
+  const out = document.getElementById('out');
+  const lines = [];
+  lines.push('ua=' + navigator.userAgent);
+  lines.push('LanguageModel_in_self=' + ('LanguageModel' in self));
+  lines.push('ai_in_self=' + ('ai' in self));
+  try {
+    if ('LanguageModel' in self) {
+      const a = await LanguageModel.availability();
+      lines.push('availability=' + JSON.stringify(a));
+    } else {
+      lines.push('availability=API_MISSING');
+    }
+  } catch (e) {
+    lines.push('availability_error=' + (e && e.name) + ': ' + (e && e.message));
+  }
+  out.textContent = lines.join('\n');
+})();
+</script>

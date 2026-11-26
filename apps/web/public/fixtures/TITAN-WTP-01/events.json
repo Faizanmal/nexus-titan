@@ -1,0 +1,5549 @@
+[
+  {
+    "aggregate_id": "WTP01-FLT-001",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "079949f8-f43b-576b-940a-6068e8f3b8ad",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-FLT-001",
+      "asset_type": "filter",
+      "capacity_constraint": {
+        "maximum": 10,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-001"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-001"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Cartridge filter 01",
+      "measurement_unit": "L/s",
+      "position": [
+        1.0,
+        5.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-FLT-001",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-001"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 1,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-FLT-002",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "c8ac05f3-d66b-51c2-b381-85303999406b",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-FLT-002",
+      "asset_type": "filter",
+      "capacity_constraint": {
+        "maximum": 13,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-002"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-002"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Media filter vessel 02",
+      "measurement_unit": "L/s",
+      "position": [
+        14.0,
+        7.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-FLT-002",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-002"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 2,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-FLT-003",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "58f38ae6-2735-5555-b8e8-b19369eb0dc2",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-FLT-003",
+      "asset_type": "filter",
+      "capacity_constraint": {
+        "maximum": 13,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-003"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-003"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Media filter vessel 03",
+      "measurement_unit": "L/s",
+      "position": [
+        23.0,
+        13.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-FLT-003",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-003"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 3,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-FLT-004",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "072a4222-b6f9-5562-b908-f64651bafd32",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-FLT-004",
+      "asset_type": "filter",
+      "capacity_constraint": {
+        "maximum": 15,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-004"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-004"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Media filter vessel 04",
+      "measurement_unit": "L/s",
+      "position": [
+        42.0,
+        17.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-FLT-004",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-004"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 4,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-FLT-005",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "bd11488b-9699-5901-b2e8-0a4a2be8f877",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-FLT-005",
+      "asset_type": "filter",
+      "capacity_constraint": {
+        "maximum": 16,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-005"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-005"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Cartridge filter 05",
+      "measurement_unit": "L/s",
+      "position": [
+        61.0,
+        21.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-FLT-005",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-005"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 5,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-FLT-006",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "62df292a-84b4-5f0f-aba8-926ad7e8d97c",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-FLT-006",
+      "asset_type": "filter",
+      "capacity_constraint": {
+        "maximum": 17,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-006"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-006"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Polishing filter 06",
+      "measurement_unit": "L/s",
+      "position": [
+        72.0,
+        23.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-FLT-006",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-006"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 6,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-FLT-007",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "e85679a9-240d-51da-94ea-0797266a92cb",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-FLT-007",
+      "asset_type": "filter",
+      "capacity_constraint": {
+        "maximum": 9,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-007"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-007"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Cartridge filter 07",
+      "measurement_unit": "L/s",
+      "position": [
+        82.0,
+        0.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-FLT-007",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-007"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 7,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-FLT-008",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "cb75c990-98f8-5f35-b30b-168cea8f809e",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-FLT-008",
+      "asset_type": "filter",
+      "capacity_constraint": {
+        "maximum": 11,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-008"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-008"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Media filter vessel 08",
+      "measurement_unit": "L/s",
+      "position": [
+        100.0,
+        4.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-FLT-008",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-008"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 8,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-FLT-009",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "c378f279-1036-56c8-849d-410c15bc5f1b",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-FLT-009",
+      "asset_type": "filter",
+      "capacity_constraint": {
+        "maximum": 11,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-009"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-009"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Media filter vessel 09",
+      "measurement_unit": "L/s",
+      "position": [
+        111.0,
+        9.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-FLT-009",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-009"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 9,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-FLT-010",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "9c04dbc9-bf0d-5655-831b-dd8db8dfe132",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-FLT-010",
+      "asset_type": "filter",
+      "capacity_constraint": {
+        "maximum": 14,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-010"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Cartridge filter 10",
+      "measurement_unit": "L/s",
+      "position": [
+        124.0,
+        11.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-FLT-010",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-010"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 10,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-FLT-011",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "058e2da2-f3b3-56d5-8883-aa5114d17d0c",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-FLT-011",
+      "asset_type": "filter",
+      "capacity_constraint": {
+        "maximum": 15,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-001"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-001"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Cartridge filter 11",
+      "measurement_unit": "L/s",
+      "position": [
+        5.0,
+        15.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-FLT-011",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-001"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 11,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-FLT-012",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "4c23a156-1aad-54e6-82f7-0e130a29762b",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-FLT-012",
+      "asset_type": "filter",
+      "capacity_constraint": {
+        "maximum": 14,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-002"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-002"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Media filter vessel 12",
+      "measurement_unit": "L/s",
+      "position": [
+        14.0,
+        20.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-FLT-012",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-002"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 12,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-FLT-013",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "8654b8a8-b59f-59a2-98b3-da3e49539368",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-FLT-013",
+      "asset_type": "filter",
+      "capacity_constraint": {
+        "maximum": 16,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-003"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-003"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Media filter vessel 13",
+      "measurement_unit": "L/s",
+      "position": [
+        24.0,
+        24.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-FLT-013",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-003"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 13,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-FLT-014",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "bcd4e637-6cc5-5738-953c-2573e66ea334",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-FLT-014",
+      "asset_type": "filter",
+      "capacity_constraint": {
+        "maximum": 10,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-004"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-004"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Media filter vessel 14",
+      "measurement_unit": "L/s",
+      "position": [
+        38.0,
+        0.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-FLT-014",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-004"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 14,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-FLT-015",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "80532d8b-e303-514c-b8d5-9cac51a32fd6",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-FLT-015",
+      "asset_type": "filter",
+      "capacity_constraint": {
+        "maximum": 11,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-005"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-005"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Polishing filter 15",
+      "measurement_unit": "L/s",
+      "position": [
+        61.0,
+        3.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-FLT-015",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-005"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 15,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-FLT-016",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "325440e5-dcb1-5e1a-9aa7-9e15124fa0f4",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-FLT-016",
+      "asset_type": "filter",
+      "capacity_constraint": {
+        "maximum": 13,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-006"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-006"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Polishing filter 16",
+      "measurement_unit": "L/s",
+      "position": [
+        71.0,
+        8.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-FLT-016",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-006"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 16,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-PMP-001",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "0a8f8b15-5613-5482-9d03-b9fb30a59874",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-PMP-001",
+      "asset_type": "pump",
+      "capacity_constraint": {
+        "maximum": 15,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-001"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-001"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Booster pump 01",
+      "measurement_unit": "L/s",
+      "position": [
+        -1.0,
+        3.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-PMP-001",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-001"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 17,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-PMP-002",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "373a7cb7-3bf1-58d8-b7d4-b1bad53609d8",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-PMP-002",
+      "asset_type": "pump",
+      "capacity_constraint": {
+        "maximum": 15,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-002"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-002"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Centrifugal transfer pump 02",
+      "measurement_unit": "L/s",
+      "position": [
+        19.0,
+        9.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-PMP-002",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-002"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 18,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-PMP-003",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "1ce71c6c-7f1a-5fa4-9e10-a585ca6d2f7f",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-PMP-003",
+      "asset_type": "pump",
+      "capacity_constraint": {
+        "maximum": 16,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-003"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-003"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Recirculation pump 03",
+      "measurement_unit": "L/s",
+      "position": [
+        25.0,
+        13.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-PMP-003",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-003"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 19,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-PMP-004",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "88112774-5cdb-5e01-8d4a-54e9171fc3ee",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-PMP-004",
+      "asset_type": "pump",
+      "capacity_constraint": {
+        "maximum": 16,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-004"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-004"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Recirculation pump 04",
+      "measurement_unit": "L/s",
+      "position": [
+        47.0,
+        15.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-PMP-004",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-004"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 20,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-PMP-005",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "49077bf6-61c4-592d-8e31-7029d29e17c3",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-PMP-005",
+      "asset_type": "pump",
+      "capacity_constraint": {
+        "maximum": 19,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-005"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-005"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Recirculation pump 05",
+      "measurement_unit": "L/s",
+      "position": [
+        51.0,
+        19.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-PMP-005",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-005"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 21,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-PMP-006",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "8635d345-aacd-5eb7-8ca8-183e9113d007",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-PMP-006",
+      "asset_type": "pump",
+      "capacity_constraint": {
+        "maximum": 20,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-006"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-006"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Centrifugal transfer pump 06",
+      "measurement_unit": "L/s",
+      "position": [
+        67.0,
+        23.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-PMP-006",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-006"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 22,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-PMP-007",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "86acff56-940e-5393-b272-56b353d746f0",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-PMP-007",
+      "asset_type": "pump",
+      "capacity_constraint": {
+        "maximum": 21,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-007"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-007"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Recirculation pump 07",
+      "measurement_unit": "L/s",
+      "position": [
+        86.0,
+        -1.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-PMP-007",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-007"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 23,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-PMP-008",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "e1a671ff-33bd-5f8a-a771-f616fc21cd78",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-PMP-008",
+      "asset_type": "pump",
+      "capacity_constraint": {
+        "maximum": 21,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-008"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-008"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Centrifugal transfer pump 08",
+      "measurement_unit": "L/s",
+      "position": [
+        98.0,
+        4.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-PMP-008",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-008"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 24,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-PMP-009",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "9623a3f1-3a80-5a98-baeb-eb5c9e61efaa",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-PMP-009",
+      "asset_type": "pump",
+      "capacity_constraint": {
+        "maximum": 12,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-009"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-009"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Recirculation pump 09",
+      "measurement_unit": "L/s",
+      "position": [
+        114.0,
+        8.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-PMP-009",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-009"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 25,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-PMP-010",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "51d8e2c0-2099-5f01-a62b-9dbb66b33f09",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-PMP-010",
+      "asset_type": "pump",
+      "capacity_constraint": {
+        "maximum": 14,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-010"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Recirculation pump 10",
+      "measurement_unit": "L/s",
+      "position": [
+        129.0,
+        11.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-PMP-010",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-010"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 26,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-PMP-011",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "ba5084c7-97a9-56ef-9db9-346b43464f97",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-PMP-011",
+      "asset_type": "pump",
+      "capacity_constraint": {
+        "maximum": 15,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-001"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-001"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Recirculation pump 11",
+      "measurement_unit": "L/s",
+      "position": [
+        -5.0,
+        16.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-PMP-011",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-001"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 27,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-PMP-012",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "3a3b04d8-80d1-5251-8b49-de958622abeb",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-PMP-012",
+      "asset_type": "pump",
+      "capacity_constraint": {
+        "maximum": 16,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-002"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-002"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Booster pump 12",
+      "measurement_unit": "L/s",
+      "position": [
+        14.0,
+        21.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-PMP-012",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-002"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 28,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-PMP-013",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "1c48f962-5a5a-5ac2-b0c7-135920ae6db9",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-PMP-013",
+      "asset_type": "pump",
+      "capacity_constraint": {
+        "maximum": 16,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-003"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-003"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Recirculation pump 13",
+      "measurement_unit": "L/s",
+      "position": [
+        28.0,
+        23.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-PMP-013",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-003"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 29,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-PMP-014",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "f95081b3-bd99-5079-93db-bad14c1390a1",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-PMP-014",
+      "asset_type": "pump",
+      "capacity_constraint": {
+        "maximum": 19,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-004"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-004"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Booster pump 14",
+      "measurement_unit": "L/s",
+      "position": [
+        38.0,
+        -1.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-PMP-014",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-004"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 30,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-PMP-015",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "f20946a3-3004-52d0-bf74-86655d4caba3",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-PMP-015",
+      "asset_type": "pump",
+      "capacity_constraint": {
+        "maximum": 19,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-005"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-005"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Recirculation pump 15",
+      "measurement_unit": "L/s",
+      "position": [
+        52.0,
+        4.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-PMP-015",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-005"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 31,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-PMP-016",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "aa2df517-d21b-5429-a1cb-9570bd6d0fed",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-PMP-016",
+      "asset_type": "pump",
+      "capacity_constraint": {
+        "maximum": 19,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-006"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-006"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Recirculation pump 16",
+      "measurement_unit": "L/s",
+      "position": [
+        70.0,
+        9.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-PMP-016",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-006"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 32,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-PMP-017",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "8af25821-9436-5a7c-bc34-7df796e4574e",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-PMP-017",
+      "asset_type": "pump",
+      "capacity_constraint": {
+        "maximum": 21,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-007"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-007"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Centrifugal transfer pump 17",
+      "measurement_unit": "L/s",
+      "position": [
+        82.0,
+        11.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-PMP-017",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-007"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 33,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-PMP-018",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "b43430bf-bca2-5407-a1aa-8e959fcacdac",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-PMP-018",
+      "asset_type": "pump",
+      "capacity_constraint": {
+        "maximum": 13,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-008"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-008"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Recirculation pump 18",
+      "measurement_unit": "L/s",
+      "position": [
+        102.0,
+        16.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-PMP-018",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-008"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 34,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-PMP-019",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "8c33e645-6e44-5624-916e-ab42c2841f48",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-PMP-019",
+      "asset_type": "pump",
+      "capacity_constraint": {
+        "maximum": 14,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-009"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-009"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Centrifugal transfer pump 19",
+      "measurement_unit": "L/s",
+      "position": [
+        117.0,
+        19.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-PMP-019",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-009"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 35,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-PMP-020",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "4ccb02ce-537f-569c-b99b-bd494ab63c6a",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-PMP-020",
+      "asset_type": "pump",
+      "capacity_constraint": {
+        "maximum": 15,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-010"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Recirculation pump 20",
+      "measurement_unit": "L/s",
+      "position": [
+        123.0,
+        24.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-PMP-020",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-010"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 36,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-PMP-021",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "21036a06-ace9-595b-8567-87c8db8b8dad",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-PMP-021",
+      "asset_type": "pump",
+      "capacity_constraint": {
+        "maximum": 17,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-001"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-001"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Recirculation pump 21",
+      "measurement_unit": "L/s",
+      "position": [
+        5.0,
+        -1.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-PMP-021",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-001"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 37,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-PMP-022",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "4c66ff9d-beea-50cb-a94d-baf8296be7da",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-PMP-022",
+      "asset_type": "pump",
+      "capacity_constraint": {
+        "maximum": 18,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-002"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-002"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Centrifugal transfer pump 22",
+      "measurement_unit": "L/s",
+      "position": [
+        11.0,
+        4.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-PMP-022",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-002"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 38,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-PMP-023",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "b694ce83-51ce-5d29-ba36-d062e5695540",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-PMP-023",
+      "asset_type": "pump",
+      "capacity_constraint": {
+        "maximum": 18,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-003"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-003"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Centrifugal transfer pump 23",
+      "measurement_unit": "L/s",
+      "position": [
+        31.0,
+        9.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-PMP-023",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-003"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 39,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-PMP-024",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "9a76fe84-6578-53f3-a564-df48b7b53b10",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-PMP-024",
+      "asset_type": "pump",
+      "capacity_constraint": {
+        "maximum": 20,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-004"
+        },
+        {
+          "relation": "FEEDS",
+          "target_asset_id": "WTP01-SYS-004"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Centrifugal transfer pump 24",
+      "measurement_unit": "L/s",
+      "position": [
+        45.0,
+        12.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-PMP-024",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-004"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 40,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SNS-001",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "e08d8f79-5946-5a4c-a0cb-895ed99dd560",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SNS-001",
+      "asset_type": "sensor",
+      "capacity_constraint": {
+        "maximum": 11,
+        "metric": "measurement_range",
+        "minimum": 0,
+        "unit": "bar"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-001"
+        },
+        {
+          "relation": "MONITORS",
+          "target_asset_id": "WTP01-SYS-001"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Level sensor 01",
+      "measurement_unit": "bar",
+      "position": [
+        -3.0,
+        4.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-SNS-001",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-001"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 41,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SNS-002",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "f425f7de-6fb3-5f45-b46e-8934b2c8590e",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SNS-002",
+      "asset_type": "sensor",
+      "capacity_constraint": {
+        "maximum": 11,
+        "metric": "measurement_range",
+        "minimum": 0,
+        "unit": "bar"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-002"
+        },
+        {
+          "relation": "MONITORS",
+          "target_asset_id": "WTP01-SYS-002"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Pressure transmitter 02",
+      "measurement_unit": "bar",
+      "position": [
+        11.0,
+        8.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-SNS-002",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-002"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 42,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SNS-003",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "5d1c4ec9-9067-590f-b591-c77af11675d2",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SNS-003",
+      "asset_type": "sensor",
+      "capacity_constraint": {
+        "maximum": 13,
+        "metric": "measurement_range",
+        "minimum": 0,
+        "unit": "bar"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-003"
+        },
+        {
+          "relation": "MONITORS",
+          "target_asset_id": "WTP01-SYS-003"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Pressure transmitter 03",
+      "measurement_unit": "bar",
+      "position": [
+        33.0,
+        12.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-SNS-003",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-003"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 43,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SNS-004",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "1ab227be-dbdf-5527-a87b-5ccf518182d5",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SNS-004",
+      "asset_type": "sensor",
+      "capacity_constraint": {
+        "maximum": 12,
+        "metric": "measurement_range",
+        "minimum": 0,
+        "unit": "bar"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-004"
+        },
+        {
+          "relation": "MONITORS",
+          "target_asset_id": "WTP01-SYS-004"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Flow sensor 04",
+      "measurement_unit": "bar",
+      "position": [
+        37.0,
+        17.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-SNS-004",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-004"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 44,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SNS-005",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "1a80bc3b-7d23-5419-b995-7036149af4da",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SNS-005",
+      "asset_type": "sensor",
+      "capacity_constraint": {
+        "maximum": 11,
+        "metric": "measurement_range",
+        "minimum": 0,
+        "unit": "bar"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-005"
+        },
+        {
+          "relation": "MONITORS",
+          "target_asset_id": "WTP01-SYS-005"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Pressure transmitter 05",
+      "measurement_unit": "bar",
+      "position": [
+        52.0,
+        20.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-SNS-005",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-005"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 45,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SNS-006",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "9ba70950-16ba-5521-9655-bd10fbb8b500",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SNS-006",
+      "asset_type": "sensor",
+      "capacity_constraint": {
+        "maximum": 10,
+        "metric": "measurement_range",
+        "minimum": 0,
+        "unit": "bar"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-006"
+        },
+        {
+          "relation": "MONITORS",
+          "target_asset_id": "WTP01-SYS-006"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Flow sensor 06",
+      "measurement_unit": "bar",
+      "position": [
+        67.0,
+        24.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-SNS-006",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-006"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 46,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SNS-007",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "ef35b43e-7743-55d3-b315-fa233639566e",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SNS-007",
+      "asset_type": "sensor",
+      "capacity_constraint": {
+        "maximum": 13,
+        "metric": "measurement_range",
+        "minimum": 0,
+        "unit": "bar"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-007"
+        },
+        {
+          "relation": "MONITORS",
+          "target_asset_id": "WTP01-SYS-007"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Level sensor 07",
+      "measurement_unit": "bar",
+      "position": [
+        85.0,
+        -1.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-SNS-007",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-007"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 47,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SNS-008",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "ba38de3f-d1c6-59e8-b177-b12d32803a0c",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SNS-008",
+      "asset_type": "sensor",
+      "capacity_constraint": {
+        "maximum": 10,
+        "metric": "measurement_range",
+        "minimum": 0,
+        "unit": "bar"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-008"
+        },
+        {
+          "relation": "MONITORS",
+          "target_asset_id": "WTP01-SYS-008"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Pressure transmitter 08",
+      "measurement_unit": "bar",
+      "position": [
+        95.0,
+        4.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-SNS-008",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-008"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 48,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SNS-009",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "088e1cfc-add5-530f-96e4-f1609c017ff4",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SNS-009",
+      "asset_type": "sensor",
+      "capacity_constraint": {
+        "maximum": 12,
+        "metric": "measurement_range",
+        "minimum": 0,
+        "unit": "bar"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-009"
+        },
+        {
+          "relation": "MONITORS",
+          "target_asset_id": "WTP01-SYS-009"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Flow sensor 09",
+      "measurement_unit": "bar",
+      "position": [
+        117.0,
+        8.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-SNS-009",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-009"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 49,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SNS-010",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "c45a6ed9-93b9-539f-85cb-dd22ada679b4",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SNS-010",
+      "asset_type": "sensor",
+      "capacity_constraint": {
+        "maximum": 12,
+        "metric": "measurement_range",
+        "minimum": 0,
+        "unit": "bar"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-010"
+        },
+        {
+          "relation": "MONITORS",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Level sensor 10",
+      "measurement_unit": "bar",
+      "position": [
+        122.0,
+        11.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-SNS-010",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-010"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 50,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SNS-011",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "304ec4fd-b0c3-59fc-9da4-27d4c9687921",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SNS-011",
+      "asset_type": "sensor",
+      "capacity_constraint": {
+        "maximum": 12,
+        "metric": "measurement_range",
+        "minimum": 0,
+        "unit": "bar"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-001"
+        },
+        {
+          "relation": "MONITORS",
+          "target_asset_id": "WTP01-SYS-001"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Level sensor 11",
+      "measurement_unit": "bar",
+      "position": [
+        2.0,
+        17.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-SNS-011",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-001"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 51,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SNS-012",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "eb1a8f81-f4a1-5618-9c9d-4c7f32deeb06",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SNS-012",
+      "asset_type": "sensor",
+      "capacity_constraint": {
+        "maximum": 11,
+        "metric": "measurement_range",
+        "minimum": 0,
+        "unit": "bar"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-002"
+        },
+        {
+          "relation": "MONITORS",
+          "target_asset_id": "WTP01-SYS-002"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Turbidity sensor 12",
+      "measurement_unit": "bar",
+      "position": [
+        19.0,
+        20.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-SNS-012",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-002"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 52,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SNS-013",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "677ddbb3-9ab1-53cf-8347-aecee9f636f8",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SNS-013",
+      "asset_type": "sensor",
+      "capacity_constraint": {
+        "maximum": 13,
+        "metric": "measurement_range",
+        "minimum": 0,
+        "unit": "bar"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-003"
+        },
+        {
+          "relation": "MONITORS",
+          "target_asset_id": "WTP01-SYS-003"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Flow sensor 13",
+      "measurement_unit": "bar",
+      "position": [
+        26.0,
+        25.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-SNS-013",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-003"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 53,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SNS-014",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "0edc2940-da11-538c-b5c2-a0bfb806ff7c",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SNS-014",
+      "asset_type": "sensor",
+      "capacity_constraint": {
+        "maximum": 12,
+        "metric": "measurement_range",
+        "minimum": 0,
+        "unit": "bar"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-004"
+        },
+        {
+          "relation": "MONITORS",
+          "target_asset_id": "WTP01-SYS-004"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Pressure transmitter 14",
+      "measurement_unit": "bar",
+      "position": [
+        47.0,
+        -1.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-SNS-014",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-004"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 54,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SNS-015",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "cedab61b-2c43-5ee1-8f0a-d39b68a851f8",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SNS-015",
+      "asset_type": "sensor",
+      "capacity_constraint": {
+        "maximum": 11,
+        "metric": "measurement_range",
+        "minimum": 0,
+        "unit": "bar"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-005"
+        },
+        {
+          "relation": "MONITORS",
+          "target_asset_id": "WTP01-SYS-005"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Turbidity sensor 15",
+      "measurement_unit": "bar",
+      "position": [
+        60.0,
+        4.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-SNS-015",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-005"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 55,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SNS-016",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "bea208af-44e1-5fbf-8b88-f9274ab9390e",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SNS-016",
+      "asset_type": "sensor",
+      "capacity_constraint": {
+        "maximum": 12,
+        "metric": "measurement_range",
+        "minimum": 0,
+        "unit": "bar"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-006"
+        },
+        {
+          "relation": "MONITORS",
+          "target_asset_id": "WTP01-SYS-006"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Turbidity sensor 16",
+      "measurement_unit": "bar",
+      "position": [
+        68.0,
+        9.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-SNS-016",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-006"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 56,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SNS-017",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "258b44a1-66cc-5bb3-8341-ca342539c1a3",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SNS-017",
+      "asset_type": "sensor",
+      "capacity_constraint": {
+        "maximum": 11,
+        "metric": "measurement_range",
+        "minimum": 0,
+        "unit": "bar"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-007"
+        },
+        {
+          "relation": "MONITORS",
+          "target_asset_id": "WTP01-SYS-007"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Flow sensor 17",
+      "measurement_unit": "bar",
+      "position": [
+        82.0,
+        13.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-SNS-017",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-007"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 57,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SNS-018",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "b2b530f5-3a10-5517-bff1-1ef46235ba6d",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SNS-018",
+      "asset_type": "sensor",
+      "capacity_constraint": {
+        "maximum": 10,
+        "metric": "measurement_range",
+        "minimum": 0,
+        "unit": "bar"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-008"
+        },
+        {
+          "relation": "MONITORS",
+          "target_asset_id": "WTP01-SYS-008"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Turbidity sensor 18",
+      "measurement_unit": "bar",
+      "position": [
+        103.0,
+        16.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-SNS-018",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-008"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 58,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SNS-019",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "5fd399da-cefb-5c58-baf5-e194d493791b",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SNS-019",
+      "asset_type": "sensor",
+      "capacity_constraint": {
+        "maximum": 13,
+        "metric": "measurement_range",
+        "minimum": 0,
+        "unit": "bar"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-009"
+        },
+        {
+          "relation": "MONITORS",
+          "target_asset_id": "WTP01-SYS-009"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Level sensor 19",
+      "measurement_unit": "bar",
+      "position": [
+        108.0,
+        20.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-SNS-019",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-009"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 59,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SNS-020",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "bbf5eb90-3eec-5302-83e8-5b7393a9211f",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SNS-020",
+      "asset_type": "sensor",
+      "capacity_constraint": {
+        "maximum": 10,
+        "metric": "measurement_range",
+        "minimum": 0,
+        "unit": "bar"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-010"
+        },
+        {
+          "relation": "MONITORS",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Flow sensor 20",
+      "measurement_unit": "bar",
+      "position": [
+        125.0,
+        23.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-SNS-020",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-010"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 60,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SNS-021",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "b855f7d4-007b-5138-a9ab-9aae3c9f0a4d",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SNS-021",
+      "asset_type": "sensor",
+      "capacity_constraint": {
+        "maximum": 12,
+        "metric": "measurement_range",
+        "minimum": 0,
+        "unit": "bar"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-001"
+        },
+        {
+          "relation": "MONITORS",
+          "target_asset_id": "WTP01-SYS-001"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Pressure transmitter 21",
+      "measurement_unit": "bar",
+      "position": [
+        -2.0,
+        -1.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-SNS-021",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-001"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 61,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SNS-022",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "58b69cb7-ae24-507f-a95a-baf871ccd150",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SNS-022",
+      "asset_type": "sensor",
+      "capacity_constraint": {
+        "maximum": 12,
+        "metric": "measurement_range",
+        "minimum": 0,
+        "unit": "bar"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-002"
+        },
+        {
+          "relation": "MONITORS",
+          "target_asset_id": "WTP01-SYS-002"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Pressure transmitter 22",
+      "measurement_unit": "bar",
+      "position": [
+        11.0,
+        3.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-SNS-022",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-002"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 62,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SNS-023",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "47002f32-5315-53d2-a065-7ed2f5623153",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SNS-023",
+      "asset_type": "sensor",
+      "capacity_constraint": {
+        "maximum": 12,
+        "metric": "measurement_range",
+        "minimum": 0,
+        "unit": "bar"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-003"
+        },
+        {
+          "relation": "MONITORS",
+          "target_asset_id": "WTP01-SYS-003"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Level sensor 23",
+      "measurement_unit": "bar",
+      "position": [
+        31.0,
+        9.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-SNS-023",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-003"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 63,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SNS-024",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "103c4084-8ada-5dfe-8f3d-b6b6cdc9a5be",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SNS-024",
+      "asset_type": "sensor",
+      "capacity_constraint": {
+        "maximum": 12,
+        "metric": "measurement_range",
+        "minimum": 0,
+        "unit": "bar"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-004"
+        },
+        {
+          "relation": "MONITORS",
+          "target_asset_id": "WTP01-SYS-004"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Turbidity sensor 24",
+      "measurement_unit": "bar",
+      "position": [
+        38.0,
+        13.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-SNS-024",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-004"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 64,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SNS-025",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "511a7ab0-93c4-5690-a7f3-e5bc9389e91e",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SNS-025",
+      "asset_type": "sensor",
+      "capacity_constraint": {
+        "maximum": 12,
+        "metric": "measurement_range",
+        "minimum": 0,
+        "unit": "bar"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-005"
+        },
+        {
+          "relation": "MONITORS",
+          "target_asset_id": "WTP01-SYS-005"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Pressure transmitter 25",
+      "measurement_unit": "bar",
+      "position": [
+        56.0,
+        17.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-SNS-025",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-005"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 65,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SNS-026",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "e656edac-1735-50af-9830-5bc62423e9a8",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SNS-026",
+      "asset_type": "sensor",
+      "capacity_constraint": {
+        "maximum": 10,
+        "metric": "measurement_range",
+        "minimum": 0,
+        "unit": "bar"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-006"
+        },
+        {
+          "relation": "MONITORS",
+          "target_asset_id": "WTP01-SYS-006"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Turbidity sensor 26",
+      "measurement_unit": "bar",
+      "position": [
+        69.0,
+        21.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-SNS-026",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-006"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 66,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SNS-027",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "eb7c364b-310c-568d-846c-81488d8e377f",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SNS-027",
+      "asset_type": "sensor",
+      "capacity_constraint": {
+        "maximum": 12,
+        "metric": "measurement_range",
+        "minimum": 0,
+        "unit": "bar"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-007"
+        },
+        {
+          "relation": "MONITORS",
+          "target_asset_id": "WTP01-SYS-007"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Turbidity sensor 27",
+      "measurement_unit": "bar",
+      "position": [
+        86.0,
+        23.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-SNS-027",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-007"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 67,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SNS-028",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "e287a177-97bb-5284-b109-17cb678ca52f",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SNS-028",
+      "asset_type": "sensor",
+      "capacity_constraint": {
+        "maximum": 12,
+        "metric": "measurement_range",
+        "minimum": 0,
+        "unit": "bar"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-008"
+        },
+        {
+          "relation": "MONITORS",
+          "target_asset_id": "WTP01-SYS-008"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Flow sensor 28",
+      "measurement_unit": "bar",
+      "position": [
+        103.0,
+        1.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-SNS-028",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-008"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 68,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SYS-001",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "7ceb2e9b-d72a-5a54-9581-f71f2645981c",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SYS-001",
+      "asset_type": "subsystem",
+      "capacity_constraint": {
+        "maximum": 100,
+        "metric": "design_load",
+        "minimum": 0,
+        "unit": "load-index"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "DEPENDS_ON",
+          "target_asset_id": "WTP01-SYS-009"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Raw Water Intake subsystem",
+      "measurement_unit": "load-index",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-SYS-001",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-001"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 69,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SYS-002",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "1085f58f-74af-5853-84eb-ee6204d68db4",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SYS-002",
+      "asset_type": "subsystem",
+      "capacity_constraint": {
+        "maximum": 100,
+        "metric": "design_load",
+        "minimum": 0,
+        "unit": "load-index"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "DEPENDS_ON",
+          "target_asset_id": "WTP01-SYS-009"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Screening subsystem",
+      "measurement_unit": "load-index",
+      "position": [
+        14.0,
+        0.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-SYS-002",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-002"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 70,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SYS-003",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "1c61e880-68fe-5739-a4ab-026ac18ce110",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SYS-003",
+      "asset_type": "subsystem",
+      "capacity_constraint": {
+        "maximum": 100,
+        "metric": "design_load",
+        "minimum": 0,
+        "unit": "load-index"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "DEPENDS_ON",
+          "target_asset_id": "WTP01-SYS-009"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Chemical Dosing subsystem",
+      "measurement_unit": "load-index",
+      "position": [
+        28.0,
+        0.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-SYS-003",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-003"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 71,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SYS-004",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "5334123d-5806-55e3-b78a-1414fbc9147b",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SYS-004",
+      "asset_type": "subsystem",
+      "capacity_constraint": {
+        "maximum": 100,
+        "metric": "design_load",
+        "minimum": 0,
+        "unit": "load-index"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "DEPENDS_ON",
+          "target_asset_id": "WTP01-SYS-009"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Clarification subsystem",
+      "measurement_unit": "load-index",
+      "position": [
+        42.0,
+        0.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-SYS-004",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-004"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 72,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SYS-005",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "4117f360-5a26-50f3-a071-0bc9b86ed556",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SYS-005",
+      "asset_type": "subsystem",
+      "capacity_constraint": {
+        "maximum": 100,
+        "metric": "design_load",
+        "minimum": 0,
+        "unit": "load-index"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "DEPENDS_ON",
+          "target_asset_id": "WTP01-SYS-009"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Filtration subsystem",
+      "measurement_unit": "load-index",
+      "position": [
+        56.0,
+        0.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-SYS-005",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-005"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 73,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SYS-006",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "ec6f18f7-8e69-54fb-828a-84333bd74270",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SYS-006",
+      "asset_type": "subsystem",
+      "capacity_constraint": {
+        "maximum": 100,
+        "metric": "design_load",
+        "minimum": 0,
+        "unit": "load-index"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "DEPENDS_ON",
+          "target_asset_id": "WTP01-SYS-009"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Clear Water Storage subsystem",
+      "measurement_unit": "load-index",
+      "position": [
+        70.0,
+        0.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-SYS-006",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-006"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 74,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SYS-007",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "f0ff1e09-d5f3-5830-abbe-a1f7408e2f18",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SYS-007",
+      "asset_type": "subsystem",
+      "capacity_constraint": {
+        "maximum": 100,
+        "metric": "design_load",
+        "minimum": 0,
+        "unit": "load-index"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "DEPENDS_ON",
+          "target_asset_id": "WTP01-SYS-009"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Distribution subsystem",
+      "measurement_unit": "load-index",
+      "position": [
+        84.0,
+        0.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-SYS-007",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-007"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 75,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SYS-008",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "b6322fbe-c37e-57c5-9e8f-9cf94a206916",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SYS-008",
+      "asset_type": "subsystem",
+      "capacity_constraint": {
+        "maximum": 100,
+        "metric": "design_load",
+        "minimum": 0,
+        "unit": "load-index"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "DEPENDS_ON",
+          "target_asset_id": "WTP01-SYS-009"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Residuals subsystem",
+      "measurement_unit": "load-index",
+      "position": [
+        98.0,
+        0.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-SYS-008",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-008"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 76,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SYS-009",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "b009640f-fdc1-5bb2-a6fb-b92b18cf07c1",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SYS-009",
+      "asset_type": "subsystem",
+      "capacity_constraint": {
+        "maximum": 100,
+        "metric": "design_load",
+        "minimum": 0,
+        "unit": "load-index"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Utilities subsystem",
+      "measurement_unit": "load-index",
+      "position": [
+        112.0,
+        0.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-SYS-009",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-009"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 77,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-SYS-010",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "f08353f2-5969-5e7a-93af-051774ef1d46",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-SYS-010",
+      "asset_type": "subsystem",
+      "capacity_constraint": {
+        "maximum": 100,
+        "metric": "design_load",
+        "minimum": 0,
+        "unit": "load-index"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "DEPENDS_ON",
+          "target_asset_id": "WTP01-SYS-009"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Instrumentation subsystem",
+      "measurement_unit": "load-index",
+      "position": [
+        126.0,
+        0.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-SYS-010",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-010"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 78,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-TNK-001",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "64802ceb-a9fd-53ba-910d-17cbb6a5da03",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-TNK-001",
+      "asset_type": "tank",
+      "capacity_constraint": {
+        "maximum": 42,
+        "metric": "volume",
+        "minimum": 0,
+        "unit": "m3"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-001"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Backwash tank 01",
+      "measurement_unit": "m3",
+      "position": [
+        2.0,
+        4.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-TNK-001",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-001"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 79,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-TNK-002",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "7275bca4-31e6-51dd-97e3-4cb5cea571ac",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-TNK-002",
+      "asset_type": "tank",
+      "capacity_constraint": {
+        "maximum": 44,
+        "metric": "volume",
+        "minimum": 0,
+        "unit": "m3"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-002"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Clear-water tank 02",
+      "measurement_unit": "m3",
+      "position": [
+        17.0,
+        9.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-TNK-002",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-002"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 80,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-TNK-003",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "a2b9432a-ac27-5c55-a546-d153ab8cd39b",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-TNK-003",
+      "asset_type": "tank",
+      "capacity_constraint": {
+        "maximum": 43,
+        "metric": "volume",
+        "minimum": 0,
+        "unit": "m3"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-003"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Backwash tank 03",
+      "measurement_unit": "m3",
+      "position": [
+        32.0,
+        12.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-TNK-003",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-003"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 81,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-TNK-004",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "3780c3e1-b66a-5f5b-9465-ced0a41a08fe",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-TNK-004",
+      "asset_type": "tank",
+      "capacity_constraint": {
+        "maximum": 44,
+        "metric": "volume",
+        "minimum": 0,
+        "unit": "m3"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-004"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Chemical day tank 04",
+      "measurement_unit": "m3",
+      "position": [
+        37.0,
+        16.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-TNK-004",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-004"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 82,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-TNK-005",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "28a8a4d7-5160-5b21-9079-37a7ddc4761c",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-TNK-005",
+      "asset_type": "tank",
+      "capacity_constraint": {
+        "maximum": 47,
+        "metric": "volume",
+        "minimum": 0,
+        "unit": "m3"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-005"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Clear-water tank 05",
+      "measurement_unit": "m3",
+      "position": [
+        53.0,
+        19.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-TNK-005",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-005"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 83,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-TNK-006",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "bfac3a76-987c-53eb-9f22-c436a5ed1aaa",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-TNK-006",
+      "asset_type": "tank",
+      "capacity_constraint": {
+        "maximum": 47,
+        "metric": "volume",
+        "minimum": 0,
+        "unit": "m3"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-006"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Clear-water tank 06",
+      "measurement_unit": "m3",
+      "position": [
+        69.0,
+        24.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-TNK-006",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-006"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 84,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-TNK-007",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "82e23d23-4923-5b4f-9ad2-da8b41203b20",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-TNK-007",
+      "asset_type": "tank",
+      "capacity_constraint": {
+        "maximum": 48,
+        "metric": "volume",
+        "minimum": 0,
+        "unit": "m3"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-007"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Clear-water tank 07",
+      "measurement_unit": "m3",
+      "position": [
+        80.0,
+        0.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-TNK-007",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-007"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 85,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-TNK-008",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "853f98e3-5324-5c86-92a0-f9bd46353df5",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-TNK-008",
+      "asset_type": "tank",
+      "capacity_constraint": {
+        "maximum": 48,
+        "metric": "volume",
+        "minimum": 0,
+        "unit": "m3"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-008"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Backwash tank 08",
+      "measurement_unit": "m3",
+      "position": [
+        93.0,
+        5.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-TNK-008",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-008"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 86,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-TNK-009",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "4121b11c-d92d-5570-8f4d-c641db6b5860",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-TNK-009",
+      "asset_type": "tank",
+      "capacity_constraint": {
+        "maximum": 49,
+        "metric": "volume",
+        "minimum": 0,
+        "unit": "m3"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-009"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Backwash tank 09",
+      "measurement_unit": "m3",
+      "position": [
+        115.0,
+        7.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-TNK-009",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-009"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 87,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-TNK-010",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "639d7a8d-9529-5cb8-9443-f52749a086c9",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-TNK-010",
+      "asset_type": "tank",
+      "capacity_constraint": {
+        "maximum": 50,
+        "metric": "volume",
+        "minimum": 0,
+        "unit": "m3"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Backwash tank 10",
+      "measurement_unit": "m3",
+      "position": [
+        130.0,
+        11.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-TNK-010",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-010"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 88,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-TNK-011",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "96c62a51-7b8a-5af7-9507-9a1c179c4e9d",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-TNK-011",
+      "asset_type": "tank",
+      "capacity_constraint": {
+        "maximum": 52,
+        "metric": "volume",
+        "minimum": 0,
+        "unit": "m3"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-001"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Chemical day tank 11",
+      "measurement_unit": "m3",
+      "position": [
+        -1.0,
+        15.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-TNK-011",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-001"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 89,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-TNK-012",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "f76b3525-a4ef-5488-9556-699bebeae436",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-TNK-012",
+      "asset_type": "tank",
+      "capacity_constraint": {
+        "maximum": 52,
+        "metric": "volume",
+        "minimum": 0,
+        "unit": "m3"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-002"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Clear-water tank 12",
+      "measurement_unit": "m3",
+      "position": [
+        14.0,
+        20.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-TNK-012",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-002"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 90,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-001",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "ba088471-f4dd-5a94-8966-7d70918d1b4e",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-001",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 18,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-001"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Gate valve 01",
+      "measurement_unit": "L/s",
+      "position": [
+        -3.0,
+        5.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-VLV-001",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-001"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 91,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-002",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "64f87c77-ec93-5a11-9753-8e58910f5244",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-002",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 18,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-002"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Isolation valve 02",
+      "measurement_unit": "L/s",
+      "position": [
+        14.0,
+        8.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-VLV-002",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-002"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 92,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-003",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "f64b33da-d9dd-57bf-976d-8455d12b4cc2",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-003",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 20,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-003"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Gate valve 03",
+      "measurement_unit": "L/s",
+      "position": [
+        23.0,
+        13.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-VLV-003",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-003"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 93,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-004",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "2ba34111-4da9-5edc-ab75-44131c4fbda4",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-004",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 21,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-004"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Check valve 04",
+      "measurement_unit": "L/s",
+      "position": [
+        47.0,
+        17.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-VLV-004",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-004"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 94,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-005",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "34f9501c-3d9a-5980-9fe4-ff558bb47aa7",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-005",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 21,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-005"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Check valve 05",
+      "measurement_unit": "L/s",
+      "position": [
+        54.0,
+        19.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-VLV-005",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-005"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 95,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-006",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "c35a333e-a99e-5836-8bd0-5a4853ab59f7",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-006",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 21,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-006"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Gate valve 06",
+      "measurement_unit": "L/s",
+      "position": [
+        69.0,
+        24.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-VLV-006",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-006"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 96,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-007",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "299d6770-c66a-50aa-aaa8-23c9d54c9d5a",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-007",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 24,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-007"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Isolation valve 07",
+      "measurement_unit": "L/s",
+      "position": [
+        82.0,
+        1.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-VLV-007",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-007"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 97,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-008",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "45b21e86-d222-52c2-b141-3dc39efb0617",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-008",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 23,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-008"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Check valve 08",
+      "measurement_unit": "L/s",
+      "position": [
+        101.0,
+        5.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-VLV-008",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-008"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 98,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-009",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "1412a608-c358-5587-a145-f985d6717952",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-009",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 24,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-009"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Isolation valve 09",
+      "measurement_unit": "L/s",
+      "position": [
+        114.0,
+        8.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-VLV-009",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-009"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 99,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-010",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "fdfc8424-6ecd-5a83-8eff-59a446646085",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-010",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 27,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-010"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Gate valve 10",
+      "measurement_unit": "L/s",
+      "position": [
+        129.0,
+        12.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-VLV-010",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-010"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 100,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-011",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "862a82f4-44fc-576b-a552-45fc6b4496c4",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-011",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 28,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-001"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Check valve 11",
+      "measurement_unit": "L/s",
+      "position": [
+        -3.0,
+        15.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-VLV-011",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-001"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 101,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-012",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "5c4d7908-0018-55f9-9594-331a618de97d",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-012",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 27,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-002"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Gate valve 12",
+      "measurement_unit": "L/s",
+      "position": [
+        14.0,
+        19.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-VLV-012",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-002"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 102,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-013",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "00ca67c0-1e99-553b-bd13-299ff790cafc",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-013",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 28,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-003"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Gate valve 13",
+      "measurement_unit": "L/s",
+      "position": [
+        25.0,
+        24.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-VLV-013",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-003"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 103,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-014",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "9e0570a7-8359-55a0-af62-add6768ee908",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-014",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 16,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-004"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Isolation valve 14",
+      "measurement_unit": "L/s",
+      "position": [
+        40.0,
+        1.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-VLV-014",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-004"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 104,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-015",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "e5afca38-4d74-5847-bb23-73a63c7e6693",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-015",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 16,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-005"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Gate valve 15",
+      "measurement_unit": "L/s",
+      "position": [
+        51.0,
+        5.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-VLV-015",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-005"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 105,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-016",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "6bd1b611-152a-53fa-a96f-fef5fcb86c36",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-016",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 19,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-006"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Check valve 16",
+      "measurement_unit": "L/s",
+      "position": [
+        67.0,
+        8.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-VLV-016",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-006"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 106,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-017",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "0d70d24b-c2e5-55dc-ba7d-affc6bb99b8e",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-017",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 19,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-007"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Isolation valve 17",
+      "measurement_unit": "L/s",
+      "position": [
+        80.0,
+        11.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-VLV-017",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-007"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 107,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-018",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "90f161a1-fd48-5d7b-bab6-ce1c81bdd724",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-018",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 21,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-008"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Gate valve 18",
+      "measurement_unit": "L/s",
+      "position": [
+        96.0,
+        15.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-VLV-018",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-008"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 108,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-019",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "54da6dfc-c35c-53a2-8968-c6d5272a8fbf",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-019",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 20,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-009"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Check valve 19",
+      "measurement_unit": "L/s",
+      "position": [
+        111.0,
+        20.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-VLV-019",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-009"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 109,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-020",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "d56b773a-30c1-52c0-9e7c-c05970f4dbc0",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-020",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 21,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-010"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Check valve 20",
+      "measurement_unit": "L/s",
+      "position": [
+        126.0,
+        24.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-VLV-020",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-010"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 110,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-021",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "c84ed88d-07d6-5f27-8869-0232b8ac2229",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-021",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 22,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-001"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Check valve 21",
+      "measurement_unit": "L/s",
+      "position": [
+        3.0,
+        1.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-VLV-021",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-001"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 111,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-022",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "03dcd715-7d0f-5dd1-859d-3686aa39391a",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-022",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 24,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-002"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Check valve 22",
+      "measurement_unit": "L/s",
+      "position": [
+        11.0,
+        3.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-VLV-022",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-002"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 112,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-023",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "417010e7-0d76-58e5-8505-490c232437cd",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-023",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 26,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-003"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Isolation valve 23",
+      "measurement_unit": "L/s",
+      "position": [
+        32.0,
+        9.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-VLV-023",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-003"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 113,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-024",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "e9f0a130-a4dd-5bb5-a375-29a3e2304b58",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-024",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 27,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-004"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Check valve 24",
+      "measurement_unit": "L/s",
+      "position": [
+        39.0,
+        13.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-VLV-024",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-004"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 114,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-025",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "30522679-31d0-51e3-8fff-ddfa1c645c9f",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-025",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 27,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-005"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Gate valve 25",
+      "measurement_unit": "L/s",
+      "position": [
+        52.0,
+        16.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-VLV-025",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-005"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 115,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-026",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "c262620a-c407-5994-aff5-54e0048847a8",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-026",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 28,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-006"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Check valve 26",
+      "measurement_unit": "L/s",
+      "position": [
+        66.0,
+        20.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-VLV-026",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-006"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 116,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-027",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "d87ed070-1b08-517e-869c-1baff602663b",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-027",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 29,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-007"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Gate valve 27",
+      "measurement_unit": "L/s",
+      "position": [
+        84.0,
+        23.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-VLV-027",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-007"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 117,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-028",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "612db8f7-ac09-5eab-a311-1490f833d195",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-028",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 15,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-008"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Gate valve 28",
+      "measurement_unit": "L/s",
+      "position": [
+        93.0,
+        -1.0,
+        1.5
+      ],
+      "serial_number": "SYN-WTP01-VLV-028",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-008"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 118,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-029",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "667e293b-6647-54ff-b944-fe7307bdfc04",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-029",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 16,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": true,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-009"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Check valve 29",
+      "measurement_unit": "L/s",
+      "position": [
+        113.0,
+        5.0,
+        3.0
+      ],
+      "serial_number": "SYN-WTP01-VLV-029",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-009"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 119,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  },
+  {
+    "aggregate_id": "WTP01-VLV-030",
+    "aggregate_type": "asset",
+    "classification": "public",
+    "event_id": "0eb78e71-8230-5a36-a2c4-ee7d66c8f27e",
+    "event_type": "asset.created",
+    "expected_revision": 0,
+    "occurred_at": "2026-01-01T00:00:00Z",
+    "payload": {
+      "asset_id": "WTP01-VLV-030",
+      "asset_type": "valve",
+      "capacity_constraint": {
+        "maximum": 19,
+        "metric": "flow",
+        "minimum": 0,
+        "unit": "L/s"
+      },
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "critical": false,
+      "dependencies": [
+        {
+          "relation": "PART_OF",
+          "target_asset_id": "WTP01-SYS-010"
+        },
+        {
+          "relation": "CONTROLLED_BY",
+          "target_asset_id": "WTP01-SYS-010"
+        }
+      ],
+      "fixture_id": "TITAN-WTP-01",
+      "label": "Isolation valve 30",
+      "measurement_unit": "L/s",
+      "position": [
+        130.0,
+        8.0,
+        0.0
+      ],
+      "serial_number": "SYN-WTP01-VLV-030",
+      "site_id": "titan-wtp-01",
+      "subsystem_id": "WTP01-SYS-010"
+    },
+    "schema_version": "1.2.0",
+    "sequence": 120,
+    "site_id": "titan-wtp-01",
+    "source": "api",
+    "tenant_id": "demo-nexus"
+  }
+]

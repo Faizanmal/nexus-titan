@@ -1,0 +1,9 @@
+.git/
+.next/
+.pnpm-store/
+.pytest_cache/
+.uv-cache/
+node_modules/
+services/api/.venv/
+**/__pycache__/
+**/*.py[cod]

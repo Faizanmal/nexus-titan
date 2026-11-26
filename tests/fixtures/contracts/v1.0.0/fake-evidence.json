@@ -1,0 +1,8 @@
+{
+  "evidence_id": "evidence-synthetic-001",
+  "tenant_id": "tenant-demo",
+  "kind": "synthetic_observation",
+  "content_digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "classification": "internal",
+  "fixture_only": true
+}

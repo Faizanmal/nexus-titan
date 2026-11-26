@@ -1,0 +1,12 @@
+{
+  "fixture_id": "TITAN-WTP-01",
+  "handling": "Evaluation ground truth only; exclude from model prompt context and user-facing retrieval.",
+  "hidden_truth": {
+    "condition": "synthetic_impeller_wear",
+    "degradation_factor": 0.72,
+    "expected_diagnostic": "Reduced flow capacity is consistent with a synthetic pump efficiency loss; confirm with additional measurements.",
+    "severity": "moderate",
+    "target_asset_id": "WTP01-PMP-001"
+  },
+  "scenario_id": "TITAN-WTP-01-PUMP-DEGRADATION-01"
+}

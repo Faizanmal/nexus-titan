@@ -1,0 +1,16 @@
+{
+  "policy_version": "nexus-privacy-v1",
+  "default_classification": "restricted",
+  "classification_order": ["public", "internal", "confidential", "restricted"],
+  "destinations": {
+    "local_inference": {"purpose": "approved_task", "max_classification": "restricted", "roles": ["owner", "admin", "operator"], "requires_device": true},
+    "cloud_inference": {"purpose": "approved_summary", "max_classification": "public", "roles": ["owner", "admin", "operator"], "requires_device": true, "requires_consent": true},
+    "upload": {"purpose": "approved_artifact", "max_classification": "internal", "roles": ["owner", "admin", "operator"], "requires_device": true, "requires_approval": true, "requires_consent": true},
+    "telemetry": {"purpose": "synthetic_telemetry", "max_classification": "public", "roles": ["owner", "admin", "operator", "service_worker"], "requires_device": true},
+    "sync": {"purpose": "state_sync", "max_classification": "internal", "roles": ["owner", "admin", "operator"], "requires_device": true},
+    "peer": {"purpose": "event_replication", "max_classification": "public", "roles": ["owner", "admin", "operator"], "requires_device": true, "requires_consent": true},
+    "rag_index": {"purpose": "approved_retrieval", "max_classification": "public", "roles": ["owner", "admin", "operator"], "requires_device": true, "requires_approval": true},
+    "audit_metadata": {"purpose": "privacy_audit", "max_classification": "restricted", "roles": ["owner", "admin", "operator", "viewer", "service_worker"], "requires_tenant": true, "metadata_only": true}
+  },
+  "remote_config": {"may_disable_destinations": true, "may_lower_classification_ceiling": true, "may_expand_policy": false}
+}

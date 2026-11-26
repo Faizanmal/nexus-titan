@@ -1,0 +1,78 @@
+name: CI
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  quality:
+    strategy:
+      fail-fast: false
+      matrix:
+        area: [web, contracts, api]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - if: matrix.area != 'api'
+        uses: pnpm/action-setup@v4
+        with: { version: 11.18.0 }
+      - if: matrix.area != 'api'
+        uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - if: matrix.area == 'api'
+        uses: astral-sh/setup-uv@v6
+      - if: matrix.area == 'contracts'
+        uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: '21' }
+      - if: matrix.area != 'api'
+        run: pnpm install --frozen-lockfile
+      - if: matrix.area == 'web'
+        run: pnpm --filter @nexus-titan/web lint && pnpm --filter @nexus-titan/web typecheck && pnpm --filter @nexus-titan/web build
+      - if: matrix.area == 'contracts'
+        run: pnpm --filter @nexus-titan/contracts lint && pnpm --filter @nexus-titan/contracts typecheck && pnpm --filter @nexus-titan/contracts test && pnpm contracts:check && pnpm firebase:check && pnpm firebase:rules:emulated
+      - if: matrix.area == 'api'
+        run: uv sync --project services/api --locked && uv run --project services/api pytest
+      - if: always() && matrix.area == 'api'
+        uses: actions/upload-artifact@v4
+        with: { name: api-test-record, path: docs/evidence/, retention-days: 7, if-no-files-found: ignore }
+  integration-core:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --project services/api --locked
+      - run: python scripts/task.py integration core
+  dependency-review:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/dependency-review-action@v4
+  dependency-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 11.18.0 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - uses: astral-sh/setup-uv@v6
+      - run: pnpm install --frozen-lockfile && pnpm audit --prod --audit-level high
+      - run: uv export --project services/api --locked --no-dev --no-hashes --output-file /tmp/requirements.txt && uvx --from pip-audit pip-audit -r /tmp/requirements.txt
+  optional-native:
+    if: github.event_name == 'workflow_dispatch'
+    strategy:
+      matrix: { include: [{ platform: macos-15, target: swift }, { platform: ubuntu-latest, target: kotlin }] }
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v4
+      - if: matrix.target == 'swift'
+        run: swift test --package-path bindings/swift
+      - if: matrix.target == 'kotlin'
+        uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: '17' }
+      - if: matrix.target == 'kotlin'
+        uses: gradle/actions/setup-gradle@v4
+      - if: matrix.target == 'kotlin'
+        run: gradle -p bindings/kotlin test

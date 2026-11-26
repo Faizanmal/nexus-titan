@@ -1,0 +1,18 @@
+{
+  "asset_count": 120,
+  "dataset_sha256": "e392c5c9fb188815daa20e20beba613ff095d8201ba639e19e7676189f8bce00",
+  "fixture_data_path": "world.json",
+  "fixture_id": "TITAN-WTP-01",
+  "fixture_version": "1.0.0",
+  "generated_deterministically": true,
+  "licensing": {
+    "content_origin": "original synthetic content generated for NEXUS TITAN",
+    "engineering_assumptions": "Illustrative topology and capacities only; not operating guidance or a real treatment plant design.",
+    "license": "CC0-1.0",
+    "third_party_material": false
+  },
+  "relation_count": 217,
+  "scene_entity_count": 120,
+  "schema_version": "1.2.0",
+  "seed": 20261115
+}

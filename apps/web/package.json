@@ -1,0 +1,41 @@
+{
+  "name": "@nexus-titan/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1 --port 3000",
+    "build": "next build",
+    "start": "next start --hostname 127.0.0.1 --port 3000",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "node tests/design-system.test.mjs && node tests/spatial-twin.test.mjs && node tests/accessibility.test.mjs && node tests/agent-studio-mesh-replay.test.mjs",
+    "test:identity-rules": "node tests/identity-rules.test.mjs",
+    "test:design-system": "node tests/design-system.test.mjs",
+    "test:spatial-twin": "node tests/spatial-twin.test.mjs",
+    "test:a11y": "node tests/accessibility.test.mjs",
+    "test:agent-studio": "node tests/agent-studio-mesh-replay.test.mjs"
+  },
+  "dependencies": {
+    "@nexus-titan/contracts": "workspace:*",
+    "@nexus-titan/hybrid-web": "workspace:*",
+    "@react-three/fiber": "9.8.2",
+    "firebase": "13.3.0",
+    "next": "16.4.5",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "three": "0.187.0"
+  },
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "6.0.0",
+    "@tailwindcss/turbopack": "4.3.3",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/three": "^0.187.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.5",
+    "tailwindcss": "4.3.3",
+    "typescript": "^5"
+  }
+}

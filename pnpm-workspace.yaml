@@ -1,0 +1,10 @@
+packages:
+  - apps/*
+  - packages/*
+overrides:
+  '@grpc/grpc-js': '^1.13.6'
+allowBuilds:
+  '@firebase/util': true
+  protobufjs: true
+  sharp: false
+  unrs-resolver: false

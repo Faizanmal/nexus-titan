@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-labelledby="title desc">
+<title id="title">Synthetic inspection illustration for WTP01-PMP-001</title><desc id="desc">Original schematic illustration, not a photograph, for fixture QA.</desc>
+<rect width="640" height="360" fill="#e8eef2"/><rect x="24" y="24" width="592" height="312" rx="18" fill="#fff" stroke="#5b7083" stroke-width="4"/>
+<path d="M250 90h140v180H250z" fill="#9db9c9" stroke="#234" stroke-width="7"/><circle cx="320" cy="180" r="48" fill="#5c879e" stroke="#234" stroke-width="7"/>
+<text x="48" y="62" font-size="24" font-family="sans-serif">SYNTHETIC INSPECTION ILLUSTRATION</text><text x="48" y="310" font-size="21" font-family="sans-serif">WTP01-PMP-001 · SYN-WTP01-PMP-001</text></svg>

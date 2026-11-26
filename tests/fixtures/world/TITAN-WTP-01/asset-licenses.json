@@ -1,0 +1,1085 @@
+{
+  "assets": [
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-FLT-001",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-FLT-002",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-FLT-003",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-FLT-004",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-FLT-005",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-FLT-006",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-FLT-007",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-FLT-008",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-FLT-009",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-FLT-010",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-FLT-011",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-FLT-012",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-FLT-013",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-FLT-014",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-FLT-015",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-FLT-016",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-PMP-001",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-PMP-002",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-PMP-003",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-PMP-004",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-PMP-005",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-PMP-006",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-PMP-007",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-PMP-008",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-PMP-009",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-PMP-010",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-PMP-011",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-PMP-012",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-PMP-013",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-PMP-014",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-PMP-015",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-PMP-016",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-PMP-017",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-PMP-018",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-PMP-019",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-PMP-020",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-PMP-021",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-PMP-022",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-PMP-023",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-PMP-024",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SNS-001",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SNS-002",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SNS-003",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SNS-004",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SNS-005",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SNS-006",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SNS-007",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SNS-008",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SNS-009",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SNS-010",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SNS-011",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SNS-012",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SNS-013",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SNS-014",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SNS-015",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SNS-016",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SNS-017",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SNS-018",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SNS-019",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SNS-020",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SNS-021",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SNS-022",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SNS-023",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SNS-024",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SNS-025",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SNS-026",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SNS-027",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SNS-028",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SYS-001",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/subsystem-block-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SYS-002",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/subsystem-block-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SYS-003",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/subsystem-block-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SYS-004",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/subsystem-block-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SYS-005",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/subsystem-block-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SYS-006",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/subsystem-block-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SYS-007",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/subsystem-block-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SYS-008",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/subsystem-block-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SYS-009",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/subsystem-block-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-SYS-010",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/subsystem-block-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-TNK-001",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/tank-cylinder-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-TNK-002",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/tank-cylinder-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-TNK-003",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/tank-cylinder-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-TNK-004",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/tank-cylinder-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-TNK-005",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/tank-cylinder-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-TNK-006",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/tank-cylinder-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-TNK-007",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/tank-cylinder-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-TNK-008",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/tank-cylinder-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-TNK-009",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/tank-cylinder-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-TNK-010",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/tank-cylinder-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-TNK-011",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/tank-cylinder-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-TNK-012",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/tank-cylinder-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-001",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-002",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-003",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-004",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-005",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-006",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-007",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-008",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-009",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-010",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-011",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-012",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-013",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-014",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-015",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-016",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-017",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-018",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-019",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-020",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-021",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-022",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-023",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-024",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-025",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-026",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-027",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-028",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-029",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    },
+    {
+      "asset_data_license": "CC0-1.0",
+      "asset_data_origin": "original generated synthetic fixture",
+      "asset_id": "WTP01-VLV-030",
+      "geometry_license": "Apache-2.0",
+      "geometry_origin": "original procedural primitive composition",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "third_party_asset": false
+    }
+  ],
+  "fixture_id": "TITAN-WTP-01"
+}

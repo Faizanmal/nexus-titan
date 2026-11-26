@@ -1,0 +1,28 @@
+{
+    email {$ACME_EMAIL}
+}
+
+{$DOMAIN_WEB} {
+    encode zstd gzip
+
+    # Next.js web application
+    reverse_proxy web:3000
+
+    header {
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "SAMEORIGIN"
+        Referrer-Policy "strict-origin-when-cross-origin"
+    }
+}
+
+{$DOMAIN_API} {
+    encode zstd gzip
+
+    # FastAPI backend service
+    reverse_proxy api:8000
+
+    header {
+        X-Content-Type-Options "nosniff"
+        Referrer-Policy "strict-origin-when-cross-origin"
+    }
+}

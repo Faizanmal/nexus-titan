@@ -1,0 +1,58 @@
+{
+  "evaluation_suite_version": "1.0.0",
+  "timestamp": "2026-11-19T16:25:24.253652+00:00",
+  "fixture_id": "TITAN-WTP-01-EVAL",
+  "cases_evaluated": 8,
+  "metrics": {
+    "structured_output_validity": {
+      "schema_conformance_rate": 1.0,
+      "schema_validation_error_rate": 0.0,
+      "samples": 8
+    },
+    "citation_correctness": {
+      "macro_precision": 0.5417,
+      "macro_recall": 1.0,
+      "macro_f1": 0.6792,
+      "f1_95_ci_lower": 0.5583,
+      "f1_95_ci_upper": 0.8
+    },
+    "causal_hypothesis_ranking": {
+      "top_1_accuracy": 0.875,
+      "top_3_accuracy": 0.875,
+      "top_5_accuracy": 0.875,
+      "mean_reciprocal_rank": 0.875,
+      "mrr_95_ci_lower": 0.625,
+      "mrr_95_ci_upper": 1.0
+    },
+    "redaction_false_negative_evaluation": {
+      "injected_canaries": 8,
+      "leaked_canaries": 0,
+      "false_negative_rate": 0.0,
+      "leakage_verified": false
+    },
+    "hydraulic_solver_residuals": {
+      "max_continuity_residual_m3h": 6.217248937900877e-15,
+      "mean_continuity_residual_m3h": 0.0,
+      "tolerance_threshold_m3h": 1e-09,
+      "mass_conservation_verified": true
+    },
+    "knowledge_retrieval_benchmark": {
+      "top_k": 5,
+      "macro_precision": 0.5,
+      "macro_recall": 1.0
+    },
+    "workflow_completion_and_continuation": {
+      "total_events": 100,
+      "completed_events": 100,
+      "completion_rate": 1.0,
+      "final_state_sha256": "c1c020b0e897d46e3537f816406f86d89a55fd44631ebf512a9c01f5a13e4ec4"
+    }
+  },
+  "environment": {
+    "platform": "win32",
+    "python_version": "3.14.10",
+    "embedding_provider": "fixture-hash-v1",
+    "solver_id": "nexus-linear-hydraulic-fixture-v1",
+    "policy_version": "nexus-privacy-v1"
+  }
+}

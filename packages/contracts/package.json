@@ -1,0 +1,9 @@
+{
+  "name": "@nexus-titan/contracts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": { "lint": "eslint \"src/**/*.ts\"", "typecheck": "tsc --noEmit", "test": "node --experimental-strip-types src/index.test.ts" },
+  "devDependencies": { "@types/node": "^20", "eslint": "^9", "typescript": "^5" }
+}

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+python scripts/generate-contracts.py --check
+uv run --project services/api pytest services/api/tests/test_contracts.py services/api/tests/test_api_contracts.py

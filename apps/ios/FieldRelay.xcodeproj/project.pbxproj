@@ -1,0 +1,346 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1A001 /* FieldRelayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F001 /* FieldRelayApp.swift */; };
+		1A002 /* KeychainVault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F002 /* KeychainVault.swift */; };
+		1A003 /* FieldRelayOutbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F003 /* FieldRelayOutbox.swift */; };
+		1A004 /* FirebaseAiLogicAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F004 /* FirebaseAiLogicAdapter.swift */; };
+		1A005 /* SpatialMarkerScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F005 /* SpatialMarkerScanner.swift */; };
+		1A006 /* VisionTextRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F006 /* VisionTextRecognizer.swift */; };
+		1A007 /* MultipeerMeshTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F007 /* MultipeerMeshTransport.swift */; };
+		1A008 /* FieldRelayViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F008 /* FieldRelayViews.swift */; };
+		1A009 /* FieldRelayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F009 /* FieldRelayTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1F000 /* FieldRelay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FieldRelay.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F001 /* FieldRelayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldRelayApp.swift; sourceTree = "<group>"; };
+		1F002 /* KeychainVault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainVault.swift; sourceTree = "<group>"; };
+		1F003 /* FieldRelayOutbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldRelayOutbox.swift; sourceTree = "<group>"; };
+		1F004 /* FirebaseAiLogicAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAiLogicAdapter.swift; sourceTree = "<group>"; };
+		1F005 /* SpatialMarkerScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpatialMarkerScanner.swift; sourceTree = "<group>"; };
+		1F006 /* VisionTextRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionTextRecognizer.swift; sourceTree = "<group>"; };
+		1F007 /* MultipeerMeshTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerMeshTransport.swift; sourceTree = "<group>"; };
+		1F008 /* FieldRelayViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldRelayViews.swift; sourceTree = "<group>"; };
+		1F009 /* FieldRelayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldRelayTests.swift; sourceTree = "<group>"; };
+		1F010 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1F011 /* FieldRelayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FieldRelayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1B001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1C000 = {
+			isa = PBXGroup;
+			children = (
+				1C001 /* FieldRelay */,
+				1C002 /* FieldRelayTests */,
+				1C003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1C001 /* FieldRelay */ = {
+			isa = PBXGroup;
+			children = (
+				1F010 /* Info.plist */,
+				1C010 /* Sources */,
+			);
+			path = FieldRelay;
+			sourceTree = "<group>";
+		};
+		1C010 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				1F001 /* FieldRelayApp.swift */,
+				1F002 /* KeychainVault.swift */,
+				1F003 /* FieldRelayOutbox.swift */,
+				1F004 /* FirebaseAiLogicAdapter.swift */,
+				1F005 /* SpatialMarkerScanner.swift */,
+				1F006 /* VisionTextRecognizer.swift */,
+				1F007 /* MultipeerMeshTransport.swift */,
+				1F008 /* FieldRelayViews.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		1C002 /* FieldRelayTests */ = {
+			isa = PBXGroup;
+			children = (
+				1F009 /* FieldRelayTests.swift */,
+			);
+			path = FieldRelay/Tests/FieldRelayTests;
+			sourceTree = "<group>";
+		};
+		1C003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1F000 /* FieldRelay.app */,
+				1F011 /* FieldRelayTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1D001 /* FieldRelay */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1E001 /* Build configuration list for PBXNativeTarget "FieldRelay" */;
+			buildPhases = (
+				1B001 /* Frameworks */,
+				1S001 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FieldRelay;
+			productName = FieldRelay;
+			productReference = 1F000 /* FieldRelay.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1D002 /* FieldRelayTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1E002 /* Build configuration list for PBXNativeTarget "FieldRelayTests" */;
+			buildPhases = (
+				1B002 /* Frameworks */,
+				1S002 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FieldRelayTests;
+			productName = FieldRelayTests;
+			productReference = 1F011 /* FieldRelayTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		10000 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1520;
+				TargetAttributes = {
+					1D001 = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					1D002 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 1D001;
+					};
+				};
+			};
+			buildConfigurationList = 1E000 /* Build configuration list for PBXProject "FieldRelay" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1C000;
+			productRefGroup = 1C003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1D001 /* FieldRelay */,
+				1D002 /* FieldRelayTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1S001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A001 /* FieldRelayApp.swift in Sources */,
+				1A002 /* KeychainVault.swift in Sources */,
+				1A003 /* FieldRelayOutbox.swift in Sources */,
+				1A004 /* FirebaseAiLogicAdapter.swift in Sources */,
+				1A005 /* SpatialMarkerScanner.swift in Sources */,
+				1A006 /* VisionTextRecognizer.swift in Sources */,
+				1A007 /* MultipeerMeshTransport.swift in Sources */,
+				1A008 /* FieldRelayViews.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1S002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A009 /* FieldRelayTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1C101 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		1C102 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_OPTIMIZATION_LEVEL = s;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1C201 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FieldRelay/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.nexustitan.FieldRelay;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1C202 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = FieldRelay/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.nexustitan.FieldRelay;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		1C301 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.nexustitan.FieldRelayTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.9;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FieldRelay.app/FieldRelay";
+			};
+			name = Debug;
+		};
+		1C302 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.nexustitan.FieldRelayTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.9;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FieldRelay.app/FieldRelay";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1E000 /* Build configuration list for PBXProject "FieldRelay" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1C101 /* Debug */,
+				1C102 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1E001 /* Build configuration list for PBXNativeTarget "FieldRelay" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1C201 /* Debug */,
+				1C202 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1E002 /* Build configuration list for PBXNativeTarget "FieldRelayTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1C301 /* Debug */,
+				1C302 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = 10000 /* Project object */;
+}

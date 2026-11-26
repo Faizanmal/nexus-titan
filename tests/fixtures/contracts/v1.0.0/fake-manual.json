@@ -1,0 +1,8 @@
+{
+  "manual_id": "manual-synthetic-001",
+  "tenant_id": "tenant-demo",
+  "title": "Synthetic equipment inspection guide",
+  "content": "Synthetic fixture only. Disconnect the sample device before inspection.",
+  "classification": "internal",
+  "source": "fixture"
+}

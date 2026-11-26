@@ -1,0 +1,137 @@
+{
+  "benchmark_suite_version": "1.0.0",
+  "timestamp": "2026-11-19T16:25:33.338001+00:00",
+  "api_latencies": {
+    "GET /health": {
+      "p50": 6.812,
+      "p95": 11.847,
+      "min": 5.261,
+      "max": 13.967,
+      "mean": 7.445,
+      "stddev": 2.017,
+      "samples": 50
+    },
+    "GET /v1/recovery/status": {
+      "p50": 13.067,
+      "p95": 15.766,
+      "min": 6.257,
+      "max": 16.225,
+      "mean": 12.733,
+      "stddev": 2.013,
+      "samples": 50
+    },
+    "POST /v1/recovery/chaos/simulate": {
+      "p50": 8.328,
+      "p95": 17.411,
+      "min": 6.289,
+      "max": 18.443,
+      "mean": 10.156,
+      "stddev": 3.706,
+      "samples": 50
+    },
+    "POST /v1/demo/judge/onboard": {
+      "p50": 7.566,
+      "p95": 15.431,
+      "min": 5.609,
+      "max": 17.08,
+      "mean": 9.026,
+      "stddev": 3.163,
+      "samples": 50
+    },
+    "POST /v1/recovery/dlq/dlq-sample-1/retry": {
+      "p50": 14.498,
+      "p95": 17.372,
+      "min": 6.367,
+      "max": 18.388,
+      "mean": 13.045,
+      "stddev": 3.597,
+      "samples": 50
+    },
+    "POST /v1/recovery/tasks/task-analytics-01/requeue": {
+      "p50": 12.972,
+      "p95": 17.417,
+      "min": 5.921,
+      "max": 19.167,
+      "mean": 11.982,
+      "stddev": 3.914,
+      "samples": 50
+    },
+    "GET /v1/world/assets?tenant_id=demo-nexus&site_id=TITAN-WTP-01": {
+      "p50": 15.706,
+      "p95": 20.221,
+      "min": 6.406,
+      "max": 20.759,
+      "mean": 14.209,
+      "stddev": 4.659,
+      "samples": 50
+    },
+    "GET /v1/world/topology?tenant_id=demo-nexus&site_id=TITAN-WTP-01": {
+      "p50": 7.796,
+      "p95": 10.006,
+      "min": 6.462,
+      "max": 11.58,
+      "mean": 7.979,
+      "stddev": 1.044,
+      "samples": 50
+    }
+  },
+  "inference_latency": {
+    "local_edge_classifier_ms": {
+      "p50": 0.001,
+      "p95": 0.002,
+      "min": 0.0,
+      "max": 0.005,
+      "mean": 0.001,
+      "stddev": 0.001,
+      "samples": 50
+    },
+    "cloud_model_simulation_ms": {
+      "p50": 12.599,
+      "p95": 13.064,
+      "min": 12.248,
+      "max": 13.08,
+      "mean": 12.6,
+      "stddev": 0.211,
+      "samples": 50
+    },
+    "source_frequency_distribution": {
+      "LOCAL_ON_DEVICE": 0.643,
+      "CLOUD_BACKEND": 0.357
+    }
+  },
+  "projection_lag_ms": {
+    "p50": 0.031,
+    "p95": 0.065,
+    "min": 0.029,
+    "max": 0.118,
+    "mean": 0.036,
+    "stddev": 0.014,
+    "samples": 50
+  },
+  "spatial_twin_metrics": {
+    "scene_json_kib": 103.71,
+    "inspection_svg_count": 5,
+    "inspection_svg_total_kib": 3.97,
+    "total_3d_assets_kib": 107.68,
+    "plant_asset_nodes": 120,
+    "plant_topology_edges": 217,
+    "target_framerate_fps": 60,
+    "frame_time_budget_ms": 16.67
+  },
+  "runtime_resources": {
+    "process_working_set_mb": 160.45,
+    "platform": "win32",
+    "os_release": "Windows-11-10.0.26300-SP0",
+    "cpu_architecture": "AMD64",
+    "logical_processors": 12,
+    "python_version": "3.14.10"
+  },
+  "client_bundle": {
+    "total_static_files": 40,
+    "total_bundle_kib": 2516.07,
+    "total_bundle_mb": 2.46,
+    "js_chunks_count": 35,
+    "js_chunks_kib": 2445.89,
+    "routes_compiled": 23
+  }
+}

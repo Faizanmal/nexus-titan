@@ -1,0 +1,10 @@
+{
+  "fixture_id": "TITAN-WTP-01",
+  "provider": "fixture-hash-v1",
+  "top_k": 2,
+  "queries": [
+    {"query": "centrifugal transfer pump pressure flow status", "relevant_documents": ["manual-synthetic-pumps"]},
+    {"query": "filter assets thresholds fictional filtration", "relevant_documents": ["manual-synthetic-filtration"]},
+    {"query": "fictional tanks storage capacities units", "relevant_documents": ["manual-synthetic-storage"]}
+  ]
+}

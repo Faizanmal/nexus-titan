@@ -1,0 +1,139 @@
+{
+  "audit_version": "1.0.0",
+  "timestamp": "2026-11-23T13:30:38.434147+00:00",
+  "summary": {
+    "overall_status": "PASS",
+    "secrets_found": 0,
+    "vulnerabilities_found": 0,
+    "redaction_leaks_found": 0,
+    "industrial_isolation_verified": true
+  },
+  "secret_scan": {
+    "files_scanned": 371,
+    "findings": [],
+    "status": "PASS"
+  },
+  "dependency_audit": {
+    "pnpm_audit_passed": true,
+    "vulnerabilities_detected": 0,
+    "pnpm_summary": "Clean (No known vulnerabilities found)"
+  },
+  "log_sanitization": {
+    "files_checked": 27,
+    "leaks_found": 0,
+    "leak_details": [],
+    "status": "PASS"
+  },
+  "sbom": [
+    {
+      "component": "Next.js",
+      "version": "16.4.5",
+      "ecosystem": "npm",
+      "license": "MIT",
+      "usage": "Web Client App Router"
+    },
+    {
+      "component": "React",
+      "version": "19.3.0",
+      "ecosystem": "npm",
+      "license": "MIT",
+      "usage": "UI Component Hierarchy"
+    },
+    {
+      "component": "Firebase JS SDK",
+      "version": "13.3.0",
+      "ecosystem": "npm",
+      "license": "Apache-2.0",
+      "usage": "Client Identity & AI Logic Adapter"
+    },
+    {
+      "component": "FastAPI",
+      "version": "0.115.14",
+      "ecosystem": "PyPI",
+      "license": "MIT",
+      "usage": "Backend Core Microservice"
+    },
+    {
+      "component": "SQLAlchemy",
+      "version": "2.0.44",
+      "ecosystem": "PyPI",
+      "license": "MIT",
+      "usage": "Async/Sync PostgreSQL ORM"
+    },
+    {
+      "component": "Psycopg (v3)",
+      "version": "3.2.13",
+      "ecosystem": "PyPI",
+      "license": "LGPL-3.0-or-later",
+      "usage": "PostgreSQL Binary Driver"
+    },
+    {
+      "component": "NATS.py",
+      "version": "2.10.2",
+      "ecosystem": "PyPI",
+      "license": "Apache-2.0",
+      "usage": "JetStream Message Bus Client"
+    },
+    {
+      "component": "Neo4j Python Driver",
+      "version": "5.28.3",
+      "ecosystem": "PyPI",
+      "license": "Apache-2.0",
+      "usage": "Knowledge Graph Cypher Client"
+    },
+    {
+      "component": "Pydantic",
+      "version": "2.12.5",
+      "ecosystem": "PyPI",
+      "license": "MIT",
+      "usage": "Data Validation & Schema Serialization"
+    },
+    {
+      "component": "Cryptography",
+      "version": "46.0.7",
+      "ecosystem": "PyPI",
+      "license": "Apache-2.0 OR BSD-3-Clause",
+      "usage": "Ed25519 & ECDSA Signatures"
+    },
+    {
+      "component": "PyJWT",
+      "version": "2.11.0",
+      "ecosystem": "PyPI",
+      "license": "MIT",
+      "usage": "Token Verification & Scope Resolution"
+    },
+    {
+      "component": "Three.js",
+      "version": "0.183.1",
+      "ecosystem": "npm",
+      "license": "MIT",
+      "usage": "Procedural Spatial Twin Rendering"
+    },
+    {
+      "component": "Tailwind CSS",
+      "version": "4.1.18",
+      "ecosystem": "npm",
+      "license": "MIT",
+      "usage": "Design System Token Styling"
+    },
+    {
+      "component": "OpenTelemetry API",
+      "version": "1.30.0",
+      "ecosystem": "PyPI/npm",
+      "license": "Apache-2.0",
+      "usage": "Redacted Tracing & Telemetry Spans"
+    },
+    {
+      "component": "@grpc/grpc-js",
+      "version": "^1.13.6",
+      "ecosystem": "npm",
+      "license": "Apache-2.0",
+      "usage": "Pinned Security Override for Firestore"
+    }
+  ],
+  "industrial_isolation": {
+    "connected_to_physical_ics": false,
+    "linear_solver_isolation": "IN_MEMORY_ONLY",
+    "status": "PASS"
+  }
+}

@@ -1,0 +1,22 @@
+# Ruff configuration for NEXUS TITAN
+line-length = 88
+target-version = "py312"
+
+[lint]
+ignore = [
+    "B008",    # Do not perform function calls in argument defaults (standard FastAPI Depends idiom)
+    "SIM117",  # Use a single `with` statement with multiple contexts (psycopg connection/transaction)
+    "FURB162", # Unnecessary timezone replacement
+]
+
+[lint.flake8-bugbear]
+extend-immutable-calls = [
+    "fastapi.Depends",
+    "fastapi.params.Depends",
+    "fastapi.Query",
+    "fastapi.Header",
+    "fastapi.Security",
+    "fastapi.Path",
+    "fastapi.Body",
+]
+

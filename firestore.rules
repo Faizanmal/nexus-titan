@@ -1,0 +1,55 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function membershipPath(organizationId, userId) {
+      return /databases/$(database)/documents/organizations/$(organizationId)/memberships/$(userId);
+    }
+
+    function isActiveMember(organizationId) {
+      return signedIn()
+        && exists(membershipPath(organizationId, request.auth.uid))
+        && get(membershipPath(organizationId, request.auth.uid)).data.active == true;
+    }
+
+    function isOrganizationAdmin(organizationId) {
+      return isActiveMember(organizationId)
+        && get(membershipPath(organizationId, request.auth.uid)).data.role in ['owner', 'admin'];
+    }
+
+    function hasSiteScope(organizationId, siteId) {
+      return isActiveMember(organizationId)
+        && (isOrganizationAdmin(organizationId)
+          || siteId in get(membershipPath(organizationId, request.auth.uid)).data.site_ids);
+    }
+
+    // Membership and site grants are written only by the trusted server identity.
+    match /organizations/{organizationId}/memberships/{userId} {
+      allow read: if signedIn() && request.auth.uid == userId;
+      allow write: if false;
+    }
+
+    match /organizations/{organizationId}/site_memberships/{userId}/sites/{siteId} {
+      allow read: if signedIn() && request.auth.uid == userId;
+      allow write: if false;
+    }
+
+    match /organizations/{organizationId}/sites/{siteId}/projections/{projectionId} {
+      allow get, list: if hasSiteScope(organizationId, siteId);
+      allow create, update, delete: if false;
+    }
+
+    // Upload authorizations are private server-owned documents used by Storage rules.
+    match /organizations/{organizationId}/sites/{siteId}/upload_authorizations/{authorizationId} {
+      allow read, write: if false;
+    }
+
+    // Default deny, including unknown collection paths.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

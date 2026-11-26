@@ -1,0 +1,41 @@
+extensions:
+  health_check:
+    endpoint: 0.0.0.0:13133
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+processors:
+  memory_limiter:
+    check_interval: 1s
+    limit_mib: 256
+  transform/redact:
+    error_mode: ignore
+    trace_statements:
+      - context: span
+        statements:
+          - delete_matching_keys(attributes, "(?i).*(password|token|authorization|secret|credential|api.?key).*" )
+          - replace_pattern(name, "(?i)(token|password|secret)=[^ ]+", "$1=[REDACTED]")
+    log_statements:
+      - context: log
+        statements:
+          - delete_matching_keys(attributes, "(?i).*(password|token|authorization|secret|credential|api.?key).*" )
+          - replace_pattern(body, "(?i)(token|password|secret)=[^ ]+", "$1=[REDACTED]")
+  batch: {}
+exporters:
+  debug:
+    verbosity: basic
+service:
+  extensions: [health_check]
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [memory_limiter, transform/redact, batch]
+      exporters: [debug]
+    logs:
+      receivers: [otlp]
+      processors: [memory_limiter, transform/redact, batch]
+      exporters: [debug]

@@ -1,0 +1,4926 @@
+{
+  "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+  "coordinate_transform": {
+    "from": "TITAN_LOCAL_PLANT_GRID_V1",
+    "mapping": "[east,north,up] -> [east,up,-north]",
+    "matrix_3x3_row_major": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        -1,
+        0
+      ]
+    ],
+    "to": "THREE_RHS_Y_UP",
+    "units_preserved": true
+  },
+  "entities": [
+    {
+      "asset_id": "WTP01-FLT-001",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "transform": {
+        "position": [
+          1.0,
+          5.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-FLT-002",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "transform": {
+        "position": [
+          14.0,
+          7.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-FLT-003",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "transform": {
+        "position": [
+          23.0,
+          13.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-FLT-004",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "transform": {
+        "position": [
+          42.0,
+          17.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-FLT-005",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "transform": {
+        "position": [
+          61.0,
+          21.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-FLT-006",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "transform": {
+        "position": [
+          72.0,
+          23.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-FLT-007",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "transform": {
+        "position": [
+          82.0,
+          0.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-FLT-008",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "transform": {
+        "position": [
+          100.0,
+          4.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-FLT-009",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "transform": {
+        "position": [
+          111.0,
+          9.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-FLT-010",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "transform": {
+        "position": [
+          124.0,
+          11.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-FLT-011",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "transform": {
+        "position": [
+          5.0,
+          15.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-FLT-012",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "transform": {
+        "position": [
+          14.0,
+          20.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-FLT-013",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "transform": {
+        "position": [
+          24.0,
+          24.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-FLT-014",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "transform": {
+        "position": [
+          38.0,
+          0.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-FLT-015",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "transform": {
+        "position": [
+          61.0,
+          3.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-FLT-016",
+      "geometry_ref": "procedural://geometry/filter-vessel-v1",
+      "transform": {
+        "position": [
+          71.0,
+          8.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-PMP-001",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "transform": {
+        "position": [
+          -1.0,
+          3.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-PMP-002",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "transform": {
+        "position": [
+          19.0,
+          9.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-PMP-003",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "transform": {
+        "position": [
+          25.0,
+          13.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-PMP-004",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "transform": {
+        "position": [
+          47.0,
+          15.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-PMP-005",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "transform": {
+        "position": [
+          51.0,
+          19.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-PMP-006",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "transform": {
+        "position": [
+          67.0,
+          23.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-PMP-007",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "transform": {
+        "position": [
+          86.0,
+          -1.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-PMP-008",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "transform": {
+        "position": [
+          98.0,
+          4.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-PMP-009",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "transform": {
+        "position": [
+          114.0,
+          8.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-PMP-010",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "transform": {
+        "position": [
+          129.0,
+          11.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-PMP-011",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "transform": {
+        "position": [
+          -5.0,
+          16.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-PMP-012",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "transform": {
+        "position": [
+          14.0,
+          21.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-PMP-013",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "transform": {
+        "position": [
+          28.0,
+          23.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-PMP-014",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "transform": {
+        "position": [
+          38.0,
+          -1.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-PMP-015",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "transform": {
+        "position": [
+          52.0,
+          4.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-PMP-016",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "transform": {
+        "position": [
+          70.0,
+          9.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-PMP-017",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "transform": {
+        "position": [
+          82.0,
+          11.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-PMP-018",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "transform": {
+        "position": [
+          102.0,
+          16.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-PMP-019",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "transform": {
+        "position": [
+          117.0,
+          19.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-PMP-020",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "transform": {
+        "position": [
+          123.0,
+          24.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-PMP-021",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "transform": {
+        "position": [
+          5.0,
+          -1.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-PMP-022",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "transform": {
+        "position": [
+          11.0,
+          4.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-PMP-023",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "transform": {
+        "position": [
+          31.0,
+          9.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-PMP-024",
+      "geometry_ref": "procedural://geometry/pump-centrifugal-v1",
+      "transform": {
+        "position": [
+          45.0,
+          12.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SNS-001",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "transform": {
+        "position": [
+          -3.0,
+          4.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SNS-002",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "transform": {
+        "position": [
+          11.0,
+          8.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SNS-003",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "transform": {
+        "position": [
+          33.0,
+          12.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SNS-004",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "transform": {
+        "position": [
+          37.0,
+          17.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SNS-005",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "transform": {
+        "position": [
+          52.0,
+          20.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SNS-006",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "transform": {
+        "position": [
+          67.0,
+          24.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SNS-007",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "transform": {
+        "position": [
+          85.0,
+          -1.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SNS-008",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "transform": {
+        "position": [
+          95.0,
+          4.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SNS-009",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "transform": {
+        "position": [
+          117.0,
+          8.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SNS-010",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "transform": {
+        "position": [
+          122.0,
+          11.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SNS-011",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "transform": {
+        "position": [
+          2.0,
+          17.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SNS-012",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "transform": {
+        "position": [
+          19.0,
+          20.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SNS-013",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "transform": {
+        "position": [
+          26.0,
+          25.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SNS-014",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "transform": {
+        "position": [
+          47.0,
+          -1.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SNS-015",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "transform": {
+        "position": [
+          60.0,
+          4.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SNS-016",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "transform": {
+        "position": [
+          68.0,
+          9.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SNS-017",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "transform": {
+        "position": [
+          82.0,
+          13.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SNS-018",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "transform": {
+        "position": [
+          103.0,
+          16.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SNS-019",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "transform": {
+        "position": [
+          108.0,
+          20.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SNS-020",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "transform": {
+        "position": [
+          125.0,
+          23.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SNS-021",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "transform": {
+        "position": [
+          -2.0,
+          -1.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SNS-022",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "transform": {
+        "position": [
+          11.0,
+          3.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SNS-023",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "transform": {
+        "position": [
+          31.0,
+          9.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SNS-024",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "transform": {
+        "position": [
+          38.0,
+          13.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SNS-025",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "transform": {
+        "position": [
+          56.0,
+          17.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SNS-026",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "transform": {
+        "position": [
+          69.0,
+          21.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SNS-027",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "transform": {
+        "position": [
+          86.0,
+          23.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SNS-028",
+      "geometry_ref": "procedural://geometry/sensor-instrument-v1",
+      "transform": {
+        "position": [
+          103.0,
+          1.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SYS-001",
+      "geometry_ref": "procedural://geometry/subsystem-block-v1",
+      "transform": {
+        "position": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SYS-002",
+      "geometry_ref": "procedural://geometry/subsystem-block-v1",
+      "transform": {
+        "position": [
+          14.0,
+          0.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SYS-003",
+      "geometry_ref": "procedural://geometry/subsystem-block-v1",
+      "transform": {
+        "position": [
+          28.0,
+          0.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SYS-004",
+      "geometry_ref": "procedural://geometry/subsystem-block-v1",
+      "transform": {
+        "position": [
+          42.0,
+          0.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SYS-005",
+      "geometry_ref": "procedural://geometry/subsystem-block-v1",
+      "transform": {
+        "position": [
+          56.0,
+          0.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SYS-006",
+      "geometry_ref": "procedural://geometry/subsystem-block-v1",
+      "transform": {
+        "position": [
+          70.0,
+          0.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SYS-007",
+      "geometry_ref": "procedural://geometry/subsystem-block-v1",
+      "transform": {
+        "position": [
+          84.0,
+          0.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SYS-008",
+      "geometry_ref": "procedural://geometry/subsystem-block-v1",
+      "transform": {
+        "position": [
+          98.0,
+          0.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SYS-009",
+      "geometry_ref": "procedural://geometry/subsystem-block-v1",
+      "transform": {
+        "position": [
+          112.0,
+          0.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-SYS-010",
+      "geometry_ref": "procedural://geometry/subsystem-block-v1",
+      "transform": {
+        "position": [
+          126.0,
+          0.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-TNK-001",
+      "geometry_ref": "procedural://geometry/tank-cylinder-v1",
+      "transform": {
+        "position": [
+          2.0,
+          4.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-TNK-002",
+      "geometry_ref": "procedural://geometry/tank-cylinder-v1",
+      "transform": {
+        "position": [
+          17.0,
+          9.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-TNK-003",
+      "geometry_ref": "procedural://geometry/tank-cylinder-v1",
+      "transform": {
+        "position": [
+          32.0,
+          12.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-TNK-004",
+      "geometry_ref": "procedural://geometry/tank-cylinder-v1",
+      "transform": {
+        "position": [
+          37.0,
+          16.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-TNK-005",
+      "geometry_ref": "procedural://geometry/tank-cylinder-v1",
+      "transform": {
+        "position": [
+          53.0,
+          19.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-TNK-006",
+      "geometry_ref": "procedural://geometry/tank-cylinder-v1",
+      "transform": {
+        "position": [
+          69.0,
+          24.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-TNK-007",
+      "geometry_ref": "procedural://geometry/tank-cylinder-v1",
+      "transform": {
+        "position": [
+          80.0,
+          0.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-TNK-008",
+      "geometry_ref": "procedural://geometry/tank-cylinder-v1",
+      "transform": {
+        "position": [
+          93.0,
+          5.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-TNK-009",
+      "geometry_ref": "procedural://geometry/tank-cylinder-v1",
+      "transform": {
+        "position": [
+          115.0,
+          7.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-TNK-010",
+      "geometry_ref": "procedural://geometry/tank-cylinder-v1",
+      "transform": {
+        "position": [
+          130.0,
+          11.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-TNK-011",
+      "geometry_ref": "procedural://geometry/tank-cylinder-v1",
+      "transform": {
+        "position": [
+          -1.0,
+          15.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-TNK-012",
+      "geometry_ref": "procedural://geometry/tank-cylinder-v1",
+      "transform": {
+        "position": [
+          14.0,
+          20.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-001",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          -3.0,
+          5.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-002",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          14.0,
+          8.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-003",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          23.0,
+          13.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-004",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          47.0,
+          17.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-005",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          54.0,
+          19.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-006",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          69.0,
+          24.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-007",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          82.0,
+          1.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-008",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          101.0,
+          5.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-009",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          114.0,
+          8.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-010",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          129.0,
+          12.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-011",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          -3.0,
+          15.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-012",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          14.0,
+          19.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-013",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          25.0,
+          24.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-014",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          40.0,
+          1.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-015",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          51.0,
+          5.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-016",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          67.0,
+          8.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-017",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          80.0,
+          11.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-018",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          96.0,
+          15.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-019",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          111.0,
+          20.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-020",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          126.0,
+          24.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-021",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          3.0,
+          1.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-022",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          11.0,
+          3.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-023",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          32.0,
+          9.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-024",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          39.0,
+          13.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-025",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          52.0,
+          16.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-026",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          66.0,
+          20.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-027",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          84.0,
+          23.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-028",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          93.0,
+          -1.0,
+          1.5
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-029",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          113.0,
+          5.0,
+          3.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "asset_id": "WTP01-VLV-030",
+      "geometry_ref": "procedural://geometry/valve-gate-v1",
+      "transform": {
+        "position": [
+          130.0,
+          8.0,
+          0.0
+        ],
+        "rotation_degrees": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    }
+  ],
+  "fixture_id": "TITAN-WTP-01",
+  "markers": [
+    {
+      "asset_id": "WTP01-FLT-001",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-FLT-001",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        1.0,
+        5.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-FLT-002",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-FLT-002",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        14.0,
+        7.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-FLT-003",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-FLT-003",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        23.0,
+        13.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-FLT-004",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-FLT-004",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        42.0,
+        17.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-FLT-005",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-FLT-005",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        61.0,
+        21.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-FLT-006",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-FLT-006",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        72.0,
+        23.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-FLT-007",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-FLT-007",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        82.0,
+        0.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-FLT-008",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-FLT-008",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        100.0,
+        4.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-FLT-009",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-FLT-009",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        111.0,
+        9.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-FLT-010",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-FLT-010",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        124.0,
+        11.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-FLT-011",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-FLT-011",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        5.0,
+        15.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-FLT-012",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-FLT-012",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        14.0,
+        20.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-FLT-013",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-FLT-013",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        24.0,
+        24.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-FLT-014",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-FLT-014",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        38.0,
+        0.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-FLT-015",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-FLT-015",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        61.0,
+        3.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-FLT-016",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-FLT-016",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        71.0,
+        8.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-PMP-001",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-PMP-001",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        -1.0,
+        3.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-PMP-002",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-PMP-002",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        19.0,
+        9.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-PMP-003",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-PMP-003",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        25.0,
+        13.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-PMP-004",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-PMP-004",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        47.0,
+        15.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-PMP-005",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-PMP-005",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        51.0,
+        19.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-PMP-006",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-PMP-006",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        67.0,
+        23.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-PMP-007",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-PMP-007",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        86.0,
+        -1.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-PMP-008",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-PMP-008",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        98.0,
+        4.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-PMP-009",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-PMP-009",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        114.0,
+        8.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-PMP-010",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-PMP-010",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        129.0,
+        11.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-PMP-011",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-PMP-011",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        -5.0,
+        16.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-PMP-012",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-PMP-012",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        14.0,
+        21.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-PMP-013",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-PMP-013",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        28.0,
+        23.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-PMP-014",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-PMP-014",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        38.0,
+        -1.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-PMP-015",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-PMP-015",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        52.0,
+        4.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-PMP-016",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-PMP-016",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        70.0,
+        9.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-PMP-017",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-PMP-017",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        82.0,
+        11.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-PMP-018",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-PMP-018",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        102.0,
+        16.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-PMP-019",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-PMP-019",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        117.0,
+        19.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-PMP-020",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-PMP-020",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        123.0,
+        24.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-PMP-021",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-PMP-021",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        5.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-PMP-022",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-PMP-022",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        11.0,
+        4.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-PMP-023",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-PMP-023",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        31.0,
+        9.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-PMP-024",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-PMP-024",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        45.0,
+        12.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-SNS-001",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SNS-001",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        -3.0,
+        4.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-SNS-002",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SNS-002",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        11.0,
+        8.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-SNS-003",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SNS-003",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        33.0,
+        12.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-SNS-004",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SNS-004",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        37.0,
+        17.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-SNS-005",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SNS-005",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        52.0,
+        20.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-SNS-006",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SNS-006",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        67.0,
+        24.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-SNS-007",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SNS-007",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        85.0,
+        -1.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-SNS-008",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SNS-008",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        95.0,
+        4.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-SNS-009",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SNS-009",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        117.0,
+        8.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-SNS-010",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SNS-010",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        122.0,
+        11.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-SNS-011",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SNS-011",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        2.0,
+        17.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-SNS-012",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SNS-012",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        19.0,
+        20.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-SNS-013",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SNS-013",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        26.0,
+        25.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-SNS-014",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SNS-014",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        47.0,
+        -1.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-SNS-015",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SNS-015",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        60.0,
+        4.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-SNS-016",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SNS-016",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        68.0,
+        9.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-SNS-017",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SNS-017",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        82.0,
+        13.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-SNS-018",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SNS-018",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        103.0,
+        16.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-SNS-019",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SNS-019",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        108.0,
+        20.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-SNS-020",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SNS-020",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        125.0,
+        23.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-SNS-021",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SNS-021",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        -2.0,
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-SNS-022",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SNS-022",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        11.0,
+        3.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-SNS-023",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SNS-023",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        31.0,
+        9.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-SNS-024",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SNS-024",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        38.0,
+        13.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-SNS-025",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SNS-025",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        56.0,
+        17.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-SNS-026",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SNS-026",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        69.0,
+        21.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-SNS-027",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SNS-027",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        86.0,
+        23.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-SNS-028",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SNS-028",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        103.0,
+        1.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-SYS-001",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SYS-001",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-SYS-002",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SYS-002",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        14.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-SYS-003",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SYS-003",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        28.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-SYS-004",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SYS-004",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        42.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-SYS-005",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SYS-005",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        56.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-SYS-006",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SYS-006",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        70.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-SYS-007",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SYS-007",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        84.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-SYS-008",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SYS-008",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        98.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-SYS-009",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SYS-009",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        112.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-SYS-010",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-SYS-010",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        126.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-TNK-001",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-TNK-001",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        2.0,
+        4.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-TNK-002",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-TNK-002",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        17.0,
+        9.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-TNK-003",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-TNK-003",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        32.0,
+        12.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-TNK-004",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-TNK-004",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        37.0,
+        16.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-TNK-005",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-TNK-005",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        53.0,
+        19.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-TNK-006",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-TNK-006",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        69.0,
+        24.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-TNK-007",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-TNK-007",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        80.0,
+        0.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-TNK-008",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-TNK-008",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        93.0,
+        5.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-TNK-009",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-TNK-009",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        115.0,
+        7.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-TNK-010",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-TNK-010",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        130.0,
+        11.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-TNK-011",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-TNK-011",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        -1.0,
+        15.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-TNK-012",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-TNK-012",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        14.0,
+        20.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-001",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-001",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        -3.0,
+        5.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-002",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-002",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        14.0,
+        8.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-003",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-003",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        23.0,
+        13.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-004",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-004",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        47.0,
+        17.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-005",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-005",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        54.0,
+        19.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-006",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-006",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        69.0,
+        24.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-007",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-007",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        82.0,
+        1.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-008",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-008",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        101.0,
+        5.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-009",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-009",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        114.0,
+        8.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-010",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-010",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        129.0,
+        12.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-011",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-011",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        -3.0,
+        15.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-012",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-012",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        14.0,
+        19.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-013",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-013",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        25.0,
+        24.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-014",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-014",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        40.0,
+        1.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-015",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-015",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        51.0,
+        5.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-016",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-016",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        67.0,
+        8.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-017",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-017",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        80.0,
+        11.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-018",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-018",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        96.0,
+        15.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-019",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-019",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        111.0,
+        20.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-020",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-020",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        126.0,
+        24.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-021",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-021",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        3.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-022",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-022",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        11.0,
+        3.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-023",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-023",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        32.0,
+        9.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-024",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-024",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        39.0,
+        13.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-025",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-025",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        52.0,
+        16.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-026",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-026",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        66.0,
+        20.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-027",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-027",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        84.0,
+        23.0,
+        0.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-028",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-028",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        93.0,
+        -1.0,
+        1.5
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-029",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-029",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        113.0,
+        5.0,
+        3.0
+      ]
+    },
+    {
+      "asset_id": "WTP01-VLV-030",
+      "confidence": "fixture_registry_exact_id",
+      "coordinate_system": "TITAN_LOCAL_PLANT_GRID_V1",
+      "marker_id": "QR-TITAN-WTP-01-WTP01-VLV-030",
+      "marker_type": "logical_qr_registration",
+      "physical_tag_printed": false,
+      "position": [
+        130.0,
+        8.0,
+        0.0
+      ]
+    }
+  ],
+  "pipe_paths": [
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-FLT-001:FEEDS:01",
+      "points": [
+        [
+          1.0,
+          5.0,
+          1.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-FLT-001",
+      "target_asset_id": "WTP01-SYS-001"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-FLT-002:FEEDS:01",
+      "points": [
+        [
+          14.0,
+          7.0,
+          3.0
+        ],
+        [
+          14.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-FLT-002",
+      "target_asset_id": "WTP01-SYS-002"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-FLT-003:FEEDS:01",
+      "points": [
+        [
+          23.0,
+          13.0,
+          0.0
+        ],
+        [
+          28.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-FLT-003",
+      "target_asset_id": "WTP01-SYS-003"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-FLT-004:FEEDS:01",
+      "points": [
+        [
+          42.0,
+          17.0,
+          1.5
+        ],
+        [
+          42.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-FLT-004",
+      "target_asset_id": "WTP01-SYS-004"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-FLT-005:FEEDS:01",
+      "points": [
+        [
+          61.0,
+          21.0,
+          3.0
+        ],
+        [
+          56.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-FLT-005",
+      "target_asset_id": "WTP01-SYS-005"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-FLT-006:FEEDS:01",
+      "points": [
+        [
+          72.0,
+          23.0,
+          0.0
+        ],
+        [
+          70.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-FLT-006",
+      "target_asset_id": "WTP01-SYS-006"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-FLT-007:FEEDS:01",
+      "points": [
+        [
+          82.0,
+          0.0,
+          1.5
+        ],
+        [
+          84.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-FLT-007",
+      "target_asset_id": "WTP01-SYS-007"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-FLT-008:FEEDS:01",
+      "points": [
+        [
+          100.0,
+          4.0,
+          3.0
+        ],
+        [
+          98.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-FLT-008",
+      "target_asset_id": "WTP01-SYS-008"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-FLT-009:FEEDS:01",
+      "points": [
+        [
+          111.0,
+          9.0,
+          0.0
+        ],
+        [
+          112.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-FLT-009",
+      "target_asset_id": "WTP01-SYS-009"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-FLT-010:FEEDS:01",
+      "points": [
+        [
+          124.0,
+          11.0,
+          1.5
+        ],
+        [
+          126.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-FLT-010",
+      "target_asset_id": "WTP01-SYS-010"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-FLT-011:FEEDS:01",
+      "points": [
+        [
+          5.0,
+          15.0,
+          3.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-FLT-011",
+      "target_asset_id": "WTP01-SYS-001"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-FLT-012:FEEDS:01",
+      "points": [
+        [
+          14.0,
+          20.0,
+          0.0
+        ],
+        [
+          14.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-FLT-012",
+      "target_asset_id": "WTP01-SYS-002"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-FLT-013:FEEDS:01",
+      "points": [
+        [
+          24.0,
+          24.0,
+          1.5
+        ],
+        [
+          28.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-FLT-013",
+      "target_asset_id": "WTP01-SYS-003"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-FLT-014:FEEDS:01",
+      "points": [
+        [
+          38.0,
+          0.0,
+          3.0
+        ],
+        [
+          42.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-FLT-014",
+      "target_asset_id": "WTP01-SYS-004"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-FLT-015:FEEDS:01",
+      "points": [
+        [
+          61.0,
+          3.0,
+          0.0
+        ],
+        [
+          56.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-FLT-015",
+      "target_asset_id": "WTP01-SYS-005"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-FLT-016:FEEDS:01",
+      "points": [
+        [
+          71.0,
+          8.0,
+          1.5
+        ],
+        [
+          70.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-FLT-016",
+      "target_asset_id": "WTP01-SYS-006"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-PMP-001:FEEDS:01",
+      "points": [
+        [
+          -1.0,
+          3.0,
+          1.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-PMP-001",
+      "target_asset_id": "WTP01-SYS-001"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-PMP-002:FEEDS:01",
+      "points": [
+        [
+          19.0,
+          9.0,
+          3.0
+        ],
+        [
+          14.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-PMP-002",
+      "target_asset_id": "WTP01-SYS-002"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-PMP-003:FEEDS:01",
+      "points": [
+        [
+          25.0,
+          13.0,
+          0.0
+        ],
+        [
+          28.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-PMP-003",
+      "target_asset_id": "WTP01-SYS-003"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-PMP-004:FEEDS:01",
+      "points": [
+        [
+          47.0,
+          15.0,
+          1.5
+        ],
+        [
+          42.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-PMP-004",
+      "target_asset_id": "WTP01-SYS-004"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-PMP-005:FEEDS:01",
+      "points": [
+        [
+          51.0,
+          19.0,
+          3.0
+        ],
+        [
+          56.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-PMP-005",
+      "target_asset_id": "WTP01-SYS-005"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-PMP-006:FEEDS:01",
+      "points": [
+        [
+          67.0,
+          23.0,
+          0.0
+        ],
+        [
+          70.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-PMP-006",
+      "target_asset_id": "WTP01-SYS-006"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-PMP-007:FEEDS:01",
+      "points": [
+        [
+          86.0,
+          -1.0,
+          1.5
+        ],
+        [
+          84.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-PMP-007",
+      "target_asset_id": "WTP01-SYS-007"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-PMP-008:FEEDS:01",
+      "points": [
+        [
+          98.0,
+          4.0,
+          3.0
+        ],
+        [
+          98.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-PMP-008",
+      "target_asset_id": "WTP01-SYS-008"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-PMP-009:FEEDS:01",
+      "points": [
+        [
+          114.0,
+          8.0,
+          0.0
+        ],
+        [
+          112.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-PMP-009",
+      "target_asset_id": "WTP01-SYS-009"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-PMP-010:FEEDS:01",
+      "points": [
+        [
+          129.0,
+          11.0,
+          1.5
+        ],
+        [
+          126.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-PMP-010",
+      "target_asset_id": "WTP01-SYS-010"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-PMP-011:FEEDS:01",
+      "points": [
+        [
+          -5.0,
+          16.0,
+          3.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-PMP-011",
+      "target_asset_id": "WTP01-SYS-001"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-PMP-012:FEEDS:01",
+      "points": [
+        [
+          14.0,
+          21.0,
+          0.0
+        ],
+        [
+          14.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-PMP-012",
+      "target_asset_id": "WTP01-SYS-002"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-PMP-013:FEEDS:01",
+      "points": [
+        [
+          28.0,
+          23.0,
+          1.5
+        ],
+        [
+          28.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-PMP-013",
+      "target_asset_id": "WTP01-SYS-003"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-PMP-014:FEEDS:01",
+      "points": [
+        [
+          38.0,
+          -1.0,
+          3.0
+        ],
+        [
+          42.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-PMP-014",
+      "target_asset_id": "WTP01-SYS-004"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-PMP-015:FEEDS:01",
+      "points": [
+        [
+          52.0,
+          4.0,
+          0.0
+        ],
+        [
+          56.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-PMP-015",
+      "target_asset_id": "WTP01-SYS-005"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-PMP-016:FEEDS:01",
+      "points": [
+        [
+          70.0,
+          9.0,
+          1.5
+        ],
+        [
+          70.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-PMP-016",
+      "target_asset_id": "WTP01-SYS-006"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-PMP-017:FEEDS:01",
+      "points": [
+        [
+          82.0,
+          11.0,
+          3.0
+        ],
+        [
+          84.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-PMP-017",
+      "target_asset_id": "WTP01-SYS-007"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-PMP-018:FEEDS:01",
+      "points": [
+        [
+          102.0,
+          16.0,
+          0.0
+        ],
+        [
+          98.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-PMP-018",
+      "target_asset_id": "WTP01-SYS-008"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-PMP-019:FEEDS:01",
+      "points": [
+        [
+          117.0,
+          19.0,
+          1.5
+        ],
+        [
+          112.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-PMP-019",
+      "target_asset_id": "WTP01-SYS-009"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-PMP-020:FEEDS:01",
+      "points": [
+        [
+          123.0,
+          24.0,
+          3.0
+        ],
+        [
+          126.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-PMP-020",
+      "target_asset_id": "WTP01-SYS-010"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-PMP-021:FEEDS:01",
+      "points": [
+        [
+          5.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-PMP-021",
+      "target_asset_id": "WTP01-SYS-001"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-PMP-022:FEEDS:01",
+      "points": [
+        [
+          11.0,
+          4.0,
+          1.5
+        ],
+        [
+          14.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-PMP-022",
+      "target_asset_id": "WTP01-SYS-002"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-PMP-023:FEEDS:01",
+      "points": [
+        [
+          31.0,
+          9.0,
+          3.0
+        ],
+        [
+          28.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-PMP-023",
+      "target_asset_id": "WTP01-SYS-003"
+    },
+    {
+      "not_engineering_pipe_routing": true,
+      "path_id": "WTP01-PMP-024:FEEDS:01",
+      "points": [
+        [
+          45.0,
+          12.0,
+          0.0
+        ],
+        [
+          42.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "relation_type": "FEEDS",
+      "routing": "straight_schematic_connector",
+      "source_asset_id": "WTP01-PMP-024",
+      "target_asset_id": "WTP01-SYS-004"
+    }
+  ],
+  "provenance": "Original synthetic fixture; procedural primitives; schematic FEEDS connectors only. Not a surveyed plant model.",
+  "render_budget": {
+    "asset_models": 0,
+    "lod": {
+      "high_radial_segments": 16,
+      "low_radial_segments": 8
+    },
+    "mesh_instances": 120,
+    "textures": 0
+  },
+  "render_coordinate_system": "THREE_RHS_Y_UP",
+  "scene_version": "scene-v2",
+  "units": "m"
+}

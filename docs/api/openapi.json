@@ -1,0 +1,2040 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "NEXUS TITAN API",
+    "version": "1.3.0"
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:8000"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "responses": {
+          "200": {
+            "description": "Process is ready",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/events": {
+      "post": {
+        "tags": [
+          "events"
+        ],
+        "operationId": "appendEvents",
+        "deprecated": true,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SyncEventBatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Per-event append results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventSyncResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sync/events": {
+      "post": {
+        "tags": [
+          "sync"
+        ],
+        "operationId": "syncEvents",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SyncEventBatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Per-event acceptance, duplicate, conflict, and policy results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventSyncResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Tenant or device trust denied"
+          },
+          "422": {
+            "description": "Invalid batch contract"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "sync"
+        ],
+        "operationId": "readEventCursor",
+        "parameters": [
+          {
+            "name": "tenant_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/TenantId"
+            }
+          },
+          {
+            "name": "after_sequence",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 500,
+              "default": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tenant- and site-scoped event cursor page",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventCursorPage"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Tenant access denied"
+          }
+        }
+      }
+    },
+    "/sync/snapshot/{tenant_id}": {
+      "get": {
+        "tags": [
+          "sync"
+        ],
+        "operationId": "readProjectionSnapshot",
+        "parameters": [
+          {
+            "name": "tenant_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/TenantId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Current authorized asset/incident projection state and event cursor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectionSnapshot"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Tenant access denied"
+          }
+        }
+      }
+    },
+    "/v1/world/assets": {
+      "get": {
+        "tags": [
+          "world"
+        ],
+        "operationId": "listWorldAssets",
+        "parameters": [
+          {
+            "name": "tenant_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/TenantId"
+            }
+          },
+          {
+            "name": "site_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized synthetic and accepted world assets",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorldAssetPage"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Tenant or site access denied"
+          }
+        }
+      }
+    },
+    "/v1/world/topology": {
+      "get": {
+        "tags": [
+          "world"
+        ],
+        "operationId": "readWorldTopology",
+        "parameters": [
+          {
+            "name": "tenant_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/TenantId"
+            }
+          },
+          {
+            "name": "site_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized directed topology derived from accepted asset events",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorldTopology"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Tenant or site access denied"
+          }
+        }
+      }
+    },
+    "/v1/world/incidents": {
+      "get": {
+        "tags": [
+          "world"
+        ],
+        "operationId": "listWorldIncidents",
+        "parameters": [
+          {
+            "name": "tenant_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/TenantId"
+            }
+          },
+          {
+            "name": "site_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized incident projection list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorldIncidentPage"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Tenant or site access denied"
+          }
+        }
+      }
+    },
+    "/v1/world/snapshot": {
+      "get": {
+        "tags": [
+          "world"
+        ],
+        "operationId": "readWorldSnapshot",
+        "parameters": [
+          {
+            "name": "tenant_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/TenantId"
+            }
+          },
+          {
+            "name": "site_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized asset, topology, incident and scene snapshot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorldSnapshot"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Tenant or site access denied"
+          }
+        }
+      }
+    },
+    "/v1/world/telemetry": {
+      "get": {
+        "tags": [
+          "world",
+          "telemetry"
+        ],
+        "operationId": "readWorldTelemetry",
+        "parameters": [
+          {
+            "name": "tenant_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/TenantId"
+            }
+          },
+          {
+            "name": "site_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "asset_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^WTP01-PMP-\\d{3}$"
+            }
+          },
+          {
+            "name": "metric",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "pressure",
+                "flow",
+                "vibration",
+                "temperature"
+              ]
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "interval_seconds",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 3600,
+              "default": 60
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authorized, downsampled synthetic telemetry series with quality and stale state",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TelemetrySeriesPage"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Tenant or site access denied"
+          },
+          "422": {
+            "description": "Invalid metric or time window"
+          }
+        }
+      }
+    },
+    "/v1/simulations": {
+      "post": {
+        "tags": [
+          "simulations"
+        ],
+        "operationId": "submitSimulation",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SimulationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "422": {
+            "description": "Invalid contract payload",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Adapter not configured",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/agents/execute": {
+      "post": {
+        "tags": [
+          "agents"
+        ],
+        "operationId": "executeAgent",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AgentInvocation"
+              }
+            }
+          }
+        },
+        "responses": {
+          "422": {
+            "description": "Invalid contract payload",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Adapter not configured",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "TenantId": {
+        "type": "string",
+        "minLength": 3,
+        "maxLength": 63,
+        "pattern": "^[a-z0-9][a-z0-9_-]{2,62}$"
+      },
+      "SchemaVersion": {
+        "type": "string",
+        "enum": [
+          "1.0.0",
+          "1.1.0",
+          "1.2.0",
+          "1.3.0"
+        ]
+      },
+      "DataClassification": {
+        "type": "string",
+        "enum": [
+          "public",
+          "internal",
+          "confidential",
+          "restricted"
+        ]
+      },
+      "EventSource": {
+        "type": "string",
+        "enum": [
+          "device",
+          "api",
+          "worker",
+          "peer",
+          "simulator"
+        ]
+      },
+      "RiskTier": {
+        "type": "string",
+        "enum": [
+          "low",
+          "moderate",
+          "high",
+          "critical"
+        ]
+      },
+      "SimulationStatus": {
+        "type": "string",
+        "enum": [
+          "completed",
+          "rejected"
+        ]
+      },
+      "PolicyOutcome": {
+        "type": "string",
+        "enum": [
+          "allow",
+          "deny",
+          "review"
+        ]
+      },
+      "ErrorCode": {
+        "type": "string",
+        "enum": [
+          "VALIDATION_ERROR",
+          "TENANT_SCOPE_VIOLATION",
+          "POLICY_DENIED",
+          "CONFLICT",
+          "NOT_FOUND",
+          "NOT_IMPLEMENTED",
+          "INTERNAL_ERROR"
+        ]
+      },
+      "Event": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "event_id",
+          "tenant_id",
+          "schema_version",
+          "event_type",
+          "source",
+          "sequence",
+          "occurred_at",
+          "classification",
+          "payload"
+        ],
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "tenant_id": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "schema_version": {
+            "$ref": "#/components/schemas/SchemaVersion"
+          },
+          "event_type": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-z][a-z0-9_.-]*$"
+          },
+          "source": {
+            "$ref": "#/components/schemas/EventSource"
+          },
+          "sequence": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "occurred_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "classification": {
+            "$ref": "#/components/schemas/DataClassification"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "site_id": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9][a-z0-9_-]{1,62}$"
+          },
+          "aggregate_type": {
+            "type": "string",
+            "enum": [
+              "asset",
+              "incident"
+            ]
+          },
+          "aggregate_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "payload": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      },
+      "SyncEvent": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "event_id",
+          "tenant_id",
+          "schema_version",
+          "event_type",
+          "source",
+          "sequence",
+          "occurred_at",
+          "classification",
+          "site_id",
+          "aggregate_type",
+          "aggregate_id",
+          "expected_revision",
+          "payload"
+        ],
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "tenant_id": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "schema_version": {
+            "enum": [
+              "1.1.0",
+              "1.2.0",
+              "1.3.0"
+            ]
+          },
+          "event_type": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-z][a-z0-9_.-]*$"
+          },
+          "source": {
+            "$ref": "#/components/schemas/EventSource"
+          },
+          "sequence": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "occurred_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "classification": {
+            "$ref": "#/components/schemas/DataClassification"
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "site_id": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9][a-z0-9_-]{1,62}$"
+          },
+          "aggregate_type": {
+            "type": "string",
+            "enum": [
+              "asset",
+              "incident"
+            ]
+          },
+          "aggregate_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "payload": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      },
+      "SyncEventBatch": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "tenant_id",
+          "device_id",
+          "events"
+        ],
+        "properties": {
+          "tenant_id": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "device_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "events": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100,
+            "items": {
+              "$ref": "#/components/schemas/SyncEvent"
+            }
+          }
+        }
+      },
+      "EventSyncStatus": {
+        "type": "string",
+        "enum": [
+          "accepted",
+          "duplicate",
+          "conflict",
+          "denied"
+        ]
+      },
+      "EventSyncResult": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "event_id",
+          "status"
+        ],
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "$ref": "#/components/schemas/EventSyncStatus"
+          },
+          "sequence": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "expected_sequence": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "code": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 96
+          }
+        }
+      },
+      "EventSyncResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "tenant_id",
+          "results"
+        ],
+        "properties": {
+          "tenant_id": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventSyncResult"
+            }
+          }
+        }
+      },
+      "EventCursorPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "tenant_id",
+          "events",
+          "cursor",
+          "has_more"
+        ],
+        "properties": {
+          "tenant_id": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Event"
+            }
+          },
+          "cursor": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "has_more": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AggregateProjection": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "site_id",
+          "aggregate_type",
+          "aggregate_id",
+          "revision",
+          "last_sequence",
+          "classification",
+          "state"
+        ],
+        "properties": {
+          "site_id": {
+            "type": "string"
+          },
+          "aggregate_type": {
+            "type": "string",
+            "enum": [
+              "asset",
+              "incident"
+            ]
+          },
+          "aggregate_id": {
+            "type": "string"
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "last_sequence": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "classification": {
+            "$ref": "#/components/schemas/DataClassification"
+          },
+          "state": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      },
+      "ProjectionSnapshot": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "tenant_id",
+          "cursor",
+          "projections"
+        ],
+        "properties": {
+          "tenant_id": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "cursor": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "event_head": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "projections": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AggregateProjection"
+            }
+          }
+        }
+      },
+      "EventBatch": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "tenant_id",
+          "events"
+        ],
+        "properties": {
+          "tenant_id": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "events": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 1000,
+            "items": {
+              "$ref": "#/components/schemas/Event"
+            }
+          }
+        }
+      },
+      "Vector3": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 3,
+        "maxItems": 3
+      },
+      "SimulationBody": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "body_id",
+          "position",
+          "velocity",
+          "mass_kg"
+        ],
+        "properties": {
+          "body_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "position": {
+            "$ref": "#/components/schemas/Vector3"
+          },
+          "velocity": {
+            "$ref": "#/components/schemas/Vector3"
+          },
+          "mass_kg": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          }
+        }
+      },
+      "SimulationRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "simulation_id",
+          "tenant_id",
+          "schema_version",
+          "classification",
+          "solver_id",
+          "time_step_seconds",
+          "max_iterations",
+          "bodies"
+        ],
+        "properties": {
+          "simulation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "tenant_id": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "schema_version": {
+            "$ref": "#/components/schemas/SchemaVersion"
+          },
+          "classification": {
+            "$ref": "#/components/schemas/DataClassification"
+          },
+          "solver_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.-]*$"
+          },
+          "time_step_seconds": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 1
+          },
+          "max_iterations": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000000
+          },
+          "bodies": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100000,
+            "items": {
+              "$ref": "#/components/schemas/SimulationBody"
+            }
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      },
+      "SimulationResult": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "simulation_id",
+          "tenant_id",
+          "schema_version",
+          "status",
+          "result"
+        ],
+        "properties": {
+          "simulation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "tenant_id": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "schema_version": {
+            "$ref": "#/components/schemas/SchemaVersion"
+          },
+          "status": {
+            "$ref": "#/components/schemas/SimulationStatus"
+          },
+          "result": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      },
+      "AgentRoleDescriptor": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "role_id",
+          "risk_tier",
+          "input_schema",
+          "output_schema"
+        ],
+        "properties": {
+          "role_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-z][a-z0-9_.-]*$"
+          },
+          "risk_tier": {
+            "$ref": "#/components/schemas/RiskTier"
+          },
+          "input_schema": {
+            "type": "object",
+            "required": [
+              "type"
+            ],
+            "properties": {
+              "type": {
+                "const": "object"
+              }
+            },
+            "additionalProperties": true
+          },
+          "output_schema": {
+            "type": "object",
+            "required": [
+              "type"
+            ],
+            "properties": {
+              "type": {
+                "const": "object"
+              }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "AgentInvocation": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "task_id",
+          "tenant_id",
+          "schema_version",
+          "role_id",
+          "risk_tier",
+          "input"
+        ],
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "tenant_id": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "schema_version": {
+            "$ref": "#/components/schemas/SchemaVersion"
+          },
+          "role_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-z][a-z0-9_.-]*$"
+          },
+          "risk_tier": {
+            "$ref": "#/components/schemas/RiskTier"
+          },
+          "input": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "classification": {
+            "$ref": "#/components/schemas/DataClassification"
+          }
+        }
+      },
+      "AgentResult": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "task_id",
+          "tenant_id",
+          "schema_version",
+          "role_id",
+          "risk_tier",
+          "output"
+        ],
+        "properties": {
+          "task_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "tenant_id": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "schema_version": {
+            "$ref": "#/components/schemas/SchemaVersion"
+          },
+          "role_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-z][a-z0-9_.-]*$"
+          },
+          "risk_tier": {
+            "$ref": "#/components/schemas/RiskTier"
+          },
+          "output": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "classification": {
+            "$ref": "#/components/schemas/DataClassification"
+          }
+        }
+      },
+      "PolicyDecision": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "tenant_id",
+          "outcome",
+          "reason_code",
+          "policy_version"
+        ],
+        "properties": {
+          "tenant_id": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "outcome": {
+            "$ref": "#/components/schemas/PolicyOutcome"
+          },
+          "reason_code": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "policy_version": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          }
+        }
+      },
+      "ErrorDetail": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "code",
+          "message",
+          "request_id"
+        ],
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ErrorCode"
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512
+          },
+          "request_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/ErrorDetail"
+          }
+        }
+      },
+      "WorldAsset": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "asset_id",
+          "fixture_id",
+          "label",
+          "asset_type",
+          "site_id",
+          "subsystem_id",
+          "critical",
+          "serial_number",
+          "measurement_unit",
+          "capacity_constraint",
+          "position",
+          "coordinate_system",
+          "dependencies"
+        ],
+        "properties": {
+          "asset_id": {
+            "type": "string",
+            "pattern": "^WTP01-(SYS|PMP|TNK|FLT|VLV|SNS)-[0-9]{3}$"
+          },
+          "fixture_id": {
+            "const": "TITAN-WTP-01"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "asset_type": {
+            "type": "string",
+            "enum": [
+              "subsystem",
+              "pump",
+              "tank",
+              "filter",
+              "valve",
+              "sensor"
+            ]
+          },
+          "site_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9_-]{1,62}$"
+          },
+          "subsystem_id": {
+            "type": "string",
+            "pattern": "^WTP01-SYS-[0-9]{3}$"
+          },
+          "critical": {
+            "type": "boolean"
+          },
+          "serial_number": {
+            "type": "string",
+            "pattern": "^SYN-WTP01-(SYS|PMP|TNK|FLT|VLV|SNS)-[0-9]{3}$"
+          },
+          "measurement_unit": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32
+          },
+          "capacity_constraint": {
+            "$ref": "#/components/schemas/CapacityConstraint"
+          },
+          "position": {
+            "$ref": "#/components/schemas/Vector3"
+          },
+          "coordinate_system": {
+            "const": "TITAN_LOCAL_PLANT_GRID_V1"
+          },
+          "dependencies": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssetDependency"
+            }
+          }
+        }
+      },
+      "CapacityConstraint": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "metric",
+          "minimum",
+          "maximum",
+          "unit"
+        ],
+        "properties": {
+          "metric": {
+            "type": "string"
+          },
+          "minimum": {
+            "type": "number",
+            "minimum": 0
+          },
+          "maximum": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "unit": {
+            "type": "string"
+          }
+        }
+      },
+      "AssetDependency": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "relation",
+          "target_asset_id"
+        ],
+        "properties": {
+          "relation": {
+            "type": "string",
+            "enum": [
+              "PART_OF",
+              "DEPENDS_ON",
+              "FEEDS",
+              "MONITORS",
+              "CONTROLLED_BY"
+            ]
+          },
+          "target_asset_id": {
+            "type": "string",
+            "pattern": "^WTP01-(SYS|PMP|TNK|FLT|VLV|SNS)-[0-9]{3}$"
+          }
+        }
+      },
+      "WorldRelation": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "relation_id",
+          "source_asset_id",
+          "target_asset_id",
+          "relation_type",
+          "fixture_id"
+        ],
+        "properties": {
+          "relation_id": {
+            "type": "string"
+          },
+          "source_asset_id": {
+            "type": "string"
+          },
+          "target_asset_id": {
+            "type": "string"
+          },
+          "relation_type": {
+            "type": "string",
+            "enum": [
+              "PART_OF",
+              "DEPENDS_ON",
+              "FEEDS",
+              "MONITORS",
+              "CONTROLLED_BY"
+            ]
+          },
+          "fixture_id": {
+            "const": "TITAN-WTP-01"
+          }
+        }
+      },
+      "WorldTopology": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "fixture_id",
+          "graph_version",
+          "assets",
+          "relations"
+        ],
+        "properties": {
+          "fixture_id": {
+            "const": "TITAN-WTP-01"
+          },
+          "graph_version": {
+            "type": "string"
+          },
+          "assets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WorldAsset"
+            }
+          },
+          "relations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WorldRelation"
+            }
+          }
+        }
+      },
+      "WorldAssetPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "fixture_id",
+          "cursor",
+          "items"
+        ],
+        "properties": {
+          "fixture_id": {
+            "const": "TITAN-WTP-01"
+          },
+          "cursor": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WorldAsset"
+            }
+          }
+        }
+      },
+      "WorldIncidentPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "cursor",
+          "items"
+        ],
+        "properties": {
+          "cursor": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WorldIncident"
+            }
+          }
+        }
+      },
+      "WorldIncident": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "incident_id",
+          "site_id",
+          "label",
+          "status",
+          "classification",
+          "affected_asset_ids",
+          "state"
+        ],
+        "properties": {
+          "incident_id": {
+            "type": "string"
+          },
+          "site_id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "open",
+              "investigating",
+              "resolved"
+            ]
+          },
+          "classification": {
+            "$ref": "#/components/schemas/DataClassification"
+          },
+          "affected_asset_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "state": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      },
+      "SceneEntity": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "asset_id",
+          "geometry_ref",
+          "transform"
+        ],
+        "properties": {
+          "asset_id": {
+            "type": "string"
+          },
+          "geometry_ref": {
+            "type": "string",
+            "pattern": "^procedural://geometry/[a-z0-9-]+$"
+          },
+          "transform": {
+            "type": "object",
+            "required": [
+              "position",
+              "rotation_degrees",
+              "scale"
+            ],
+            "properties": {
+              "position": {
+                "$ref": "#/components/schemas/Vector3"
+              },
+              "rotation_degrees": {
+                "$ref": "#/components/schemas/Vector3"
+              },
+              "scale": {
+                "$ref": "#/components/schemas/Vector3"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "WorldSnapshot": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "tenant_id",
+          "site_id",
+          "fixture_id",
+          "graph_version",
+          "cursor",
+          "assets",
+          "relations",
+          "incidents",
+          "scene_entities"
+        ],
+        "properties": {
+          "tenant_id": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "site_id": {
+            "type": "string"
+          },
+          "fixture_id": {
+            "const": "TITAN-WTP-01"
+          },
+          "graph_version": {
+            "type": "string"
+          },
+          "cursor": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "assets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WorldAsset"
+            }
+          },
+          "relations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WorldRelation"
+            }
+          },
+          "incidents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WorldIncident"
+            }
+          },
+          "scene_entities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SceneEntity"
+            }
+          }
+        }
+      },
+      "WorldDocumentMetadata": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "document_id",
+          "fixture_id",
+          "title",
+          "license",
+          "source",
+          "classification"
+        ],
+        "properties": {
+          "document_id": {
+            "type": "string"
+          },
+          "fixture_id": {
+            "const": "TITAN-WTP-01"
+          },
+          "title": {
+            "type": "string"
+          },
+          "license": {
+            "const": "CC0-1.0"
+          },
+          "source": {
+            "const": "synthetic_fixture"
+          },
+          "classification": {
+            "$ref": "#/components/schemas/DataClassification"
+          },
+          "asset_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "fixture_only": {
+            "const": true
+          }
+        }
+      },
+      "HealthStatus": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "status",
+          "service"
+        ],
+        "properties": {
+          "status": {
+            "const": "ok"
+          },
+          "service": {
+            "const": "nexus-titan-api"
+          }
+        }
+      },
+      "TelemetrySample": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "fixture_id",
+          "site_id",
+          "asset_id",
+          "sample_sequence",
+          "sampled_at",
+          "metric",
+          "unit",
+          "quality"
+        ],
+        "properties": {
+          "fixture_id": {
+            "const": "TITAN-WTP-01"
+          },
+          "site_id": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 63
+          },
+          "asset_id": {
+            "type": "string",
+            "pattern": "^WTP01-PMP-\\d{3}$"
+          },
+          "sample_sequence": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "sampled_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "metric": {
+            "$ref": "#/components/schemas/TelemetryMetric"
+          },
+          "value": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "unit": {
+            "$ref": "#/components/schemas/TelemetryUnit"
+          },
+          "quality": {
+            "$ref": "#/components/schemas/TelemetryQuality"
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "metric": {
+                  "const": "pressure"
+                }
+              },
+              "required": [
+                "metric"
+              ]
+            },
+            "then": {
+              "properties": {
+                "unit": {
+                  "const": "kPa"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "metric": {
+                  "const": "flow"
+                }
+              },
+              "required": [
+                "metric"
+              ]
+            },
+            "then": {
+              "properties": {
+                "unit": {
+                  "const": "m3/h"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "metric": {
+                  "const": "vibration"
+                }
+              },
+              "required": [
+                "metric"
+              ]
+            },
+            "then": {
+              "properties": {
+                "unit": {
+                  "const": "mm/s"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "metric": {
+                  "const": "temperature"
+                }
+              },
+              "required": [
+                "metric"
+              ]
+            },
+            "then": {
+              "properties": {
+                "unit": {
+                  "const": "degC"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "quality": {
+                  "const": "missing"
+                }
+              },
+              "required": [
+                "quality"
+              ]
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "null"
+                }
+              },
+              "required": [
+                "value"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "quality": {
+                  "enum": [
+                    "good",
+                    "suspect"
+                  ]
+                }
+              },
+              "required": [
+                "quality"
+              ]
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "value"
+              ]
+            }
+          }
+        ]
+      },
+      "TelemetryPoint": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "sampled_at",
+          "sample_count",
+          "unit",
+          "quality"
+        ],
+        "properties": {
+          "sampled_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "value": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "minimum": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "maximum": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "sample_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "unit": {
+            "$ref": "#/components/schemas/TelemetryUnit"
+          },
+          "quality": {
+            "$ref": "#/components/schemas/TelemetryQuality"
+          }
+        }
+      },
+      "TelemetrySeriesPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "tenant_id",
+          "site_id",
+          "asset_id",
+          "metric",
+          "unit",
+          "start",
+          "end",
+          "interval_seconds",
+          "availability",
+          "stale",
+          "points"
+        ],
+        "properties": {
+          "tenant_id": {
+            "$ref": "#/components/schemas/TenantId"
+          },
+          "site_id": {
+            "type": "string"
+          },
+          "asset_id": {
+            "type": "string",
+            "pattern": "^WTP01-PMP-\\d{3}$"
+          },
+          "metric": {
+            "$ref": "#/components/schemas/TelemetryMetric"
+          },
+          "unit": {
+            "$ref": "#/components/schemas/TelemetryUnit"
+          },
+          "start": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "end": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "interval_seconds": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3600
+          },
+          "availability": {
+            "type": "string",
+            "enum": [
+              "available",
+              "no_data"
+            ]
+          },
+          "stale": {
+            "type": "boolean"
+          },
+          "points": {
+            "type": "array",
+            "maxItems": 10000,
+            "items": {
+              "$ref": "#/components/schemas/TelemetryPoint"
+            }
+          }
+        }
+      },
+      "TelemetryMetric": {
+        "type": "string",
+        "enum": [
+          "pressure",
+          "flow",
+          "vibration",
+          "temperature"
+        ]
+      },
+      "TelemetryQuality": {
+        "type": "string",
+        "enum": [
+          "good",
+          "suspect",
+          "missing"
+        ]
+      },
+      "TelemetryUnit": {
+        "type": "string",
+        "enum": [
+          "kPa",
+          "m3/h",
+          "mm/s",
+          "degC"
+        ]
+      }
+    }
+  }
+}

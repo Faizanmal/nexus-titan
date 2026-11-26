@@ -1,0 +1,20 @@
+{
+  "evidence_refs": [
+    "inspection-images/WTP01-PMP-001.svg",
+    "manuals/manual-synthetic-pumps.md"
+  ],
+  "fixture_id": "TITAN-WTP-01",
+  "fixture_only": true,
+  "observations": [
+    {
+      "asset_id": "WTP01-SNS-001",
+      "metric": "discharge_pressure",
+      "note": "Synthetic reading; compare against the asset's recent fixture baseline.",
+      "observation_id": "OBS-001",
+      "unit": "bar",
+      "value": 1.8
+    }
+  ],
+  "prompt_context_notice": "Public synthetic scenario input. Ground truth is stored separately and must not be passed to a model.",
+  "scenario_id": "TITAN-WTP-01-PUMP-DEGRADATION-01"
+}
