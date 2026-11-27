@@ -1478,5 +1478,31 @@ See [phase-17 evidence](evidence/phase-17.md). Final full API pytest: exit 0, 98
   - `pnpm test:suites`: exited 0 (14/14 test suites passed).
   - `uv run --project services/api pytest`: exited 0 (**182 passed**, 3 warnings in 8.00s).
 
+## Phase 33 — Live retest polish: Stage 4 approval gate, Stage 5 scrubber state, network reconnect tracking, and per-step progress indicators
+
+- **Status: PASS**
+- **Date:** 2026-11-28
+- **Tasks completed:**
+  - **/demo Stage 4 Approval Card**:
+    - Hid `"Approved by supervisor. Enforced safety reducer: no_actuator_path: true."` before Stage 4 execution.
+    - Displays an italicized `"Not run yet"` notice until `stepData["supervisor_approval"]` is populated upon stage completion.
+  - **/demo Stage 5 Timeline Scrubber Count**:
+    - Hid the pre-run `"Event 11 of 14"` count before Stage 5 execution.
+    - Displays `"Not run yet"` before Stage 5 runs, and cleanly reflects `"Event 11 of 11"` (or current event index) once `stepData["replay"].timeline` is available.
+    - Disabled the timeline range slider until Stage 5 completes.
+  - **/demo Network Status State Tracking**:
+    - Initialized network state to `"ONLINE (Connected)"` on initial page mount and after session reset.
+    - Introduced `hasBeenOffline` state tracker that sets to `true` strictly upon offline toggling; Stage 3 network label displays `"ONLINE (Reconnected)"` exclusively after an offline-to-online transition.
+    - Running Stage 2 does not alter network state or affect Stage 3's network indicator.
+  - **/demo In-Flight Stage Progress Indicators**:
+    - Added reactive `stageProgress` state across all guided stages (e.g. `"Step 1/3: baseline…"`, `"Step 2/4: peer_transfer…"`, etc.).
+    - Renders an animated pulse progress indicator in each stage's action bar alongside dynamic execution button labels so judges clearly see in-flight step execution across long-running stages.
+- **Measured verification results:**
+  - `pnpm -r lint`: exited 0 (0 errors across contracts, hybrid-web, web).
+  - `pnpm -r typecheck`: exited 0 (0 errors across contracts, hybrid-web, web).
+  - `pnpm --filter @nexus-titan/web build`: exited 0 (all 23 routes static/partial prerendered).
+  - `pnpm test:suites`: exited 0 (all 14 test suites passed).
+  - `uv run --project services/api pytest`: exited 0 (**182 passed**, 3 warnings in 6.94s).
+
 
 

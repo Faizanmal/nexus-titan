@@ -272,10 +272,15 @@ export default function DemoPage() {
   const [evidenceType, setEvidenceType] = useState<EvidenceType>("disagreeing");
   const [selectedPlan, setSelectedPlan] = useState<PlanType>("plan_a");
   const [isOffline, setIsOffline] = useState<boolean>(false);
+  const [hasBeenOffline, setHasBeenOffline] = useState<boolean>(false);
+  const [stageProgress, setStageProgress] = useState<string>("");
   const [stage3Mode, setStage3Mode] = useState<HybridMode>("PREFER_ON_DEVICE");
 
   const handleSetOffline = useCallback((nextOffline: boolean) => {
     setIsOffline(nextOffline);
+    if (nextOffline) {
+      setHasBeenOffline(true);
+    }
     setError((prev) => (prev.includes("NETWORK_OFFLINE") ? "" : prev));
   }, []);
 
@@ -464,31 +469,46 @@ export default function DemoPage() {
       setRunningStage(stage);
       try {
         if (stage === 1) {
+          setStageProgress("Step 1/3: baseline…");
           if (!(await runStep("baseline"))) return;
+          setStageProgress("Step 2/3: fault_injection…");
           if (!(await runStep("fault_injection"))) return;
+          setStageProgress("Step 3/3: evidence_capture…");
           await runStep("evidence_capture");
         } else if (stage === 2) {
+          setStageProgress("Step 1/1: local_ai_offline…");
           await runStep("local_ai_offline");
         } else if (stage === 3) {
           if (isOffline) {
             setError("NETWORK_OFFLINE: Cloud handoff blocked while in offline simulation. Switch network to online to proceed.");
             return;
           }
+          setStageProgress("Step 1/4: redaction_approval…");
           if (!(await runStep("redaction_approval"))) return;
+          setStageProgress("Step 2/4: peer_transfer…");
           if (!(await runStep("peer_transfer"))) return;
+          setStageProgress("Step 3/4: canonical_sync…");
           if (!(await runStep("canonical_sync"))) return;
+          setStageProgress("Step 4/4: cloud_inference…");
           await runStep("cloud_inference");
         } else if (stage === 4) {
+          setStageProgress("Step 1/4: causal_agent_dag…");
           if (!(await runStep("causal_agent_dag"))) return;
+          setStageProgress("Step 2/4: solver_scenarios…");
           if (!(await runStep("solver_scenarios"))) return;
+          setStageProgress("Step 3/4: stale_approval_test…");
           if (!(await runStep("stale_approval_test"))) return;
+          setStageProgress("Step 4/4: supervisor_approval…");
           await runStep("supervisor_approval");
         } else if (stage === 5) {
+          setStageProgress("Step 1/2: twin_update…");
           if (!(await runStep("twin_update"))) return;
+          setStageProgress("Step 2/2: replay…");
           await runStep("replay");
         }
       } finally {
         setRunningStage(null);
+        setStageProgress("");
       }
     },
     [runStep, busy, runningStage, isOffline]
@@ -638,6 +658,9 @@ export default function DemoPage() {
     setTraceHistory([]);
     setStage3ConsentGranted(false);
     setIsOffline(false);
+    setHasBeenOffline(false);
+    setStageProgress("");
+    setReplayIndex(10);
     setActiveStep("baseline");
     setActiveStage(1);
     setInfoMessage("Signed out from evaluator sandbox.");
@@ -699,6 +722,9 @@ export default function DemoPage() {
     setTraceHistory([]);
     setStage3ConsentGranted(false);
     setIsOffline(false);
+    setHasBeenOffline(false);
+    setStageProgress("");
+    setReplayIndex(10);
     setActiveStep("baseline");
     setActiveStage(1);
     setInfoMessage("Demo run session reset. Global workspace and database state preserved.");
@@ -1130,14 +1156,23 @@ export default function DemoPage() {
                     </select>
                   </div>
                 </div>
-                <button
-                  onClick={() => void runStage(1)}
-                  disabled={busy || runningStage !== null}
-                  aria-busy={busy || runningStage !== null}
-                  className="rounded bg-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
-                >
-                  {runningStage === 1 ? "Running Stage 1…" : "Execute Stage 1: Trigger Alarm & Capture Evidence"}
-                </button>
+                <div className="flex items-center gap-3">
+                  {runningStage === 1 && stageProgress && (
+                    <span className="font-mono text-xs font-semibold text-indigo-700 animate-pulse">
+                      {stageProgress}
+                    </span>
+                  )}
+                  <button
+                    onClick={() => void runStage(1)}
+                    disabled={busy || runningStage !== null}
+                    aria-busy={busy || runningStage !== null}
+                    className="rounded bg-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
+                  >
+                    {runningStage === 1
+                      ? (stageProgress ? `Running Stage 1 (${stageProgress})` : "Running Stage 1…")
+                      : "Execute Stage 1: Trigger Alarm & Capture Evidence"}
+                  </button>
+                </div>
               </div>
 
               {/* Side-by-Side: SCADA Alarm vs Physical Observation & Contradiction */}
@@ -1404,14 +1439,23 @@ export default function DemoPage() {
                     Online Mode
                   </button>
                 </div>
-                <button
-                  onClick={() => void runStage(2)}
-                  disabled={busy || runningStage !== null}
-                  aria-busy={busy || runningStage !== null}
-                  className="rounded bg-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
-                >
-                  {runningStage === 2 ? "Running Stage 2…" : "Execute Stage 2: Offline Local AI Triage"}
-                </button>
+                <div className="flex items-center gap-3">
+                  {runningStage === 2 && stageProgress && (
+                    <span className="font-mono text-xs font-semibold text-indigo-700 animate-pulse">
+                      {stageProgress}
+                    </span>
+                  )}
+                  <button
+                    onClick={() => void runStage(2)}
+                    disabled={busy || runningStage !== null}
+                    aria-busy={busy || runningStage !== null}
+                    className="rounded bg-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
+                  >
+                    {runningStage === 2
+                      ? (stageProgress ? `Running Stage 2 (${stageProgress})` : "Running Stage 2…")
+                      : "Execute Stage 2: Offline Local AI Triage"}
+                  </button>
+                </div>
               </div>
 
               {/* Side-by-Side: Approved Fields & Privacy Boundary vs Model Source & Diagnosis */}
@@ -1522,7 +1566,7 @@ export default function DemoPage() {
                   Review the stripped restricted fields versus permitted telemetry fields. Authorize operator consent with cryptographic SHA-256 consent digest, verify exactly-once Ed25519 canonical synchronization, and run Firebase AI Logic (cloud, Gemini) for systemic root cause analysis.{stepData["cloud_inference"]?.client_provider_response?.observed_source ? ` Masquerading Prevented: verified via SDK-reported client provenance (${String(stepData["cloud_inference"].client_provider_response.observed_source)}).` : ""}
                 </p>
                 <div className="flex flex-wrap items-center gap-3 pt-2 font-mono text-[11px]">
-                  <span>Network: <strong className={isOffline ? "text-amber-800" : "text-emerald-700"}>{isOffline ? "OFFLINE (Airgapped / Isolated)" : "ONLINE (Reconnected)"}</strong></span>
+                  <span>Network: <strong className={isOffline ? "text-amber-800" : "text-emerald-700"}>{isOffline ? "OFFLINE (Airgapped / Isolated)" : (hasBeenOffline ? "ONLINE (Reconnected)" : "ONLINE (Connected)")}</strong></span>
                   <span>Consent State: <strong className={stage3ConsentGranted ? "text-emerald-700" : "text-amber-700"}>{stage3ConsentGranted ? "Approved & Cryptographically Signed" : "Consent Withheld (Cloud Blocked)"}</strong></span>
                   <span>Cloud Mode: <strong className="text-indigo-900">{stage3Mode}</strong></span>
                 </div>
@@ -1555,14 +1599,23 @@ export default function DemoPage() {
                     </select>
                   </div>
                 </div>
-                <button
-                  onClick={() => void runStage(3)}
-                  disabled={busy || runningStage !== null}
-                  aria-busy={busy || runningStage !== null}
-                  className="rounded bg-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
-                >
-                  {runningStage === 3 ? "Running Stage 3…" : "Execute Stage 3: Consent & Cloud Handoff"}
-                </button>
+                <div className="flex items-center gap-3">
+                  {runningStage === 3 && stageProgress && (
+                    <span className="font-mono text-xs font-semibold text-indigo-700 animate-pulse">
+                      {stageProgress}
+                    </span>
+                  )}
+                  <button
+                    onClick={() => void runStage(3)}
+                    disabled={busy || runningStage !== null}
+                    aria-busy={busy || runningStage !== null}
+                    className="rounded bg-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
+                  >
+                    {runningStage === 3
+                      ? (stageProgress ? `Running Stage 3 (${stageProgress})` : "Running Stage 3…")
+                      : "Execute Stage 3: Consent & Cloud Handoff"}
+                  </button>
+                </div>
               </div>
 
               {error && error.includes("NETWORK_OFFLINE") && (
@@ -1701,14 +1754,23 @@ export default function DemoPage() {
                     <option value="no_action">No Action Branch (Catastrophic Failure)</option>
                   </select>
                 </div>
-                <button
-                  onClick={() => void runStage(4)}
-                  disabled={busy || runningStage !== null}
-                  aria-busy={busy || runningStage !== null}
-                  className="rounded bg-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
-                >
-                  {runningStage === 4 ? "Running Stage 4…" : "Execute Stage 4: Causal DAG & Solver Decision"}
-                </button>
+                <div className="flex items-center gap-3">
+                  {runningStage === 4 && stageProgress && (
+                    <span className="font-mono text-xs font-semibold text-indigo-700 animate-pulse">
+                      {stageProgress}
+                    </span>
+                  )}
+                  <button
+                    onClick={() => void runStage(4)}
+                    disabled={busy || runningStage !== null}
+                    aria-busy={busy || runningStage !== null}
+                    className="rounded bg-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
+                  >
+                    {runningStage === 4
+                      ? (stageProgress ? `Running Stage 4 (${stageProgress})` : "Running Stage 4…")
+                      : "Execute Stage 4: Causal DAG & Solver Decision"}
+                  </button>
+                </div>
               </div>
 
               {/* Side-by-Side: Counterfactual Solver Table vs Approved Plan & Safety Gates */}
@@ -1784,9 +1846,15 @@ export default function DemoPage() {
                             : "—"}
                         </span>
                       </div>
-                      <p className="text-slate-800 text-[11px]">
-                        Approved by supervisor. Enforced safety reducer: <code className="font-mono">no_actuator_path: true</code>.
-                      </p>
+                      {stepData["supervisor_approval"] ? (
+                        <p className="text-slate-800 text-[11px]">
+                          Approved by supervisor. Enforced safety reducer: <code className="font-mono">no_actuator_path: true</code>.
+                        </p>
+                      ) : (
+                        <p className="text-slate-500 text-[11px] italic">
+                          Not run yet
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -1825,14 +1893,23 @@ export default function DemoPage() {
                 <span className="text-xs text-slate-600">
                   Incident Timeline Replay & Verification Scrubber
                 </span>
-                <button
-                  onClick={() => void runStage(5)}
-                  disabled={busy || runningStage !== null}
-                  aria-busy={busy || runningStage !== null}
-                  className="rounded bg-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
-                >
-                  {runningStage === 5 ? "Running Stage 5…" : "Execute Stage 5: Update Twin & Replay"}
-                </button>
+                <div className="flex items-center gap-3">
+                  {runningStage === 5 && stageProgress && (
+                    <span className="font-mono text-xs font-semibold text-indigo-700 animate-pulse">
+                      {stageProgress}
+                    </span>
+                  )}
+                  <button
+                    onClick={() => void runStage(5)}
+                    disabled={busy || runningStage !== null}
+                    aria-busy={busy || runningStage !== null}
+                    className="rounded bg-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
+                  >
+                    {runningStage === 5
+                      ? (stageProgress ? `Running Stage 5 (${stageProgress})` : "Running Stage 5…")
+                      : "Execute Stage 5: Update Twin & Replay"}
+                  </button>
+                </div>
               </div>
 
               {/* Side-by-Side: Spatial Twin State vs Interactive Timeline Scrubber */}
@@ -1886,7 +1963,11 @@ export default function DemoPage() {
                   <div className="space-y-1">
                     <div className="flex justify-between text-xs text-slate-600">
                       <span>Timeline Scrubber</span>
-                      <span>Event {replayIndex + 1} of {stepData["replay"]?.timeline?.length ?? 14}</span>
+                      {stepData["replay"]?.timeline ? (
+                        <span>Event {replayIndex + 1} of {stepData["replay"].timeline.length}</span>
+                      ) : (
+                        <span className="text-slate-500 italic">Not run yet</span>
+                      )}
                     </div>
                     <label htmlFor="timeline-scrubber" className="sr-only">Timeline event scrubber slider</label>
                     <input
@@ -1894,10 +1975,11 @@ export default function DemoPage() {
                       aria-label="Timeline event scrubber slider"
                       type="range"
                       min="0"
-                      max={Math.max(0, (stepData["replay"]?.timeline?.length ?? 14) - 1)}
-                      value={replayIndex}
+                      max={Math.max(0, (stepData["replay"]?.timeline?.length ?? 1) - 1)}
+                      value={stepData["replay"]?.timeline ? replayIndex : 0}
+                      disabled={!stepData["replay"]?.timeline}
                       onChange={(e) => setReplayIndex(Number(e.target.value))}
-                      className="w-full accent-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="w-full accent-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
                     />
                   </div>
 
