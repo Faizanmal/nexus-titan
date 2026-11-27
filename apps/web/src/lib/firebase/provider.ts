@@ -43,18 +43,31 @@ export async function requestFirebaseInference(
   } else {
     onProgress("Checking / preparing device model…");
     try {
-      await model.initializeDeviceModel((progress) =>
-        onProgress(`Device model progress: ${Math.round(progress * 100)}%`),
-      );
+      const prep = await prepareGeminiNano();
+      if (!prep.ready && (mode === "PREFER_ON_DEVICE" || mode === "PREFER_IN_CLOUD")) {
+        onProgress("Device model unavailable, fell back to cloud");
+      } else {
+        await model.initializeDeviceModel((progress) =>
+          onProgress(`Device model progress: ${Math.round(progress * 100)}%`),
+        );
+        onProgress("Device model ready");
+      }
     } catch (error) {
-      onProgress("Device model unavailable or initialization failed");
-      throw error;
+      if (mode === "ONLY_ON_DEVICE") {
+        onProgress("Device model unavailable or initialization failed");
+        throw error;
+      }
+      onProgress("Device model unavailable, fell back to cloud");
     }
-    onProgress("Device model ready");
   }
   const result = await model.generateContent(prompt);
   const reportedSource = mapReportedInferenceSource(result.response.inferenceSource);
   const actualSource = reportedSource ?? (mode === "ONLY_IN_CLOUD" ? "IN_CLOUD (inferred from mode)" : null);
+  if ((mode === "PREFER_ON_DEVICE" || mode === "PREFER_IN_CLOUD") && actualSource !== "ON_DEVICE") {
+    onProgress("Device model unavailable, fell back to cloud");
+  } else if (actualSource === "ON_DEVICE") {
+    onProgress("Device model ready");
+  }
   return {
     text: result.response.text(),
     actualSource,

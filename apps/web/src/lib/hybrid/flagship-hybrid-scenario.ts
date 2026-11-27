@@ -17,7 +17,6 @@ import {
   runFirebaseHybridTask,
   inspectCapabilities,
   prepareGeminiNano,
-  readHybridRemoteConfig,
   type CapabilitySnapshot,
   type HybridMode,
   type InferenceSource,
@@ -506,16 +505,6 @@ export async function executeCloudLeg(
   // Labeled simulation fallback when cloud credentials/auth unavailable in local test sandbox
   const elapsed = Math.round(performance.now() - start);
   const reasonText = cloudErrorReason || "Cloud credentials or provider unavailable in local test sandbox";
-  let fallbackModel = CONFIG_CLOUD_MODEL;
-  try {
-    const { app } = firebaseAuthClient();
-    const runtimeConfig = await readHybridRemoteConfig(app);
-    if (runtimeConfig?.model) {
-      fallbackModel = runtimeConfig.model;
-    }
-  } catch {
-    // remote config fallback
-  }
 
   return {
     leg: "cloud_vertex",
@@ -525,7 +514,7 @@ export async function executeCloudLeg(
     observed_source: "MOCK",
     is_simulation_fallback: true,
     duration_ms: Math.max(elapsed, 45.2),
-    model: fallbackModel,
+    model: "none (simulated)",
     fallback_reason: reasonText,
     actionable_hypothesis:
       "Cloud Root-Cause Analysis (Sanitized Context): Systemic risk downgraded from CRITICAL to LOW. No hydraulic shock propagation toward Rapid Sand Filter Bed FB-01.",

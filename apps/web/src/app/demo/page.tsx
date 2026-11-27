@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ErrorState } from "@/components/command-center-primitives";
 import { firebaseAppCheckClient, firebaseAuthClient } from "@/lib/firebase/client";
-import { inspectCapabilities, type CapabilitySnapshot, type HybridMode } from "@nexus-titan/hybrid-web";
+import { inspectCapabilities, getNanoStatus, type CapabilitySnapshot, type HybridMode } from "@nexus-titan/hybrid-web";
 import {
   executeOfflineLocalLeg,
   executeCloudLeg,
@@ -264,6 +264,7 @@ export default function DemoPage() {
 
   // Model capability & runtime state
   const [capabilities, setCapabilities] = useState<CapabilitySnapshot | null>(null);
+  const [nanoStatusText, setNanoStatusText] = useState<string>("");
 
   // Selectable scenario configurations
   const [faultType, setFaultType] = useState<FaultType>("cavitation");
@@ -289,12 +290,16 @@ export default function DemoPage() {
   const [destructiveBusy, setDestructiveBusy] = useState(false);
   const allowedCandidate = phrase === "RESET demo-nexus";
 
-  // Check Gemini Nano / On-device capabilities on mount
+  // Check Gemini Nano / On-device capabilities on mount via inspectCapabilities & getNanoStatus
   useEffect(() => {
-    void inspectCapabilities().then((cap) => {
-      setCapabilities(cap);
+    void getNanoStatus().then((nano) => {
+      setCapabilities(nano.capabilities);
+      setNanoStatusText(nano.status);
     }).catch(() => {
-      // capabilities check fallback
+      // capabilities check fallback: inspectCapabilities
+      void inspectCapabilities().then((cap) => {
+        setCapabilities(cap);
+      }).catch(() => {});
     });
   }, []);
 
@@ -442,6 +447,10 @@ export default function DemoPage() {
         } else if (stage === 2) {
           await runStep("local_ai_offline");
         } else if (stage === 3) {
+          if (isOffline) {
+            setError("NETWORK_OFFLINE: Cloud handoff blocked while in offline simulation. Switch network to online to proceed.");
+            return;
+          }
           if (!(await runStep("redaction_approval"))) return;
           if (!(await runStep("peer_transfer"))) return;
           if (!(await runStep("canonical_sync"))) return;
@@ -459,7 +468,7 @@ export default function DemoPage() {
         setRunningStage(null);
       }
     },
-    [runStep, busy, runningStage]
+    [runStep, busy, runningStage, isOffline]
   );
 
   // Judge onboarding action
@@ -651,26 +660,28 @@ export default function DemoPage() {
     };
   }, [onboardJudge]);
 
-  // Isolated session reset
+  // Isolated session reset: clear UI state immediately on click, then sync with server
   async function resetSession() {
     setBusy(true);
     setError("");
+    const prevSessionId = sessionId;
+    const newSess = `sess-demo-flagship-${Math.random().toString(36).substring(2, 7)}`;
+    const newCorr = `corr-titan-wtp01-${Math.random().toString(36).substring(2, 7)}`;
+    setSessionId(newSess);
+    setCorrelationId(newCorr);
+    setStepData({});
+    setTraceHistory([]);
+    setStage3ConsentGranted(false);
+    setIsOffline(false);
+    setActiveStep("baseline");
+    setActiveStage(1);
+    setInfoMessage("Demo run session reset. Global workspace and database state preserved.");
+
     try {
       await callDemoApi("/v1/demo/session/reset", {
         method: "POST",
-        body: JSON.stringify({ session_id: sessionId, tenant_id: "demo-nexus" }),
+        body: JSON.stringify({ session_id: prevSessionId, tenant_id: "demo-nexus" }),
       });
-      const newSess = `sess-demo-flagship-${Math.random().toString(36).substring(2, 7)}`;
-      const newCorr = `corr-titan-wtp01-${Math.random().toString(36).substring(2, 7)}`;
-      setSessionId(newSess);
-      setCorrelationId(newCorr);
-      setStepData({});
-      setTraceHistory([]);
-      setStage3ConsentGranted(false);
-      setIsOffline(false);
-      setActiveStep("baseline");
-      setActiveStage(1);
-      setInfoMessage("Demo run session reset. Global workspace and database state preserved.");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Demo session reset failed.");
     } finally {
@@ -1404,7 +1415,7 @@ export default function DemoPage() {
                     </div>
                     <div>
                       <span className="text-slate-500">Hardware Capability Floor:</span>
-                      <p className="text-slate-700">{stepData["local_ai_offline"]?.device_status_note ?? "Simulated Chrome Prompt API environment with deterministic on-device fixture fallback."}</p>
+                      <p className="text-slate-700">{stepData["local_ai_offline"]?.device_status_note ?? (nanoStatusText || "—")}</p>
                     </div>
                   </div>
                   <div className="rounded bg-emerald-50 border border-emerald-200 p-2.5 text-xs text-emerald-800 font-mono">
@@ -1439,11 +1450,11 @@ export default function DemoPage() {
                       {stepData["local_ai_offline"]?.client_provider_response?.is_simulation_fallback || stepData["local_ai_offline"]?.is_fixture ? (
                         <div className="space-y-2">
                           <p className="text-xs font-mono text-amber-900 bg-amber-50 p-2.5 rounded border border-amber-200">
-                            Status: Simulated (Gemini Nano not supported in this browser)
+                            Simulated: {String(stepData["local_ai_offline"].client_provider_response?.fallback_reason || stepData["local_ai_offline"].device_status_note || "Gemini Nano not supported in this browser")}
                           </p>
                           <div className="text-xs text-slate-700">
                             <span className="font-semibold text-slate-800">Example output (simulated): </span>
-                            <span className="text-slate-900 font-medium">{stepData["local_ai_offline"]?.diagnosis?.primary_hypothesis ?? "Cavitation & Suction Strainer Clogging"}</span>
+                            <span className="text-slate-900 font-medium">{stepData["local_ai_offline"]?.diagnosis?.primary_hypothesis ?? "—"}</span>
                           </div>
                         </div>
                       ) : (stepData["local_ai_offline"]?.client_provider_response?.observed_source === "ON_DEVICE" || stepData["local_ai_offline"]?.client_reported_source === "ON_DEVICE") && stepData["local_ai_offline"]?.client_provider_response?.summary ? (
@@ -1452,31 +1463,12 @@ export default function DemoPage() {
                             <div className="font-bold text-emerald-900">Firebase AI Logic (Gemini Nano):</div>
                             <p className="font-medium">{String(stepData["local_ai_offline"].client_provider_response.summary)}</p>
                           </div>
-                          <div className="text-xs text-slate-700">
-                            <span>Confidence: </span>
-                            <strong className="text-indigo-950">{Math.round((stepData["local_ai_offline"]?.diagnosis?.confidence ?? 0.89) * 100)}%</strong>
-                          </div>
-                          <div className="text-xs text-slate-600">
-                            <span>Suggested Actions: </span>
-                            <span className="font-medium text-slate-900">
-                              {stepData["local_ai_offline"]?.diagnosis?.suggested_actions?.join(" · ") ?? "Throttle bypass valve · Verify suction strainer · Check sensor wiring loop"}
-                            </span>
-                          </div>
                         </div>
                       ) : (
                         <div className="space-y-2">
-                          <p className="text-sm font-bold text-indigo-950">
-                            {stepData["local_ai_offline"]?.diagnosis?.primary_hypothesis ?? "Cavitation & Suction Strainer Clogging"}
-                          </p>
                           <div className="text-xs text-slate-700">
-                            <span>Confidence: </span>
-                            <strong className="text-indigo-950">{Math.round((stepData["local_ai_offline"]?.diagnosis?.confidence ?? 0.89) * 100)}%</strong>
-                          </div>
-                          <div className="text-xs text-slate-600">
-                            <span>Suggested Actions: </span>
-                            <span className="font-medium text-slate-900">
-                              {stepData["local_ai_offline"]?.diagnosis?.suggested_actions?.join(" · ") ?? "Throttle bypass valve · Verify suction strainer · Check sensor wiring loop"}
-                            </span>
+                            <span className="font-semibold text-slate-800">Example output (simulated): </span>
+                            <span className="text-slate-900 font-medium">{stepData["local_ai_offline"]?.diagnosis?.primary_hypothesis ?? "—"}</span>
                           </div>
                         </div>
                       )}
@@ -1505,7 +1497,7 @@ export default function DemoPage() {
                   What to do at Stage 3: Authorize De-identified Handoff & Run Firebase AI Logic (cloud, Gemini)
                 </strong>
                 <p className="text-indigo-900">
-                  Review the stripped restricted fields versus permitted telemetry fields. Authorize operator consent with cryptographic SHA-256 consent digest, verify exactly-once Ed25519 canonical synchronization, and run Firebase AI Logic (cloud, Gemini) for systemic root cause analysis.{stepData["cloud_inference"] ? ` Masquerading Prevented: verified via SDK-reported client provenance (${String(stepData["cloud_inference"].client_provider_response?.observed_source || stepData["cloud_inference"].client_reported_source || "IN_CLOUD")}).` : " Masquerading Prevented: provenance is mapped directly to SDK-reported client source."}
+                  Review the stripped restricted fields versus permitted telemetry fields. Authorize operator consent with cryptographic SHA-256 consent digest, verify exactly-once Ed25519 canonical synchronization, and run Firebase AI Logic (cloud, Gemini) for systemic root cause analysis.{stepData["cloud_inference"]?.client_provider_response?.observed_source ? ` Masquerading Prevented: verified via SDK-reported client provenance (${String(stepData["cloud_inference"].client_provider_response.observed_source)}).` : ""}
                 </p>
                 <div className="flex flex-wrap items-center gap-3 pt-2 font-mono text-[11px]">
                   <span>Network: <strong className={isOffline ? "text-amber-800" : "text-emerald-700"}>{isOffline ? "OFFLINE (Airgapped / Isolated)" : "ONLINE (Reconnected)"}</strong></span>
@@ -1610,26 +1602,29 @@ export default function DemoPage() {
                   ) : (
                     <div className="rounded-md border border-indigo-100 bg-indigo-50/50 p-3.5 space-y-2">
                       <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-950">
-                        Firebase AI Logic (cloud, {String(stepData["cloud_inference"]?.client_provider_response?.model || "gemini-3.5-flash-lite")})
+                        Firebase AI Logic (cloud, {String(stepData["cloud_inference"]?.client_provider_response?.model || "—")})
                       </h4>
-                      {stepData["cloud_inference"]?.client_provider_response?.fallback_reason ? (
-                        <p className="text-xs font-mono text-amber-900 bg-amber-50 p-2.5 rounded border border-amber-200">
-                          Simulated: {String(stepData["cloud_inference"].client_provider_response.fallback_reason)}
-                        </p>
+                      {stepData["cloud_inference"]?.client_provider_response?.is_simulation_fallback || stepData["cloud_inference"]?.is_fixture ? (
+                        <div className="space-y-2">
+                          <p className="text-xs font-mono text-amber-900 bg-amber-50 p-2.5 rounded border border-amber-200">
+                            Simulated: {String(stepData["cloud_inference"].client_provider_response?.fallback_reason || "Cloud credentials or provider unavailable in local test sandbox")}
+                          </p>
+                          <div className="text-xs text-slate-700">
+                            <span className="font-semibold text-slate-800">Example output (simulated): </span>
+                            <span className="text-slate-900 font-medium">{stepData["cloud_inference"]?.root_cause_analysis?.primary_defect ?? "—"}</span>
+                          </div>
+                        </div>
                       ) : (stepData["cloud_inference"]?.client_provider_response?.observed_source === "IN_CLOUD" || stepData["cloud_inference"]?.client_reported_source === "IN_CLOUD") && stepData["cloud_inference"]?.client_provider_response?.summary ? (
                         <div className="rounded border border-blue-300 bg-blue-50 p-2.5 text-xs text-blue-950 space-y-1">
                           <div className="font-bold text-blue-900">Firebase AI Logic (cloud, {String(stepData["cloud_inference"]?.client_provider_response?.model || "gemini-3.5-flash-lite")}):</div>
                           <p className="font-medium">{String(stepData["cloud_inference"].client_provider_response.summary)}</p>
                         </div>
                       ) : (
-                        <p className="text-sm font-bold text-indigo-950">
-                          {stepData["cloud_inference"]?.root_cause_analysis?.primary_defect ?? "Impeller Cavitation Erosion & Acoustic Vibration Wave Propagation"}
-                        </p>
+                        <div className="text-xs text-slate-700">
+                          <span className="font-semibold text-slate-800">Example output (simulated): </span>
+                          <span className="text-slate-900 font-medium">{stepData["cloud_inference"]?.root_cause_analysis?.primary_defect ?? "—"}</span>
+                        </div>
                       )}
-                      <div className="grid grid-cols-2 gap-2 text-xs font-mono text-slate-700">
-                        <div>Downstream Risk: <strong className="text-amber-800">{stepData["cloud_inference"]?.root_cause_analysis?.propagation_risk ?? "High (Subsystem Failure)"}</strong></div>
-                        <div>Systemic MTTR: <strong className="text-slate-800">{stepData["cloud_inference"]?.root_cause_analysis?.systemic_mttr_hours !== undefined ? `${stepData["cloud_inference"].root_cause_analysis.systemic_mttr_hours} hrs` : "—"}</strong></div>
-                      </div>
                     </div>
                   )}
 
@@ -1660,7 +1655,7 @@ export default function DemoPage() {
                 <div className="flex flex-wrap items-center gap-3 pt-2 font-mono text-[11px]">
                   <span>Causal DAG: <strong className="text-indigo-900">4 Synchronized Agents</strong></span>
                   <span>Safety Reducer: <strong className="text-emerald-700">SIMULATOR_ONLY (no_actuator_path: true)</strong></span>
-                  <span>Concurrency: <strong className="text-emerald-700">HTTP 409 Verified</strong></span>
+                  <span>Concurrency: <strong className="text-emerald-700">{stepData["stale_approval_test"]?.stale_validation?.http_status ? `HTTP ${stepData["stale_approval_test"].stale_validation.http_status} Verified` : "—"}</strong></span>
                 </div>
               </div>
 
@@ -1738,15 +1733,19 @@ export default function DemoPage() {
                       <div className="flex items-center justify-between">
                         <strong className="text-amber-950">Concurrency Safety Gate:</strong>
                         <span className="font-mono text-amber-900 font-bold">
-                          {stepData["stale_approval_test"]?.status === "conflict_detected"
-                            ? "HTTP 409 CONFLICT"
+                          {stepData["stale_approval_test"]?.stale_validation?.http_status
+                            ? `HTTP ${stepData["stale_approval_test"].stale_validation.http_status} CONFLICT`
                             : stepData["stale_approval_test"]
-                            ? "RESOLVED"
+                            ? String(stepData["stale_approval_test"].status)
                             : "—"}
                         </span>
                       </div>
                       <p className="text-amber-800 text-[11px]">
-                        Attempted actuator mutation rejected on stale snapshot hash. Prevents race conditions with live plant telemetry.
+                        {stepData["stale_approval_test"]?.stale_validation?.message
+                          ? `${stepData["stale_approval_test"].status}: ${stepData["stale_approval_test"].stale_validation.message}`
+                          : stepData["stale_approval_test"]
+                          ? "Attempted actuator mutation rejected on stale snapshot hash. Prevents race conditions with live plant telemetry."
+                          : "Pending Stage 4 execution."}
                       </p>
                     </div>
 

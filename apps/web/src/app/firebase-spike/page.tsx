@@ -73,6 +73,9 @@ export default function FirebaseSpikePage() {
     try {
       const result = await requestFirebaseInference(mode, fixture.prompt, setDownload);
       actualSource = result.actualSource || (mode === "ONLY_IN_CLOUD" ? "IN_CLOUD (inferred from mode)" : null);
+      if ((mode === "PREFER_ON_DEVICE" || mode === "PREFER_IN_CLOUD") && actualSource !== "ON_DEVICE") {
+        setDownload("Device model unavailable, fell back to cloud");
+      }
       setSource(actualSource ?? "SDK did not report inferenceSource");
       setOutput(result.text);
       const duration = Math.round(monotonicMs() - start);

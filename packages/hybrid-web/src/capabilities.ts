@@ -121,3 +121,35 @@ export async function prepareGeminiNano(
     status: "Chrome Prompt API detected; model status checking.",
   };
 }
+
+export interface NanoStatusResult {
+  supported: boolean;
+  modelState: ModelState;
+  ready: boolean;
+  status: string;
+  badgeLabel: string;
+  capabilities: CapabilitySnapshot;
+}
+
+export async function getNanoStatus(
+  onProgress?: (fraction: number) => void
+): Promise<NanoStatusResult> {
+  const [caps, prep] = await Promise.all([
+    inspectCapabilities("text"),
+    prepareGeminiNano(onProgress),
+  ]);
+  const badgeLabel = prep.ready
+    ? "Prompt API Ready"
+    : prep.modelState === "downloadable"
+    ? "Downloadable"
+    : "Unavailable (Deterministic Simulator Active)";
+
+  return {
+    supported: prep.supported,
+    modelState: prep.modelState,
+    ready: prep.ready,
+    status: prep.status,
+    badgeLabel,
+    capabilities: caps,
+  };
+}

@@ -5,7 +5,7 @@ import Link from "next/link";
 import {
   runFirebaseHybridTask,
   inspectCapabilities,
-  prepareGeminiNano,
+  getNanoStatus,
   HybridRuntimeError,
   type CapabilitySnapshot,
   type HybridMode,
@@ -71,19 +71,20 @@ export default function InferenceLabPage() {
   const [inFlightRequests, setInFlightRequests] = useState<Record<string, boolean>>({});
 
   const refresh = useCallback(async () => {
-    const caps = await inspectCapabilities("text");
-    setCapability(caps);
-    const prep = await prepareGeminiNano();
-    setNanoReady(prep.ready);
-    setNanoStatus(prep.status);
+    const nano = await getNanoStatus();
+    setCapability(nano.capabilities);
+    setNanoReady(nano.ready);
+    setNanoStatus(nano.status);
   }, []);
 
   useEffect(() => {
     void refresh();
   }, [refresh]);
 
-  // Load persisted offline incident state on mount
+  // Load persisted offline incident state on mount; always clear previous local and cloud results
   useEffect(() => {
+    setLocalResult(null);
+    setCloudResult(null);
     try {
       const saved = localStorage.getItem("nexus-flagship-hybrid-incident-v1");
       if (saved) {
@@ -108,14 +109,13 @@ export default function InferenceLabPage() {
           }
           setEvidence(ev);
         }
-        if (parsed.localResult) setLocalResult(parsed.localResult);
+        // Always reset previous execution results on mount
         if (parsed.sanitizedPayload) {
           setSanitizedPayload(parsed.sanitizedPayload);
           setEditableSanitizedText(parsed.sanitizedPayload.deidentified_summary);
         }
         if (parsed.consentHash) setConsentHash(parsed.consentHash);
         if (parsed.consentApproved !== undefined) setConsentApproved(parsed.consentApproved);
-        if (parsed.cloudResult) setCloudResult(parsed.cloudResult);
       }
     } catch {
       // LocalStorage access safe failure
@@ -154,12 +154,13 @@ export default function InferenceLabPage() {
     setFlagshipBusy(true);
     setFlagshipInfo("Preparing Gemini Nano (Chrome built-in) model (verifying Chrome Prompt API)…");
     try {
-      const prep = await prepareGeminiNano((fraction) => {
+      const nano = await getNanoStatus((fraction) => {
         setFlagshipInfo(`Gemini Nano downloading: ${Math.round(fraction * 100)}%`);
       });
-      setNanoReady(prep.ready);
-      setNanoStatus(prep.status);
-      setFlagshipInfo(prep.status);
+      setCapability(nano.capabilities);
+      setNanoReady(nano.ready);
+      setNanoStatus(nano.status);
+      setFlagshipInfo(nano.status);
     } catch (err) {
       setFlagshipError(`Preparation failed: ${err instanceof Error ? err.message : String(err)}`);
     } finally {
@@ -177,6 +178,9 @@ export default function InferenceLabPage() {
 
     setFlagshipBusy(true);
     setFlagshipError("");
+    setLocalResult(null);
+    setCloudResult(null);
+    persistState({ localResult: null, cloudResult: null });
     setFlagshipInfo("Executing Leg 1: Offline Local Edge Triage (ONLY_ON_DEVICE)…");
     setInFlightRequests((prev) => ({ ...prev, [requestKey]: true }));
 
@@ -252,6 +256,8 @@ export default function InferenceLabPage() {
 
     // Explicit approval gate: declined approval sends ZERO requests!
     if (!consentApproved) {
+      setCloudResult(null);
+      persistState({ cloudResult: null });
       setFlagshipError("APPROVAL_DECLINED: Cloud request blocked because operator approval was not granted.");
       return;
     }
@@ -263,10 +269,14 @@ export default function InferenceLabPage() {
     });
     if (currentComputedHash !== consentHash) {
       setConsentApproved(false);
+      setCloudResult(null);
+      persistState({ cloudResult: null });
       setFlagshipError("CONSENT_INVALIDATED: Payload was modified after consent was granted; re-approval required.");
       return;
     }
 
+    setCloudResult(null);
+    persistState({ cloudResult: null });
     setFlagshipBusy(true);
     setFlagshipError("");
     setFlagshipInfo(`Executing Leg 2: Root-Cause Analysis via Firebase AI Logic (${flagshipCloudMode})…`);
@@ -286,6 +296,8 @@ export default function InferenceLabPage() {
         `Leg 2 Complete: Cloud analysis observed source ${result.observed_source} in ${result.duration_ms} ms. Both legs linked to ${FLAGSHIP_INCIDENT_ID}.`
       );
     } catch (err) {
+      setCloudResult(null);
+      persistState({ cloudResult: null });
       setFlagshipError(`Leg 2 Failed: ${err instanceof Error ? err.message : String(err)}`);
     } finally {
       setInFlightRequests((prev) => {
