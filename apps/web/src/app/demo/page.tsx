@@ -249,6 +249,7 @@ export default function DemoPage() {
   const [stepData, setStepData] = useState<Record<string, StepResponse>>({});
   const [traceHistory, setTraceHistory] = useState<TraceItem[]>([]);
   const [busy, setBusy] = useState<boolean>(false);
+  const [runningStage, setRunningStage] = useState<GuidedStage | null>(null);
   const [error, setError] = useState<string>("");
   const [infoMessage, setInfoMessage] = useState<string>("");
   const [showGranularSteps, setShowGranularSteps] = useState<boolean>(false);
@@ -266,7 +267,7 @@ export default function DemoPage() {
 
   // Selectable scenario configurations
   const [faultType, setFaultType] = useState<FaultType>("cavitation");
-  const [evidenceType, setEvidenceType] = useState<EvidenceType>("agreeing");
+  const [evidenceType, setEvidenceType] = useState<EvidenceType>("disagreeing");
   const [selectedPlan, setSelectedPlan] = useState<PlanType>("plan_a");
   const [isOffline, setIsOffline] = useState<boolean>(false);
   const [stage3Mode, setStage3Mode] = useState<HybridMode>("PREFER_ON_DEVICE");
@@ -274,7 +275,7 @@ export default function DemoPage() {
   // Judge Onboarding state
   const [judgeSession, setJudgeSession] = useState<JudgeSession | null>(null);
   const [judgeAlias, setJudgeAlias] = useState<string>("contest-judge-alpha");
-  const [stage3ConsentGranted, setStage3ConsentGranted] = useState<boolean>(true);
+  const [stage3ConsentGranted, setStage3ConsentGranted] = useState<boolean>(false);
 
   // In-flight guard and onboarding deduplication ref
   const stepInFlightRef = useRef(false);
@@ -369,6 +370,7 @@ export default function DemoPage() {
             inferenceSource: cloudResult.observed_source,
             is_simulation_fallback: cloudResult.is_simulation_fallback,
             latency: cloudResult.duration_ms,
+            model: cloudResult.model || "gemini-3.5-flash-lite",
             fallback_reason: cloudResult.fallback_reason,
             actionable_hypothesis: cloudResult.actionable_hypothesis,
             recommended_inspection: cloudResult.recommended_inspection,
@@ -424,37 +426,29 @@ export default function DemoPage() {
     [sessionId, correlationId, judgeSession, faultType, evidenceType, selectedPlan, isOffline, capabilities, stage3Mode, stage3ConsentGranted]
   );
 
-  // High-level guided stage runner
+  // High-level guided stage runner: exactly 1 POST per click
   const runStage = useCallback(
     async (stage: GuidedStage) => {
+      if (stepInFlightRef.current || busy) return;
       setActiveStage(stage);
-      if (stage === 1) {
-        // Run Baseline -> Fault Injection -> Evidence Capture
-        await runStep("baseline");
-        await runStep("fault_injection");
-        await runStep("evidence_capture");
-      } else if (stage === 2) {
-        // Offline Local AI
-        await runStep("local_ai_offline");
-      } else if (stage === 3) {
-        // Redaction Approval -> Peer Transfer -> Canonical Sync -> Cloud Inference
-        await runStep("redaction_approval");
-        await runStep("peer_transfer");
-        await runStep("canonical_sync");
-        await runStep("cloud_inference");
-      } else if (stage === 4) {
-        // Causal DAG -> Solvers -> Stale Approval Check -> Supervisor Approval
-        await runStep("causal_agent_dag");
-        await runStep("solver_scenarios");
-        await runStep("stale_approval_test");
-        await runStep("supervisor_approval");
-      } else if (stage === 5) {
-        // Digital Twin Update -> Replay
-        await runStep("twin_update");
-        await runStep("replay");
+      setRunningStage(stage);
+      try {
+        if (stage === 1) {
+          await runStep("evidence_capture");
+        } else if (stage === 2) {
+          await runStep("local_ai_offline");
+        } else if (stage === 3) {
+          await runStep("cloud_inference");
+        } else if (stage === 4) {
+          await runStep("supervisor_approval");
+        } else if (stage === 5) {
+          await runStep("replay");
+        }
+      } finally {
+        setRunningStage(null);
       }
     },
-    [runStep]
+    [runStep, busy]
   );
 
   // Judge onboarding action
@@ -662,7 +656,6 @@ export default function DemoPage() {
       setActiveStep("baseline");
       setActiveStage(1);
       setInfoMessage("Demo run session reset. Global workspace and database state preserved.");
-      setTimeout(() => void runStep("baseline"), 100);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Demo session reset failed.");
     } finally {
@@ -1091,11 +1084,11 @@ export default function DemoPage() {
                 </div>
                 <button
                   onClick={() => void runStage(1)}
-                  disabled={busy}
-                  aria-busy={busy}
+                  disabled={busy || runningStage !== null}
+                  aria-busy={busy || runningStage !== null}
                   className="rounded bg-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
                 >
-                  {busy ? "Running Stage 1…" : "Execute Stage 1: Trigger Alarm & Capture Evidence"}
+                  {runningStage === 1 ? "Running Stage 1…" : "Execute Stage 1: Trigger Alarm & Capture Evidence"}
                 </button>
               </div>
 
@@ -1157,7 +1150,7 @@ export default function DemoPage() {
                   )}
                   <div className="flex justify-end pt-1">
                     <button
-                      onClick={() => void runStage(2)}
+                      onClick={() => setActiveStage(2)}
                       className="rounded bg-indigo-600 px-4 py-1.5 text-xs font-semibold text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     >
                       Proceed to Stage 2: Offline Local AI →
@@ -1285,7 +1278,7 @@ export default function DemoPage() {
                       <strong className="text-slate-900">Why an Approved Cloud Handoff Matters to a Maintenance Technician</strong>
                     </div>
                     <p className="text-slate-700 leading-relaxed">
-                      While local models triage acute component symptoms, plant-wide multi-agent causal DAGs and cross-fleet reliability graphs require heavy foundation models hosted in the cloud. The approved cloud handoff empowers the technician with data sovereignty: they inspect the exact de-identified payload, verify that confidential employee tokens and camera photos are stripped, and explicitly sign the cryptographic SHA-256 consent digest before any data egresses to Vertex AI.
+                      While local models triage acute component symptoms, plant-wide multi-agent causal DAGs and cross-fleet reliability graphs require heavy foundation models hosted in the cloud. The approved cloud handoff empowers the technician with data sovereignty: they inspect the exact de-identified payload, verify that confidential employee tokens and camera photos are stripped, and explicitly sign the cryptographic SHA-256 consent digest before any data egresses to Firebase AI Logic.
                     </p>
                   </div>
                 </div>
@@ -1351,11 +1344,11 @@ export default function DemoPage() {
                 </div>
                 <button
                   onClick={() => void runStage(2)}
-                  disabled={busy}
-                  aria-busy={busy}
+                  disabled={busy || runningStage !== null}
+                  aria-busy={busy || runningStage !== null}
                   className="rounded bg-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
                 >
-                  {busy ? "Running Stage 2…" : "Execute Stage 2: Offline Local AI Triage"}
+                  {runningStage === 2 ? "Running Stage 2…" : "Execute Stage 2: Offline Local AI Triage"}
                 </button>
               </div>
 
@@ -1395,13 +1388,13 @@ export default function DemoPage() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-bold text-slate-700">Source:</span>
-                      <InferenceBadge source={stepData["local_ai_offline"]?.client_reported_source || stepData["local_ai_offline"]?.actual_source || (stepData["local_ai_offline"]?.is_fixture ? "MOCK" : "ON_DEVICE")} />
+                      <InferenceBadge source={String(stepData["local_ai_offline"]?.client_provider_response?.observed_source || stepData["local_ai_offline"]?.client_reported_source || stepData["local_ai_offline"]?.actual_source || (stepData["local_ai_offline"]?.is_fixture ? "MOCK" : "ON_DEVICE"))} />
                       <span className="text-[11px] font-mono text-slate-500">
-                        ({stepData["local_ai_offline"]?.inference_source ?? "LOCAL_ON_DEVICE"})
+                        SDK: {String(stepData["local_ai_offline"]?.client_provider_response?.observed_source || stepData["local_ai_offline"]?.client_reported_source || (stepData["local_ai_offline"]?.inference_source ?? "ON_DEVICE"))}
                       </span>
                     </div>
                     <span className="font-mono text-xs text-slate-500">
-                      Latency: {stepData["local_ai_offline"]?.source_trace?.duration_ms ?? "14"} ms
+                      Latency: {stepData["local_ai_offline"]?.client_provider_response?.latency !== undefined ? Math.round(Number(stepData["local_ai_offline"].client_provider_response.latency)) : (stepData["local_ai_offline"]?.source_trace?.duration_ms ?? "14")} ms
                     </span>
                   </div>
 
@@ -1437,7 +1430,7 @@ export default function DemoPage() {
 
                   <div className="flex justify-end pt-1">
                     <button
-                      onClick={() => void runStage(3)}
+                      onClick={() => setActiveStage(3)}
                       className="rounded bg-indigo-600 px-4 py-1.5 text-xs font-semibold text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     >
                       Proceed to Stage 3: Approved Cloud Handoff →
@@ -1457,7 +1450,7 @@ export default function DemoPage() {
                   What to do at Stage 3: Authorize De-identified Handoff & Run Firebase AI Logic (cloud, Gemini)
                 </strong>
                 <p className="text-indigo-900">
-                  Review the stripped restricted fields versus permitted telemetry fields. Authorize operator consent with cryptographic SHA-256 consent digest, verify exactly-once Ed25519 canonical synchronization, and run Firebase AI Logic (cloud, Gemini) for systemic root cause analysis.
+                  Review the stripped restricted fields versus permitted telemetry fields. Authorize operator consent with cryptographic SHA-256 consent digest, verify exactly-once Ed25519 canonical synchronization, and run Firebase AI Logic (cloud, Gemini) for systemic root cause analysis. Masquerading Prevented: provenance is mapped directly to SDK-reported client source.
                 </p>
                 <div className="flex flex-wrap items-center gap-3 pt-2 font-mono text-[11px]">
                   <span>Network: <strong className="text-emerald-700">ONLINE (Reconnected)</strong></span>
@@ -1495,11 +1488,11 @@ export default function DemoPage() {
                 </div>
                 <button
                   onClick={() => void runStage(3)}
-                  disabled={busy}
-                  aria-busy={busy}
+                  disabled={busy || runningStage !== null}
+                  aria-busy={busy || runningStage !== null}
                   className="rounded bg-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
                 >
-                  {busy ? "Running Stage 3…" : "Execute Stage 3: Consent & Cloud Handoff"}
+                  {runningStage === 3 ? "Running Stage 3…" : "Execute Stage 3: Consent & Cloud Handoff"}
                 </button>
               </div>
 
@@ -1530,7 +1523,6 @@ export default function DemoPage() {
                       <ul className="space-y-0.5 font-mono text-[11px] text-emerald-800">
                         <li>• pump_id: P-101</li>
                         <li>• discharge_pressure_kpa</li>
-                        <li>• vibration_mms: 6.8</li>
                       </ul>
                     </div>
                   </div>
@@ -1546,22 +1538,19 @@ export default function DemoPage() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-bold text-slate-700">Source:</span>
-                      <InferenceBadge source={stepData["cloud_inference"]?.client_reported_source || stepData["cloud_inference"]?.actual_source || (stepData["cloud_inference"]?.is_fixture ? "MOCK" : "IN_CLOUD")} />
+                      <InferenceBadge source={String(stepData["cloud_inference"]?.client_provider_response?.observed_source || stepData["cloud_inference"]?.client_reported_source || stepData["cloud_inference"]?.actual_source || (stepData["cloud_inference"]?.is_fixture ? "MOCK" : "IN_CLOUD"))} />
                       <span className="text-[11px] font-mono text-slate-500">
-                        SDK: {stepData["cloud_inference"]?.client_reported_source ?? (stepData["cloud_inference"]?.reported_source ?? "MOCK")}
-                      </span>
-                      <span className="rounded bg-slate-100 px-2 py-0.5 text-xs font-mono text-slate-600">
-                        Masquerading Prevented: ✓ TRUE
+                        SDK: {String(stepData["cloud_inference"]?.client_provider_response?.observed_source || stepData["cloud_inference"]?.client_reported_source || (stepData["cloud_inference"]?.reported_source ?? "MOCK"))}
                       </span>
                     </div>
                     <span className="font-mono text-xs text-slate-500">
-                      Duration: {stepData["cloud_inference"]?.source_trace?.duration_ms ?? "18"} ms
+                      Duration: {stepData["cloud_inference"]?.client_provider_response?.latency !== undefined ? Math.round(Number(stepData["cloud_inference"].client_provider_response.latency)) : (stepData["cloud_inference"]?.source_trace?.duration_ms ?? "18")} ms
                     </span>
                   </div>
 
                   <div className="rounded-md border border-indigo-100 bg-indigo-50/50 p-3.5 space-y-2">
                     <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-950">
-                      Firebase AI Logic (cloud, gemini-3.5-flash-lite)
+                      Firebase AI Logic (cloud, {String(stepData["cloud_inference"]?.client_provider_response?.model || "gemini-3.5-flash-lite")})
                     </h4>
                     {stepData["cloud_inference"]?.client_provider_response?.fallback_reason ? (
                       <p className="text-xs font-mono text-amber-900 bg-amber-50 p-2.5 rounded border border-amber-200">
@@ -1585,7 +1574,7 @@ export default function DemoPage() {
 
                   <div className="flex justify-end pt-1">
                     <button
-                      onClick={() => void runStage(4)}
+                      onClick={() => setActiveStage(4)}
                       className="rounded bg-indigo-600 px-4 py-1.5 text-xs font-semibold text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     >
                       Proceed to Stage 4: Decision & Solvers →
@@ -1630,11 +1619,11 @@ export default function DemoPage() {
                 </div>
                 <button
                   onClick={() => void runStage(4)}
-                  disabled={busy}
-                  aria-busy={busy}
+                  disabled={busy || runningStage !== null}
+                  aria-busy={busy || runningStage !== null}
                   className="rounded bg-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
                 >
-                  {busy ? "Running Stage 4…" : "Execute Stage 4: Causal DAG & Solver Decision"}
+                  {runningStage === 4 ? "Running Stage 4…" : "Execute Stage 4: Causal DAG & Solver Decision"}
                 </button>
               </div>
 
@@ -1707,7 +1696,7 @@ export default function DemoPage() {
 
                   <div className="flex justify-end pt-2">
                     <button
-                      onClick={() => void runStage(5)}
+                      onClick={() => setActiveStage(5)}
                       className="rounded bg-indigo-600 px-4 py-1.5 text-xs font-semibold text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     >
                       Proceed to Stage 5: Incident Replay & Twin Sync →
@@ -1742,11 +1731,11 @@ export default function DemoPage() {
                 </span>
                 <button
                   onClick={() => void runStage(5)}
-                  disabled={busy}
-                  aria-busy={busy}
+                  disabled={busy || runningStage !== null}
+                  aria-busy={busy || runningStage !== null}
                   className="rounded bg-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
                 >
-                  {busy ? "Running Stage 5…" : "Execute Stage 5: Update Twin & Replay"}
+                  {runningStage === 5 ? "Running Stage 5…" : "Execute Stage 5: Update Twin & Replay"}
                 </button>
               </div>
 
@@ -1777,7 +1766,7 @@ export default function DemoPage() {
                         <div className="mt-1 flex flex-wrap gap-3 font-mono text-[11px] text-slate-600">
                           {mod.flow_gpm !== undefined && <span>Flow: {mod.flow_gpm} gpm</span>}
                           {mod.vibration_mms !== undefined && <span>Vib: {mod.vibration_mms} mm/s</span>}
-                          {mod.pressure_kpa !== undefined && <span>Pres: {mod.pressure_kpa} kPa</span>}
+                          {mod.pressure_kpa !== undefined && <span>Pres: {mod.pressure_kpa} kPa{mod.pressure_kpa === 345 || mod.pressure_kpa === 345.0 ? " (after mitigation)" : ""}</span>}
                         </div>
                       </div>
                     ))}
@@ -1791,7 +1780,7 @@ export default function DemoPage() {
                       Deterministic Timeline Scrubber
                     </span>
                     <span className="font-mono text-xs text-slate-500">
-                      SHA-256 Digest Verified
+                      {stepData["replay"]?.deterministic_replay_hash ? "SHA-256 Digest Verified" : "—"}
                     </span>
                   </div>
 

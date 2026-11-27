@@ -33,6 +33,7 @@ import {
   PHYSICAL_DIAL_PRESSURE_CONTRADICTION_KPA,
   PHYSICAL_CASING_TEMP_AMBIENT_C,
   CONFIG_CLOUD_MODEL,
+  CONFIG_NANO_MODEL_LABEL,
 } from "./scenario-constants.ts";
 
 export {
@@ -90,6 +91,7 @@ export interface LegExecutionResult {
   observed_source: InferenceSource;
   is_simulation_fallback: boolean;
   duration_ms: number;
+  model?: string;
   actionable_hypothesis: string;
   recommended_inspection: string;
   canary_absent_verified: boolean;
@@ -243,6 +245,25 @@ export async function checkGeminiNanoReadiness(): Promise<{ ready: boolean; stat
   }
 }
 
+function getPromptApiUnavailableReason(caps: CapabilitySnapshot): string {
+  if (!caps.desktopChrome) {
+    return "Desktop Chrome required for built-in Prompt API";
+  }
+  if (!caps.promptApi) {
+    return "Chrome Prompt API (window.ai) not available on this browser";
+  }
+  if (!caps.foreground) {
+    return "Browser tab must be in foreground for on-device inference";
+  }
+  if (caps.modelState === "downloading") {
+    return "Gemini Nano model downloading before offline execution";
+  }
+  if (caps.modelState === "unavailable") {
+    return "Gemini Nano not supported on this device/hardware";
+  }
+  return `On-device model not ready (modelState=${caps.modelState})`;
+}
+
 /**
  * Executes Leg 1: Offline Local Edge Triage.
  * Operates on restricted technician evidence while network is offline.
@@ -318,8 +339,9 @@ export async function executeOfflineLocalLeg(
         observed_source: actualSource === "ON_DEVICE" ? "ON_DEVICE" : "MOCK",
         is_simulation_fallback: false,
         duration_ms: elapsed,
+        model: CONFIG_NANO_MODEL_LABEL,
         actionable_hypothesis:
-          "Transducer PT-101 loop calibration drift. Contradiction between nominal dial (410 kPa) and digital telemetry (185 kPa) refutes mechanical cavitation.",
+          result.summary || "On-device edge triage completed. Discrepancy indicates sensor/transmitter calibration anomaly.",
         recommended_inspection:
           "Inspect PT-101 4-20mA transducer loop wiring and calibrate zero-point reference. Defer suction valve throttle and pump overhaul.",
         canary_absent_verified: true,
@@ -331,7 +353,7 @@ export async function executeOfflineLocalLeg(
       localErrorReason = err instanceof Error ? `${err.name}: ${err.message}` : String(err);
     }
   } else {
-    localErrorReason = `Chrome Prompt API unavailable on host (desktopChrome=${caps.desktopChrome}, promptApi=${caps.promptApi}, modelState=${caps.modelState})`;
+    localErrorReason = getPromptApiUnavailableReason(caps);
   }
 
   // Graceful deterministic simulation fallback path with honest reason
@@ -455,6 +477,7 @@ export async function executeCloudLeg(
         observed_source: actualSource,
         is_simulation_fallback: false,
         duration_ms: elapsed,
+        model: CONFIG_CLOUD_MODEL,
         actionable_hypothesis:
           result.summary || "Firebase AI Logic (cloud): Plant-wide hydraulic stability preserved. Discrepancy confirmed as instrumentation calibration anomaly; zero systemic risk to Filter Bed FB-01.",
         recommended_inspection:
@@ -489,6 +512,7 @@ export async function executeCloudLeg(
     observed_source: "MOCK",
     is_simulation_fallback: true,
     duration_ms: Math.max(elapsed, 45.2),
+    model: CONFIG_CLOUD_MODEL,
     fallback_reason: reasonText,
     actionable_hypothesis:
       "Cloud Root-Cause Analysis (Sanitized Context): Systemic risk downgraded from CRITICAL to LOW. No hydraulic shock propagation toward Rapid Sand Filter Bed FB-01.",

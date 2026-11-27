@@ -140,3 +140,18 @@ def test_judge_quota_decrement_and_exhaustion():
     app.dependency_overrides.clear()
 
 
+def test_map_inference_source_canonical_mapping():
+    from nexus_titan_api.demo_routes import map_inference_source
+
+    assert map_inference_source("on_device") == "ON_DEVICE"
+    assert map_inference_source("ON_DEVICE") == "ON_DEVICE"
+    assert map_inference_source("in_cloud") == "IN_CLOUD"
+    assert map_inference_source("IN_CLOUD") == "IN_CLOUD"
+    assert map_inference_source("mock") == "MOCK"
+    assert map_inference_source("MOCK") == "MOCK"
+    assert map_inference_source("UNKNOWN") == "UNKNOWN"
+    assert map_inference_source(None) == "UNKNOWN"
+    assert map_inference_source("") == "UNKNOWN"
+    assert map_inference_source("vertex_ai_unverified") == "UNKNOWN"
+
+

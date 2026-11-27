@@ -83,7 +83,7 @@ assert.ok(aiContent.includes("enum InferenceSource"), "Must define InferenceSour
 assert.ok(aiContent.includes("onDeviceSystem") && aiContent.includes("inCloud") && aiContent.includes("mock"), "InferenceSource must include onDeviceSystem, inCloud, mock");
 assert.ok(aiContent.includes("guard isForeground else"), "Must enforce foreground-only execution");
 assert.ok(aiContent.includes("restrictedFallbackProhibited") || aiContent.includes("isRestricted"), "Must enforce restricted data boundary prohibiting cloud fallback");
-assert.ok(aiContent.includes('cloudModelName: String = "gemini-1.5-flash"'), "Cloud model must be pinned to gemini-1.5-flash");
+assert.ok(aiContent.includes('cloudModelName: String = "gemini-3.5-flash-lite"'), "Cloud model must be pinned to gemini-3.5-flash-lite");
 console.log("[PASS] FirebaseAiLogicAdapter satisfies foreground checks, hybrid modes, model pinning, and restricted boundaries.");
 
 // 6. Verify VisionTextRecognizer & SpatialMarkerScanner

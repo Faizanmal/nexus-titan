@@ -39,7 +39,7 @@ NEXUS TITAN includes a dedicated **Judge Sandbox** designed for frictionless, 1-
 Nexus Titan implements genuine hybrid edge-cloud intelligence following the Firebase AI Logic SDK patterns:
 
 - [client.ts](apps/web/src/lib/firebase/client.ts): Initializes Firebase App Check with reCAPTCHA Enterprise, Anonymous Authentication, Firestore, and Remote Config.
-- [provider.ts](apps/web/src/lib/firebase/provider.ts): Integrates `@firebase/ai` (Vertex AI in Firebase) with model switching, dynamic parameters from Remote Config, and fallback handling.
+- [provider.ts](apps/web/src/lib/firebase/provider.ts): Integrates `@firebase/ai` (Firebase AI Logic) with model switching, dynamic parameters from Remote Config, and fallback handling.
 - [firebase-adapter.ts](packages/hybrid-web/src/firebase-adapter.ts): Implements the hybrid runtime adapter managing `initializeDeviceModel`, prompt execution, and schema-constrained JSON extraction.
 - [remote-config.ts](packages/hybrid-web/src/remote-config.ts): Provides live remote configuration for dynamic model selection (`gemini-3.5-flash-lite`), prompt versions, and threshold parameters without redeployment.
 - [flagship-hybrid-scenario.ts](apps/web/src/lib/hybrid/flagship-hybrid-scenario.ts): Coordinates the two-leg incident investigation:

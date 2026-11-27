@@ -61,6 +61,7 @@ export function CommandCenterShell({ children }: { children: ReactNode }) {
   const [siteId, setSiteId] = useState("");
   const [identity, setIdentity] = useState<"loading" | "verified" | "unavailable">("loading");
   const [firebaseUser, setFirebaseUser] = useState<User | null>(null);
+  const [isJudgeSession, setIsJudgeSession] = useState(false);
   const [online, setOnline] = useState(true);
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [paletteOpen, setPaletteOpen] = useState(false);
@@ -90,7 +91,7 @@ export function CommandCenterShell({ children }: { children: ReactNode }) {
         membershipsList = [
           {
             organization_id: "demo-nexus",
-            organization_name: "Nexus Demo Org",
+            organization_name: "Judge sandbox org",
             role: "viewer",
             sites: [{ site_id: "titan-wtp-01", name: "TITAN-WTP-01 Water Treatment" }],
           },
@@ -115,7 +116,7 @@ export function CommandCenterShell({ children }: { children: ReactNode }) {
         const defaultMemberships: Membership[] = [
           {
             organization_id: "demo-nexus",
-            organization_name: "Nexus Demo Org",
+            organization_name: "Judge sandbox org",
             role: "viewer",
             sites: [{ site_id: "titan-wtp-01", name: "TITAN-WTP-01 Water Treatment" }],
           },
@@ -130,6 +131,20 @@ export function CommandCenterShell({ children }: { children: ReactNode }) {
       }
     }
   }
+
+  useEffect(() => {
+    let hasJudge = false;
+    try {
+      hasJudge = Boolean(
+        localStorage.getItem("nexus_judge_session_id") ||
+        localStorage.getItem("nexus_judge_alias") ||
+        sessionStorage.getItem("nexus_judge_session_v1")
+      );
+    } catch {
+      hasJudge = false;
+    }
+    setIsJudgeSession(Boolean(firebaseUser || hasJudge));
+  }, [firebaseUser]);
 
   useEffect(() => {
     let unsubscribeAuth: (() => void) | undefined;
@@ -210,7 +225,6 @@ export function CommandCenterShell({ children }: { children: ReactNode }) {
   }
 
   const groups = ["Operations", "Intelligence", "Workspace"] as const;
-  const isJudgeSession = Boolean(firebaseUser || (typeof window !== "undefined" && (localStorage.getItem("nexus_judge_session_id") || localStorage.getItem("nexus_judge_alias"))));
   const status = !online ? <StatusIndicator label="Offline" detail="cached views only" tone="warning" />
     : (identity === "verified" || isJudgeSession) ? <StatusIndicator label="Online" detail={isJudgeSession ? "Judge sandbox · signed in" : "identity verified"} tone="online" />
       : <StatusIndicator label="Online" detail="sign-in required" tone="info" />;

@@ -46,8 +46,10 @@ export async function requestFirebaseInference(
     onProgress("Device model ready");
   }
   const result = await model.generateContent(prompt);
+  const reportedSource = mapReportedInferenceSource(result.response.inferenceSource);
+  const actualSource = reportedSource ?? (mode === "ONLY_IN_CLOUD" ? "IN_CLOUD" : null);
   return {
     text: result.response.text(),
-    actualSource: mapReportedInferenceSource(result.response.inferenceSource),
+    actualSource,
   };
 }

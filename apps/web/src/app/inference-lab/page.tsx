@@ -19,6 +19,7 @@ import {
   FLAGSHIP_INCIDENT_ID,
   FLAGSHIP_ASSET_ID,
   FLAGSHIP_FACILITY,
+  SYNTHETIC_CANARY_TOKEN,
   INITIAL_FLAGSHIP_EVIDENCE,
   CONSENT_EXPLANATION,
   canonicalHash,
@@ -94,7 +95,19 @@ export default function InferenceLabPage() {
           consentApproved?: boolean;
           cloudResult?: LegExecutionResult;
         };
-        if (parsed.evidence) setEvidence(parsed.evidence);
+        if (parsed.evidence) {
+          const ev = parsed.evidence;
+          if (ev.restricted_canary === "TECH-CANARY-SECRET-VAULT-TOKEN-9942" || !ev.restricted_canary) {
+            ev.restricted_canary = SYNTHETIC_CANARY_TOKEN;
+          }
+          if (ev.physical_observation?.raw_observation?.includes("TECH-CANARY-SECRET-VAULT-TOKEN-9942")) {
+            ev.physical_observation.raw_observation = ev.physical_observation.raw_observation.replaceAll(
+              "TECH-CANARY-SECRET-VAULT-TOKEN-9942",
+              SYNTHETIC_CANARY_TOKEN
+            );
+          }
+          setEvidence(ev);
+        }
         if (parsed.localResult) setLocalResult(parsed.localResult);
         if (parsed.sanitizedPayload) {
           setSanitizedPayload(parsed.sanitizedPayload);
@@ -711,7 +724,7 @@ export default function InferenceLabPage() {
                 <div className="rounded-lg border border-indigo-200 bg-indigo-50/60 p-4 text-xs space-y-3">
                   <div className="flex items-center justify-between">
                     <span className="font-bold uppercase tracking-wider text-indigo-950 text-[11px]">
-                      Cloud Root-Cause Analysis Result ({cloudResult.is_simulation_fallback ? "Deterministic Cloud Fixture" : "Firebase Vertex AI"})
+                      Cloud Root-Cause Analysis Result ({cloudResult.is_simulation_fallback ? "Deterministic Cloud Fixture" : "Firebase AI Logic"})
                     </span>
                     <span className="font-mono text-slate-600">Timing: {cloudResult.duration_ms} ms (measured)</span>
                   </div>

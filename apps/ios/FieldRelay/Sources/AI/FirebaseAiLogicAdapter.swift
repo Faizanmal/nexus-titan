@@ -94,7 +94,7 @@ public final class FirebaseAiLogicAdapter: Sendable {
 
     public init(
         defaultMode: HybridMode = .preferOnDevice,
-        cloudModelName: String = "gemini-1.5-flash"
+        cloudModelName: String = "gemini-3.5-flash-lite"
     ) {
         self.defaultMode = defaultMode
         self.cloudModelName = cloudModelName

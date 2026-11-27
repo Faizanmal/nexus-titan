@@ -91,7 +91,7 @@ def map_inference_source(source: Any) -> str:
     """Maps provider/SDK reported inference source to canonical attribution label.
 
     Derives actual attribution from the provider response via canonical SDK mapping.
-    Accepts 'on_device' / 'ON_DEVICE', 'in_cloud' / 'IN_CLOUD'.
+    Accepts 'on_device' / 'ON_DEVICE', 'in_cloud' / 'IN_CLOUD', 'mock' / 'MOCK'.
     Treats missing or unrecognized provenance as 'UNKNOWN'.
     """
     if isinstance(source, str):
@@ -100,6 +100,8 @@ def map_inference_source(source: Any) -> str:
             return "ON_DEVICE"
         if s in ("in_cloud", "IN_CLOUD"):
             return "IN_CLOUD"
+        if s in ("mock", "MOCK"):
+            return "MOCK"
     return "UNKNOWN"
 
 
@@ -518,6 +520,11 @@ def execute_scenario_step(
             "evidence_id": evidence_id,
             "restricted_record_id": restricted_record_id,
             "asset_id": "P-101",
+            "metrics": {
+                "discharge_pressure_kpa": 185.0,
+                "vibration_mms": 8.42,
+                "flow_rate_gpm": 285.0,
+            },
             "qr_marker": "QR-TITAN-WTP-01-P-101",
             "evidence_type": evidence_type,
             "observation_text": observation,
@@ -1174,6 +1181,7 @@ def execute_scenario_step(
                     "asset_id": "L-101",
                     "status": "stabilized_pressure",
                     "pressure_kpa": 345.0,
+                    "note": "after mitigation",
                 },
             ],
             "projection_version": 122,
