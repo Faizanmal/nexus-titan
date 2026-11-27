@@ -264,8 +264,8 @@ export default function DemoPage() {
 
   // Model capability & runtime state
   const [capabilities, setCapabilities] = useState<CapabilitySnapshot | null>(null);
-  const [nanoStatusText, setNanoStatusText] = useState<string>("Gemini Nano unavailable — simulated fallback");
-  const [nanoBadgeText, setNanoBadgeText] = useState<string>("Gemini Nano unavailable — simulated fallback");
+  const [nanoStatusText, setNanoStatusText] = useState<string>("Checking Gemini Nano…");
+  const [nanoBadgeText, setNanoBadgeText] = useState<string>("Checking Gemini Nano…");
 
   // Selectable scenario configurations
   const [faultType, setFaultType] = useState<FaultType>("cavitation");

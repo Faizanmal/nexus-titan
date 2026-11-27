@@ -62,8 +62,10 @@ export async function requestFirebaseInference(
   const result = await model.generateContent(prompt);
   const reportedSource = mapReportedInferenceSource(result.response.inferenceSource);
   const actualSource = reportedSource ?? (mode === "ONLY_IN_CLOUD" ? "IN_CLOUD (inferred from mode)" : null);
-  if ((mode === "PREFER_ON_DEVICE" || mode === "PREFER_IN_CLOUD") && actualSource !== "ON_DEVICE") {
+  if (mode === "PREFER_ON_DEVICE" && actualSource !== "ON_DEVICE") {
     onProgress("Device model unavailable, fell back to cloud");
+  } else if (mode === "PREFER_IN_CLOUD" && actualSource !== "ON_DEVICE") {
+    onProgress("Cloud (preferred mode)");
   } else if (actualSource === "ON_DEVICE") {
     onProgress("Device model ready");
   } else if (mode === "ONLY_IN_CLOUD") {

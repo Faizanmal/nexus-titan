@@ -86,7 +86,7 @@ export async function prepareGeminiNano(
       supported: false,
       modelState: "unavailable",
       ready: false,
-      status: "Gemini Nano unavailable — simulated fallback",
+      status: "Gemini Nano unavailable — Prompt API (LanguageModel) missing (simulated fallback)",
     };
   }
 
