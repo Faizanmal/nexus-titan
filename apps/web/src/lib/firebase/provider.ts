@@ -44,7 +44,11 @@ export async function requestFirebaseInference(
     onProgress("Checking / preparing device model…");
     try {
       const prep = await prepareGeminiNano();
-      if (!prep.ready && (mode === "PREFER_ON_DEVICE" || mode === "PREFER_IN_CLOUD")) {
+      if (!prep.supported || prep.modelState === "unavailable") {
+        if (mode === "ONLY_ON_DEVICE") {
+          onProgress("Device model unavailable or initialization failed");
+          throw new Error("Device model unavailable: Chrome Prompt API missing or model unavailable");
+        }
         onProgress("Device model unavailable, fell back to cloud");
       } else {
         await model.initializeDeviceModel((progress) =>

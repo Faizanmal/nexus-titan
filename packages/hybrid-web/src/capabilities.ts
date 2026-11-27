@@ -71,12 +71,21 @@ export async function prepareGeminiNano(
   const desktopChrome = /Chrome\//.test(navigator.userAgent) && !/Android|Mobile/.test(navigator.userAgent);
   const hasPromptApi = "LanguageModel" in window || ("ai" in window && "languageModel" in (window as unknown as { ai: Record<string, unknown> }).ai);
 
-  if (!desktopChrome || !hasPromptApi) {
+  if (!desktopChrome) {
     return {
       supported: false,
       modelState: "unavailable",
       ready: false,
-      status: "DEVICE_HARDWARE_LIMITATION: Host GPU/RAM below Chrome Prompt API floor or non-Chrome browser; deterministic simulation available.",
+      status: "Not desktop Chrome",
+    };
+  }
+
+  if (!hasPromptApi) {
+    return {
+      supported: false,
+      modelState: "unavailable",
+      ready: false,
+      status: "Chrome Prompt API (LanguageModel) not available in this browser",
     };
   }
 
@@ -142,7 +151,7 @@ export async function getNanoStatus(
     ? "Prompt API Ready"
     : prep.modelState === "downloadable"
     ? "Downloadable"
-    : "Unavailable (Deterministic Simulator Active)";
+    : "Unavailable — simulated fallback";
 
   return {
     supported: prep.supported,

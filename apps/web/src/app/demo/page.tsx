@@ -971,7 +971,7 @@ export default function DemoPage() {
                   ? "Prompt API Ready"
                   : capabilities?.modelState === "downloadable"
                   ? "Downloadable"
-                  : "Unavailable (Deterministic Simulator Active)"}
+                  : "Unavailable — simulated fallback"}
               </span>
             </div>
 
@@ -1616,7 +1616,7 @@ export default function DemoPage() {
                         </div>
                       ) : (stepData["cloud_inference"]?.client_provider_response?.observed_source === "IN_CLOUD" || stepData["cloud_inference"]?.client_reported_source === "IN_CLOUD") && stepData["cloud_inference"]?.client_provider_response?.summary ? (
                         <div className="rounded border border-blue-300 bg-blue-50 p-2.5 text-xs text-blue-950 space-y-1">
-                          <div className="font-bold text-blue-900">Firebase AI Logic (cloud, {String(stepData["cloud_inference"]?.client_provider_response?.model || "gemini-3.5-flash-lite")}):</div>
+                          <div className="font-bold text-blue-900">Firebase AI Logic (cloud, {String(stepData["cloud_inference"]?.client_provider_response?.model || "—")}):</div>
                           <p className="font-medium">{String(stepData["cloud_inference"].client_provider_response.summary)}</p>
                         </div>
                       ) : (
@@ -1687,7 +1687,7 @@ export default function DemoPage() {
               <div className="space-y-4">
                 <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm space-y-3">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-sm font-bold text-slate-900">
+                    <h3 className="text-sm font-extrabold text-slate-950">
                       Physics Hydraulic Solver: Baseline vs Counterfactual vs Failure Branch
                     </h3>
                     <span className="rounded bg-slate-100 px-2 py-0.5 text-xs font-mono text-slate-600">
@@ -1731,8 +1731,8 @@ export default function DemoPage() {
                   <div className="grid gap-3 sm:grid-cols-2 pt-2 text-xs">
                     <div className="rounded border border-amber-300 bg-amber-50 p-3 space-y-1">
                       <div className="flex items-center justify-between">
-                        <strong className="text-amber-950">Concurrency Safety Gate:</strong>
-                        <span className="font-mono text-amber-900 font-bold">
+                        <strong className="text-amber-950 font-bold">Concurrency Safety Gate:</strong>
+                        <span className="font-mono text-amber-950 font-bold bg-amber-100 px-2 py-0.5 rounded border border-amber-300">
                           {stepData["stale_approval_test"]?.stale_validation?.http_status
                             ? `HTTP ${stepData["stale_approval_test"].stale_validation.http_status} CONFLICT`
                             : stepData["stale_approval_test"]
@@ -1740,12 +1740,10 @@ export default function DemoPage() {
                             : "—"}
                         </span>
                       </div>
-                      <p className="text-amber-800 text-[11px]">
+                      <p className="text-amber-950 text-xs font-medium">
                         {stepData["stale_approval_test"]?.stale_validation?.message
                           ? `${stepData["stale_approval_test"].status}: ${stepData["stale_approval_test"].stale_validation.message}`
-                          : stepData["stale_approval_test"]
-                          ? "Attempted actuator mutation rejected on stale snapshot hash. Prevents race conditions with live plant telemetry."
-                          : "Pending Stage 4 execution."}
+                          : "—"}
                       </p>
                     </div>
 
