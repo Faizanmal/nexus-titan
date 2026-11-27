@@ -19,7 +19,6 @@ import {
   FLAGSHIP_INCIDENT_ID,
   FLAGSHIP_ASSET_ID,
   FLAGSHIP_FACILITY,
-  SYNTHETIC_CANARY_TOKEN,
   INITIAL_FLAGSHIP_EVIDENCE,
   CONSENT_EXPLANATION,
   computePayloadHash,
@@ -39,7 +38,8 @@ export default function InferenceLabPage() {
   const [activeTab, setActiveTab] = useState<"flagship" | "single_turn">("flagship");
 
   // Single-turn lab state
-  const [mode, setMode] = useState<HybridMode>("ONLY_IN_CLOUD");
+  const [mode, setMode] = useState<HybridMode>("PREFER_ON_DEVICE");
+  const [flagshipCloudMode, setFlagshipCloudMode] = useState<HybridMode>("PREFER_ON_DEVICE");
   const [cloudApproval, setCloudApproval] = useState(false);
   const [capability, setCapability] = useState<CapabilitySnapshot>();
   const [status, setStatus] = useState("Ready. This lab sends only the fixed public synthetic fixture.");
@@ -256,7 +256,7 @@ export default function InferenceLabPage() {
 
     setFlagshipBusy(true);
     setFlagshipError("");
-    setFlagshipInfo("Executing Leg 2: Cloud Root-Cause Analysis via Firebase AI Logic (ONLY_IN_CLOUD)…");
+    setFlagshipInfo(`Executing Leg 2: Root-Cause Analysis via Firebase AI Logic (${flagshipCloudMode})…`);
     setInFlightRequests((prev) => ({ ...prev, [requestKey]: true }));
 
     try {
@@ -266,7 +266,7 @@ export default function InferenceLabPage() {
         consent_hash: currentComputedHash,
       };
 
-      const result = await executeCloudLeg(activePayload, consentApproved, currentComputedHash, retryCount);
+      const result = await executeCloudLeg(activePayload, consentApproved, currentComputedHash, retryCount, flagshipCloudMode);
       setCloudResult(result);
       persistState({ cloudResult: result });
       setFlagshipInfo(
@@ -662,9 +662,19 @@ export default function InferenceLabPage() {
               <div className="flex items-center justify-between border-b pb-2">
                 <div className="flex items-center gap-2">
                   <span className="rounded bg-indigo-100 px-2 py-0.5 font-mono text-xs font-bold text-indigo-900">
-                    LEG 2: CLOUD VERTEX AI
+                    LEG 2: HYBRID ROOT CAUSE
                   </span>
-                  <span className="text-xs font-mono text-slate-500">Mode: ONLY_IN_CLOUD</span>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-xs text-slate-500">Mode:</span>
+                    <select
+                      value={flagshipCloudMode}
+                      onChange={(e) => setFlagshipCloudMode(e.target.value as HybridMode)}
+                      className="rounded border border-slate-300 bg-white px-2 py-0.5 text-xs font-medium text-slate-800"
+                    >
+                      <option value="PREFER_ON_DEVICE">Hybrid (PREFER_ON_DEVICE) [Default]</option>
+                      <option value="ONLY_IN_CLOUD">Cloud-Only (ONLY_IN_CLOUD)</option>
+                    </select>
+                  </div>
                 </div>
                 {cloudResult && (
                   <span className="rounded bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-800">
@@ -683,7 +693,7 @@ export default function InferenceLabPage() {
                   disabled={flagshipBusy}
                   className="rounded bg-indigo-600 px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-indigo-700 disabled:opacity-50"
                 >
-                  {flagshipBusy ? "Running Cloud Leg…" : "Run Cloud Root-Cause Analysis (ONLY_IN_CLOUD)"}
+                  {flagshipBusy ? "Running Analysis…" : `Run Root-Cause Analysis (${flagshipCloudMode})`}
                 </button>
               </div>
 

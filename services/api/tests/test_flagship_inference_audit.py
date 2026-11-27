@@ -98,8 +98,10 @@ def test_successful_provider_output_derives_correct_attribution(client):
     d_cloud = resp_cloud.json()
     assert d_cloud["actual_source"] == "IN_CLOUD"
     assert d_cloud["reported_source"] == "IN_CLOUD"
+    assert d_cloud["client_reported_source"] == "IN_CLOUD"
     assert d_cloud["is_fixture"] is False
-    assert "Actual Firebase Vertex AI" in d_cloud["provenance_note"]
+    assert "SDK-reported source (client)" in d_cloud["provenance_note"]
+    assert "verified" not in d_cloud["provenance_note"].lower()
 
     # 2. Local on-device provider success
     resp_device = client.post(
@@ -115,9 +117,34 @@ def test_successful_provider_output_derives_correct_attribution(client):
     d_device = resp_device.json()
     assert d_device["actual_source"] == "ON_DEVICE"
     assert d_device["reported_source"] == "ON_DEVICE"
+    assert d_device["client_reported_source"] == "ON_DEVICE"
     assert d_device["inference_source"] == "ON_DEVICE"
     assert d_device["is_fixture"] is False
     assert d_device["chrome_prompt_api_available"] is True
+    assert "SDK-reported source (client)" in d_device["device_status_note"]
+
+
+def test_fixture_run_yields_mock_plus_fallback_reason(client):
+    """Verifies that a fixture run yields MOCK and a fallback_reason without claiming real execution."""
+    resp = client.post(
+        "/v1/demo/scenario/step",
+        json={
+            "step": "cloud_inference",
+            "session_id": "sess-fixt-01",
+            "correlation_id": "corr-fixt-01",
+            "provider_response": {
+                "fallback_reason": "Firebase Auth currentUser not signed in",
+                "is_simulation_fallback": True,
+            },
+        },
+    )
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data["reported_source"] == "MOCK_EXPLICITLY_LABELED"
+    assert data["client_reported_source"] is None
+    assert data["is_fixture"] is True
+    assert "Simulated: Firebase Auth currentUser not signed in" in data["provenance_note"]
+    assert "verified" not in data["provenance_note"].lower()
 
 
 def test_absent_and_unrecognized_provider_source_treated_as_unknown(client):

@@ -4,7 +4,14 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { ErrorState } from "@/components/command-center-primitives";
 import { firebaseAppCheckClient, firebaseAuthClient } from "@/lib/firebase/client";
-import { inspectCapabilities, type CapabilitySnapshot } from "@nexus-titan/hybrid-web";
+import { inspectCapabilities, type CapabilitySnapshot, type HybridMode } from "@nexus-titan/hybrid-web";
+import {
+  executeOfflineLocalLeg,
+  executeCloudLeg,
+  INITIAL_FLAGSHIP_EVIDENCE,
+  sanitizeFlagshipPayload,
+  SYNTHETIC_CANARY_TOKEN,
+} from "@/lib/hybrid/flagship-hybrid-scenario";
 import { getToken } from "firebase/app-check";
 import {
   createUserWithEmailAndPassword,
@@ -101,6 +108,8 @@ type StepResponse = {
   };
   reported_source?: string;
   actual_source?: string | null;
+  client_reported_source?: string | null;
+  client_provider_response?: Record<string, unknown>;
   is_fixture?: boolean;
   scripted_lifecycle_output?: boolean;
   simulated_network_state?: string;
@@ -212,6 +221,17 @@ async function callDemoApi<T>(path: string, init: RequestInit = {}): Promise<T> 
   return response.json();
 }
 
+function InferenceBadge({ source }: { source?: string | null }) {
+  const s = (source || "MOCK").toUpperCase();
+  if (s.includes("ON_DEVICE")) {
+    return <span className="rounded bg-emerald-100 px-2 py-0.5 text-xs font-mono font-bold text-emerald-800 border border-emerald-300">ON_DEVICE</span>;
+  }
+  if (s.includes("IN_CLOUD") || s.includes("CLOUD")) {
+    return <span className="rounded bg-blue-100 px-2 py-0.5 text-xs font-mono font-bold text-blue-800 border border-blue-300">IN_CLOUD</span>;
+  }
+  return <span className="rounded bg-amber-100 px-2 py-0.5 text-xs font-mono font-bold text-amber-800 border border-amber-300">MOCK</span>;
+}
+
 export default function DemoPage() {
   const [sessionId, setSessionId] = useState<string>("sess-demo-flagship-01");
   const [correlationId, setCorrelationId] = useState<string>("corr-titan-wtp01-01");
@@ -240,6 +260,7 @@ export default function DemoPage() {
   const [evidenceType, setEvidenceType] = useState<EvidenceType>("agreeing");
   const [selectedPlan, setSelectedPlan] = useState<PlanType>("plan_a");
   const [isOffline, setIsOffline] = useState<boolean>(false);
+  const [stage3Mode, setStage3Mode] = useState<HybridMode>("PREFER_ON_DEVICE");
 
   // Judge Onboarding state
   const [judgeSession, setJudgeSession] = useState<JudgeSession | null>(null);
@@ -271,6 +292,60 @@ export default function DemoPage() {
       const currentSess = overrideSessionId || sessionId;
       const currentCorr = overrideCorrId || correlationId;
       try {
+        let providerResponse: Record<string, unknown> | undefined = undefined;
+        let providerSource: string | undefined = undefined;
+        let executionDurationMs: number | undefined = undefined;
+
+        if (targetStep === "local_ai_offline") {
+          const ev = {
+            ...INITIAL_FLAGSHIP_EVIDENCE,
+            physical_observation: {
+              ...INITIAL_FLAGSHIP_EVIDENCE.physical_observation,
+              contradiction_detected: evidenceType === "disagreeing",
+              dial_pressure_kpa: evidenceType === "agreeing" ? 185 : 410,
+              raw_observation: evidenceType === "agreeing"
+                ? `Field physical dial gauge confirms anomalous pressure drop (185 kPa). Impeller casing hot to touch; cavitation chattering audible. Vault token ${SYNTHETIC_CANARY_TOKEN}.`
+                : `Field physical dial gauge shows steady nominal 410 kPa. Impeller casing ambient cool. Discrepancy indicates telemetry sensor or wiring loop calibration error. Inspected by TECH-8821 with vault token ${SYNTHETIC_CANARY_TOKEN}.`,
+            },
+          };
+          const localResult = await executeOfflineLocalLeg(ev, capabilities ?? undefined);
+          providerSource = localResult.observed_source;
+          executionDurationMs = localResult.duration_ms;
+          providerResponse = {
+            summary: localResult.raw_output || localResult.actionable_hypothesis,
+            observed_source: localResult.observed_source,
+            inferenceSource: localResult.observed_source,
+            is_simulation_fallback: localResult.is_simulation_fallback,
+            latency: localResult.duration_ms,
+            fallback_reason: localResult.fallback_reason,
+            actionable_hypothesis: localResult.actionable_hypothesis,
+            recommended_inspection: localResult.recommended_inspection,
+          };
+        } else if (targetStep === "cloud_inference") {
+          const ev = {
+            ...INITIAL_FLAGSHIP_EVIDENCE,
+            physical_observation: {
+              ...INITIAL_FLAGSHIP_EVIDENCE.physical_observation,
+              contradiction_detected: evidenceType === "disagreeing",
+              dial_pressure_kpa: evidenceType === "agreeing" ? 185 : 410,
+            },
+          };
+          const sanitized = await sanitizeFlagshipPayload(ev);
+          const cloudResult = await executeCloudLeg(sanitized, true, sanitized.consent_hash, 0, stage3Mode);
+          providerSource = cloudResult.observed_source;
+          executionDurationMs = cloudResult.duration_ms;
+          providerResponse = {
+            summary: cloudResult.raw_output || cloudResult.actionable_hypothesis,
+            observed_source: cloudResult.observed_source,
+            inferenceSource: cloudResult.observed_source,
+            is_simulation_fallback: cloudResult.is_simulation_fallback,
+            latency: cloudResult.duration_ms,
+            fallback_reason: cloudResult.fallback_reason,
+            actionable_hypothesis: cloudResult.actionable_hypothesis,
+            recommended_inspection: cloudResult.recommended_inspection,
+          };
+        }
+
         const payload = {
           step: targetStep,
           tenant_id: "demo-nexus",
@@ -282,11 +357,17 @@ export default function DemoPage() {
           evidence_type: evidenceType,
           selected_plan: selectedPlan,
           is_offline: isOffline,
+          provider_source: providerSource,
+          provider_response: providerResponse,
+          execution_duration_ms: executionDurationMs,
         };
         const res = await callDemoApi<StepResponse>("/v1/demo/scenario/step", {
           method: "POST",
           body: JSON.stringify(payload),
         });
+        if (providerResponse) {
+          res.client_provider_response = providerResponse;
+        }
         setStepData((prev) => ({ ...prev, [targetStep]: res }));
         setActiveStep(targetStep);
         if (res.source_trace) {
@@ -310,7 +391,7 @@ export default function DemoPage() {
         setBusy(false);
       }
     },
-    [sessionId, correlationId, judgeSession, faultType, evidenceType, selectedPlan, isOffline]
+    [sessionId, correlationId, judgeSession, faultType, evidenceType, selectedPlan, isOffline, capabilities, stage3Mode]
   );
 
   // High-level guided stage runner
@@ -567,7 +648,7 @@ export default function DemoPage() {
     { id: "redaction_approval", title: "5. Redaction", subtitle: "Operator Privacy Consent", stage: 3 },
     { id: "peer_transfer", title: "6. Peer Transfer", subtitle: "HYBRID_EDGE · Local Subnet Mesh", stage: 3 },
     { id: "canonical_sync", title: "7. Canonical Sync", subtitle: "Ed25519 Device Signature", stage: 3 },
-    { id: "cloud_inference", title: "8. Cloud Vertex AI", subtitle: "CLOUD_BACKEND · Sanitized Root Cause", stage: 3 },
+    { id: "cloud_inference", title: "8. Firebase AI Logic", subtitle: "CLOUD_BACKEND · Sanitized Root Cause", stage: 3 },
     { id: "causal_agent_dag", title: "9. Causal Agent DAG", subtitle: "HYBRID_EDGE · 4-Agent Orchestration", stage: 4 },
     { id: "solver_scenarios", title: "10. Solver Scenarios", subtitle: "Counterfactual & Failure", stage: 4 },
     { id: "stale_approval_test", title: "11. Stale Approval", subtitle: "Concurrency 409 Conflict", stage: 4 },
@@ -586,7 +667,7 @@ export default function DemoPage() {
           <div>
             <div className="flex flex-wrap items-center gap-2">
               <span className="rounded bg-indigo-100 px-2 py-0.5 text-xs font-semibold text-indigo-800">
-                Phase 23 Flagship Incident Scenario
+                Flagship Incident Scenario
               </span>
               <span className="rounded bg-slate-100 px-2 py-0.5 font-mono text-xs text-slate-700">
                 TITAN-WTP-01 · Synthetic Digital Twin
@@ -599,7 +680,7 @@ export default function DemoPage() {
               Flagship Incident Scenario & Multi-Agent Solver
             </h1>
             <p className="mt-1 text-sm text-slate-600">
-              Deterministic, cryptographically verified end-to-end incident lifecycle: normal telemetry → synthetic fault → offline technician capture → local AI restricted boundary → user-approved redaction → honest mesh check → canonical Ed25519 sync → actual Cloud Vertex AI → causal agent DAG → counterfactual hydraulic solvers → concurrency conflict test → twin mitigation → deterministic replay.
+              Deterministic, cryptographically verified end-to-end incident lifecycle: normal telemetry → synthetic fault → offline technician capture → local AI restricted boundary → user-approved redaction → honest mesh check → canonical Ed25519 sync → Firebase AI Logic (cloud, Gemini) → causal agent DAG → counterfactual hydraulic solvers → concurrency conflict test → twin mitigation → deterministic replay.
             </p>
           </div>
           <div className="flex items-center gap-3">
@@ -868,7 +949,7 @@ export default function DemoPage() {
           {[
             { stage: 1 as GuidedStage, num: "Stage 1", title: "Alarm & Contradiction", sub: "SCADA vs Physical Gauge", activeStepTarget: "evidence_capture" as ScenarioStep },
             { stage: 2 as GuidedStage, num: "Stage 2", title: "Offline Local Result", sub: "On-Device Edge Triage", activeStepTarget: "local_ai_offline" as ScenarioStep },
-            { stage: 3 as GuidedStage, num: "Stage 3", title: "Approved Cloud Handoff", sub: "De-identified Vertex AI", activeStepTarget: "cloud_inference" as ScenarioStep },
+            { stage: 3 as GuidedStage, num: "Stage 3", title: "Approved Cloud Handoff", sub: "De-identified Firebase AI Logic", activeStepTarget: "cloud_inference" as ScenarioStep },
             { stage: 4 as GuidedStage, num: "Stage 4", title: "Decision & Mitigation", sub: "Causal DAG & Solvers", activeStepTarget: "supervisor_approval" as ScenarioStep },
             { stage: 5 as GuidedStage, num: "Stage 5", title: "Spatial Twin & Replay", sub: "Digital Twin & Replay", activeStepTarget: "replay" as ScenarioStep },
           ].map((item) => {
@@ -1264,14 +1345,11 @@ export default function DemoPage() {
                 <div className="rounded-lg border border-indigo-200 bg-white p-4 shadow-sm space-y-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <span className="rounded bg-indigo-100 px-2 py-0.5 text-xs font-bold text-indigo-900">
-                        Model Source: {stepData["local_ai_offline"]?.inference_source ?? "LOCAL_ON_DEVICE"}
+                      <span className="text-xs font-bold text-slate-700">Source:</span>
+                      <InferenceBadge source={stepData["local_ai_offline"]?.client_reported_source || stepData["local_ai_offline"]?.actual_source || (stepData["local_ai_offline"]?.is_fixture ? "MOCK" : "ON_DEVICE")} />
+                      <span className="text-[11px] font-mono text-slate-500">
+                        ({stepData["local_ai_offline"]?.inference_source ?? "LOCAL_ON_DEVICE"})
                       </span>
-                      {stepData["local_ai_offline"]?.is_fixture && (
-                        <span className="rounded bg-slate-200 px-1.5 py-0.5 text-[10px] font-bold text-slate-700">
-                          SCRIPTED FIXTURE
-                        </span>
-                      )}
                     </div>
                     <span className="font-mono text-xs text-slate-500">
                       Latency: {stepData["local_ai_offline"]?.source_trace?.duration_ms ?? "14"} ms
@@ -1282,9 +1360,15 @@ export default function DemoPage() {
                     <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-950">
                       On-Device Edge Triage Result
                     </h4>
-                    <p className="text-sm font-bold text-indigo-950">
-                      {stepData["local_ai_offline"]?.diagnosis?.primary_hypothesis ?? "Cavitation & Suction Strainer Clogging"}
-                    </p>
+                    {stepData["local_ai_offline"]?.client_provider_response?.fallback_reason ? (
+                      <p className="text-xs font-mono text-amber-900 bg-amber-50 p-2.5 rounded border border-amber-200">
+                        Simulated: {String(stepData["local_ai_offline"].client_provider_response.fallback_reason)}
+                      </p>
+                    ) : (
+                      <p className="text-sm font-bold text-indigo-950">
+                        {stepData["local_ai_offline"]?.diagnosis?.primary_hypothesis ?? "Cavitation & Suction Strainer Clogging"}
+                      </p>
+                    )}
                     <div className="text-xs text-slate-700">
                       <span>Confidence: </span>
                       <strong className="text-indigo-950">{Math.round((stepData["local_ai_offline"]?.diagnosis?.confidence ?? 0.89) * 100)}%</strong>
@@ -1316,23 +1400,36 @@ export default function DemoPage() {
               {/* Evaluator Guidance Box */}
               <div className="rounded-lg border border-indigo-200 bg-indigo-50/70 p-4 text-xs text-indigo-950 space-y-1.5">
                 <strong className="block font-bold text-sm text-indigo-950">
-                  What to do at Stage 3: Authorize De-identified Handoff & Run Cloud Vertex AI
+                  What to do at Stage 3: Authorize De-identified Handoff & Run Firebase AI Logic (cloud, Gemini)
                 </strong>
                 <p className="text-indigo-900">
-                  Review the stripped restricted fields versus permitted telemetry fields. Authorize operator consent with cryptographic SHA-256 consent digest, verify exactly-once Ed25519 canonical synchronization, and invoke Cloud Vertex AI for systemic root cause analysis.
+                  Review the stripped restricted fields versus permitted telemetry fields. Authorize operator consent with cryptographic SHA-256 consent digest, verify exactly-once Ed25519 canonical synchronization, and run Firebase AI Logic (cloud, Gemini) for systemic root cause analysis.
                 </p>
                 <div className="flex flex-wrap items-center gap-3 pt-2 font-mono text-[11px]">
                   <span>Network: <strong className="text-emerald-700">ONLINE (Reconnected)</strong></span>
                   <span>Consent State: <strong className="text-emerald-700">Approved & Cryptographically Signed</strong></span>
-                  <span>Cloud Source: <strong className="text-indigo-900">CLOUD_BACKEND (Firebase AI Logic / Gemini 2.5 Flash)</strong></span>
+                  <span>Cloud Mode: <strong className="text-indigo-900">{stage3Mode}</strong></span>
                 </div>
               </div>
 
               {/* Action Bar */}
               <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3">
-                <span className="text-xs text-slate-600 font-mono">
-                  Payload Classification: RESTRICTED → SANITIZED_SHARE
-                </span>
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="text-xs text-slate-600 font-mono">
+                    Classification: RESTRICTED → SANITIZED_SHARE
+                  </span>
+                  <div className="flex items-center gap-1.5 text-xs">
+                    <label className="font-semibold text-slate-700">Inference Mode:</label>
+                    <select
+                      value={stage3Mode}
+                      onChange={(e) => setStage3Mode(e.target.value as HybridMode)}
+                      className="rounded border border-slate-300 bg-white px-2 py-1 text-xs font-medium text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    >
+                      <option value="PREFER_ON_DEVICE">Hybrid (PREFER_ON_DEVICE) [Default]</option>
+                      <option value="ONLY_IN_CLOUD">Cloud-Only (ONLY_IN_CLOUD)</option>
+                    </select>
+                  </div>
+                </div>
                 <button
                   onClick={() => void runStage(3)}
                   disabled={busy}
@@ -1385,17 +1482,14 @@ export default function DemoPage() {
                 <div className="rounded-lg border border-indigo-200 bg-white p-4 shadow-sm space-y-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <span className="rounded bg-indigo-100 px-2 py-0.5 text-xs font-bold text-indigo-900">
-                        Reported Source: {stepData["cloud_inference"]?.reported_source ?? "CLOUD_BACKEND"}
+                      <span className="text-xs font-bold text-slate-700">Source:</span>
+                      <InferenceBadge source={stepData["cloud_inference"]?.client_reported_source || stepData["cloud_inference"]?.actual_source || (stepData["cloud_inference"]?.is_fixture ? "MOCK" : "IN_CLOUD")} />
+                      <span className="text-[11px] font-mono text-slate-500">
+                        SDK: {stepData["cloud_inference"]?.client_reported_source ?? (stepData["cloud_inference"]?.reported_source ?? "MOCK")}
                       </span>
                       <span className="rounded bg-slate-100 px-2 py-0.5 text-xs font-mono text-slate-600">
                         Masquerading Prevented: ✓ TRUE
                       </span>
-                      {stepData["cloud_inference"]?.actual_source && (
-                        <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-[10px] font-mono text-emerald-800">
-                          Actual: {stepData["cloud_inference"].actual_source}
-                        </span>
-                      )}
                     </div>
                     <span className="font-mono text-xs text-slate-500">
                       Duration: {stepData["cloud_inference"]?.source_trace?.duration_ms ?? "18"} ms
@@ -1404,11 +1498,19 @@ export default function DemoPage() {
 
                   <div className="rounded-md border border-indigo-100 bg-indigo-50/50 p-3.5 space-y-2">
                     <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-950">
-                      Cloud Root Cause Analysis (Sanitized Payload Only)
+                      {stepData["cloud_inference"]?.actual_source === "IN_CLOUD"
+                        ? "Actual Firebase AI Logic (cloud, Gemini)"
+                        : "Firebase AI Logic (cloud, Gemini)"}
                     </h4>
-                    <p className="text-sm font-bold text-indigo-950">
-                      {stepData["cloud_inference"]?.root_cause_analysis?.primary_defect ?? "Impeller Cavitation Erosion & Acoustic Vibration Wave Propagation"}
-                    </p>
+                    {stepData["cloud_inference"]?.client_provider_response?.fallback_reason ? (
+                      <p className="text-xs font-mono text-amber-900 bg-amber-50 p-2.5 rounded border border-amber-200">
+                        Simulated: {String(stepData["cloud_inference"].client_provider_response.fallback_reason)}
+                      </p>
+                    ) : (
+                      <p className="text-sm font-bold text-indigo-950">
+                        {stepData["cloud_inference"]?.root_cause_analysis?.primary_defect ?? "Impeller Cavitation Erosion & Acoustic Vibration Wave Propagation"}
+                      </p>
+                    )}
                     <div className="grid grid-cols-2 gap-2 text-xs font-mono text-slate-700">
                       <div>Downstream Risk: <strong className="text-amber-800">{stepData["cloud_inference"]?.root_cause_analysis?.propagation_risk ?? "High (Subsystem Failure)"}</strong></div>
                       <div>Systemic MTTR: <strong className="text-slate-800">{stepData["cloud_inference"]?.root_cause_analysis?.systemic_mttr_hours ?? "4.5"} hrs</strong></div>
@@ -1746,7 +1848,7 @@ export default function DemoPage() {
                 <div className="grid gap-2 sm:grid-cols-3">
                   <div>Correlation: <strong className="font-mono">{currentResult.correlation_id}</strong></div>
                   <div>Event ID: <strong className="font-mono">{currentResult.event_id || currentResult.source_trace?.event_id}</strong></div>
-                  <div>Inference Source: <strong className="font-mono text-indigo-700">{currentResult.inference_source || currentResult.reported_source || "N/A"}</strong></div>
+                  <div className="flex items-center gap-1.5">Inference Source: <InferenceBadge source={currentResult.client_reported_source || currentResult.actual_source || currentResult.reported_source} /><strong className="font-mono text-indigo-700">{currentResult.inference_source || currentResult.reported_source || "N/A"}</strong></div>
                 </div>
                 {currentResult.contradiction_detected && (
                   <div className="rounded border border-amber-300 bg-amber-50 p-2 text-amber-900">

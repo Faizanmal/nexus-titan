@@ -184,12 +184,12 @@ export function CommandCenterShell({ children }: { children: ReactNode }) {
           <button ref={searchButton} className="cc-search-button" type="button" aria-label="Open command palette" onClick={() => setPaletteOpen(true)}>Search command center <kbd>⌘K</kbd></button>
           <label className="sr-only" htmlFor="workspace-tenant">Organization</label>
           <select id="workspace-tenant" className="cc-select" value={tenantId} onChange={(event) => selectTenant(event.target.value)} aria-label="Select active organization" disabled={!memberships.length}>
-            {!memberships.length && <option value="">Organization unavailable</option>}
+            {!memberships.length && <option value="">Sign in via the 1-click judge sandbox</option>}
             {memberships.map((item) => <option key={item.organization_id} value={item.organization_id}>{item.organization_name} · {item.role}</option>)}
           </select>
           <label className="sr-only" htmlFor="workspace-site">Site</label>
           <select id="workspace-site" className="cc-select" value={siteId} onChange={(event) => selectSite(event.target.value)} aria-label="Select active site" disabled={!currentMembership?.sites.length}>
-            {!currentMembership?.sites.length && <option value="">Site unavailable</option>}
+            {!currentMembership?.sites.length && <option value="">Sign in via the 1-click judge sandbox</option>}
             {currentMembership?.sites.map((item) => <option key={item.site_id} value={item.site_id}>{item.name}</option>)}
           </select>
           <button ref={notificationButton} className="cc-icon-button" type="button" onClick={() => { setDrawerOpen(true); void loadNotifications(); }} aria-label={`Open incident notifications${incidents.length ? `, ${incidents.length} open` : ""}`} aria-expanded={drawerOpen}>Alerts{incidents.length > 0 && <span className="cc-badge">{incidents.length}</span>}</button>

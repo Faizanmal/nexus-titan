@@ -66,7 +66,7 @@ class FieldRelayUnitTest {
     }
 
     @Test
-    fun `FirebaseAiLogicAdapter ONLY_ON_DEVICE succeeds with ON_DEVICE source when AICore is present`() = runBlocking {
+    fun `FirebaseAiLogicAdapter ONLY_ON_DEVICE succeeds with MOCK source when AICore is present`() = runBlocking {
         val adapter = FirebaseAiLogicAdapter()
         val response = adapter.evaluateObservation(
             assetId = "WTP01-PMP-001",
@@ -74,8 +74,8 @@ class FieldRelayUnitTest {
             mode = HybridMode.ONLY_ON_DEVICE,
             deviceAiCoreAvailable = true
         )
-        assertEquals(InferenceSource.ON_DEVICE, response.source)
-        assertFalse(response.isFallback)
+        assertEquals(InferenceSource.MOCK, response.source)
+        assertTrue(response.isFallback)
         assertEquals("WTP01-PMP-001", response.result.asset_id)
         assertNotNull(response.result.severity)
     }
@@ -97,7 +97,7 @@ class FieldRelayUnitTest {
     }
 
     @Test
-    fun `FirebaseAiLogicAdapter ONLY_IN_CLOUD succeeds with IN_CLOUD source when approved`() = runBlocking {
+    fun `FirebaseAiLogicAdapter ONLY_IN_CLOUD succeeds with MOCK source when approved`() = runBlocking {
         val adapter = FirebaseAiLogicAdapter()
         val response = adapter.evaluateObservation(
             assetId = "WTP01-PMP-001",
@@ -105,8 +105,8 @@ class FieldRelayUnitTest {
             mode = HybridMode.ONLY_IN_CLOUD,
             cloudApprovalGranted = true
         )
-        assertEquals(InferenceSource.IN_CLOUD, response.source)
-        assertFalse(response.isFallback)
+        assertEquals(InferenceSource.MOCK, response.source)
+        assertTrue(response.isFallback)
     }
 
     @Test
@@ -124,7 +124,7 @@ class FieldRelayUnitTest {
     }
 
     @Test
-    fun `FirebaseAiLogicAdapter PREFER_ON_DEVICE falls back to cloud when approved and no AICore`() = runBlocking {
+    fun `FirebaseAiLogicAdapter PREFER_ON_DEVICE falls back to mock when approved and no AICore`() = runBlocking {
         val adapter = FirebaseAiLogicAdapter()
         val response = adapter.evaluateObservation(
             assetId = "WTP01-PMP-001",
@@ -133,7 +133,7 @@ class FieldRelayUnitTest {
             deviceAiCoreAvailable = false,
             cloudApprovalGranted = true
         )
-        assertEquals(InferenceSource.IN_CLOUD, response.source)
+        assertEquals(InferenceSource.MOCK, response.source)
         assertTrue(response.isFallback)
     }
 

@@ -26,7 +26,7 @@ export default function Home() {
             Flagship Incident Scenario: Pump P-101 Contradiction & Hybrid AI
           </h1>
           <p className="text-sm md:text-base text-slate-600 leading-relaxed">
-            Experience the complete 5-stage evaluator walkthrough: SCADA anomaly alarm & contradictory physical dial gauge, offline local edge triage on restricted technician data, cryptographic consent & de-identified cloud Vertex AI handoff, counterfactual multi-agent solver decisions, and deterministic replay.
+            Experience the complete 5-stage evaluator walkthrough: SCADA anomaly alarm & contradictory physical dial gauge, offline local edge triage on restricted technician data, cryptographic consent & de-identified Firebase AI Logic (cloud, Gemini) handoff, counterfactual multi-agent solver decisions, and deterministic replay.
           </p>
         </div>
 

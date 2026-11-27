@@ -3,20 +3,26 @@
 > **Offline AI helps field technicians investigate equipment alarms and share only approved evidence when connectivity returns.**
 >
 > Open-Source Hybrid Edge-Cloud Industrial Intelligence Platform · Licensed under Apache-2.0.
+> Built during the **#BuildHybridAI** submission period (Nov 11–30, 2026).
+> *Disclosure: Nexus Titan incorporates open-source contracts and scaffold patterns developed prior to the contest period, alongside AI coding-agent assistance (Google DeepMind Antigravity) used for architecture, test harnesses, and integration during the hackathon.*
 
 ---
 
 ## ⚡ Hackathon Judge Quickstart (Clean Browser Evaluation)
 
+- **Live Deployed Demo**: [https://nexus.faizanmalik.me/demo](https://nexus.faizanmalik.me/demo)
+- **Live Homepage**: [https://nexus.faizanmalik.me/](https://nexus.faizanmalik.me/)
+- **Testing Access**: **No sign-up or credentials required.** Uses a 1-click anonymous judge sandbox with dedicated isolated quota allocations.
+
 NEXUS TITAN includes a dedicated **Judge Sandbox** designed for frictionless, 1-click evaluator testing in any fresh browser profile with zero account setup:
 
-1. **Visit the Live Demo / Local Workbench**: Navigate to [`/demo`](http://127.0.0.1:3000/demo) (or from the homepage [`/`](http://127.0.0.1:3000/), click **"Enter Flagship Incident Walkthrough →"**).
+1. **Visit the Live Demo**: Open [`https://nexus.faizanmalik.me/demo`](https://nexus.faizanmalik.me/demo) in any clean browser window (or navigate locally to `http://127.0.0.1:3000/demo`).
 2. **1-Click Sandbox Entry**: In the **Contest Judge & Evaluator Onboarding** gateway card, click **"Enter Sandbox (1-Click Dedicated Evaluator Sign-In)"**.
    - Authenticates instantly and issues an isolated sandbox profile (`role: judge`) with quota allocations (50 simulation units, 20 agent runs, 30 req/min rate limit).
 3. **Step Through the 5-Stage Guided Walkthrough**:
-   - **Stage 1 (Alarm & Contradiction)**: Injects synthetic cavitation fault on Pump `P-101` and records physical dial reading (390 kPa normal), detecting sensor transducer drift.
-   - **Stage 2 (Offline Local AI)**: Simulates disconnected field environment (`Network: OFFLINE`) and executes on-device edge triage on restricted technician notes (0 egressed bytes).
-   - **Stage 3 (Approved Cloud Handoff)**: Inspects de-identification preview, strips PII/canary, authorizes cryptographic SHA-256 consent digest, and executes Cloud Vertex AI via Firebase AI Logic.
+   - **Stage 1 (Alarm & Contradiction)**: Injects synthetic cavitation fault on Pump `P-101` and records physical dial reading (410 kPa dial vs 185 kPa SCADA), detecting sensor transducer calibration drift.
+   - **Stage 2 (Offline Local AI)**: Simulates disconnected field environment (`Network: OFFLINE`) and executes on-device edge triage on restricted technician notes (`ONLY_ON_DEVICE` mode; 0 egressed bytes).
+   - **Stage 3 (Approved Cloud Handoff)**: Inspects de-identification preview, strips PII/canary, authorizes cryptographic SHA-256 consent digest, and executes Firebase AI Logic (`PREFER_ON_DEVICE` hybrid default or `ONLY_IN_CLOUD`).
    - **Stage 4 (Decision & Mitigation)**: Evaluates counterfactual hydraulic solvers (Plan A throttled bypass saving $64,150) with supervisor signoff (`no_actuator_path: true`).
    - **Stage 5 (Spatial Twin & Replay)**: Reconciles 3D spatial digital twin and scrubs deterministic timeline with SHA-256 hash digest.
 4. **Independent Judge Isolation**: Opening another session in a private/incognito window allocates an independent session ID and quota tracker with zero cross-session state leakage.
@@ -25,6 +31,31 @@ NEXUS TITAN includes a dedicated **Judge Sandbox** designed for frictionless, 1-
    pnpm test:suites    # Runs all 14 comprehensive test suites (including judge browser smoke & contradiction tests)
    pnpm test:api       # Runs all 180 FastAPI pytest tests
    ```
+
+---
+
+## 🧠 How NEXUS TITAN Uses Firebase AI Logic
+
+Nexus Titan implements genuine hybrid edge-cloud intelligence following the Firebase AI Logic SDK patterns:
+
+- [client.ts](file:///apps/web/src/lib/firebase/client.ts): Initializes Firebase App Check with reCAPTCHA Enterprise, Anonymous Authentication, Firestore, and Remote Config.
+- [provider.ts](file:///apps/web/src/lib/firebase/provider.ts): Integrates `@firebase/ai` (Vertex AI in Firebase) with model switching, dynamic parameters from Remote Config, and fallback handling.
+- [firebase-adapter.ts](file:///packages/hybrid-web/src/firebase-adapter.ts): Implements the hybrid runtime adapter managing `initializeDeviceModel`, prompt execution, and schema-constrained JSON extraction.
+- [remote-config.ts](file:///packages/hybrid-web/src/remote-config.ts): Provides live remote configuration for dynamic model selection (`gemini-3.5-flash-lite`), prompt versions, and threshold parameters without redeployment.
+- [flagship-hybrid-scenario.ts](file:///apps/web/src/lib/hybrid/flagship-hybrid-scenario.ts): Coordinates the two-leg incident investigation:
+  - **4 Hybrid Inference Modes**:
+    1. `PREFER_ON_DEVICE`: Tries on-device Gemini Nano Prompt API first; seamlessly falls back to cloud Gemini via Firebase AI Logic if unavailable or on failure (default for Stage 3 sanitized data).
+    2. `ONLY_ON_DEVICE`: Strictly restricts execution to on-device hardware. Prohibits network egress for sensitive/restricted field notes (used in Stage 2).
+    3. `PREFER_IN_CLOUD`: Tries cloud Gemini first; falls back to on-device model if offline.
+    4. `ONLY_IN_CLOUD`: Strictly dispatches to cloud Gemini via Firebase AI Logic.
+  - **Device Preparation & Attribution**: Calls `initializeDeviceModel` to verify Chrome Prompt API readiness. Reads SDK `response.inferenceSource` (`ON_DEVICE` vs `IN_CLOUD`). Missing provider responses or unsupported hardware fall back honestly to `MOCK` with an explicit `fallback_reason`.
+  - **Privacy Boundary & Consent Invalidation**: Uses cryptographic SHA-256 consent digests over sanitized data; any tampering invalidates consent and aborts execution.
+  - **Firebase Infrastructure**: Uses Firebase App Check (reCAPTCHA Enterprise) to protect cloud inference endpoints, Firebase Auth for judge sandbox provisioning, Remote Config for dynamic runtime policy, and Firestore for derived tenant projections.
+
+### 💻 Tested Hardware & Browser Environment
+- **Web / Chrome**: Fully supported on **Chrome Desktop 139+** with the Gemini Nano Prompt API enabled (`chrome://flags/#prompt-api-for-gemini-nano` and `Optimization Guide On Device Model`). Under this configuration, Stage 2 and Stage 3 will report authentic `ON_DEVICE` inference.
+- **Other Browsers / Headless Environments**: If Chrome Prompt API is absent or offline, execution gracefully reports an honest `MOCK` badge accompanied by the explicit reason (e.g. `Simulated: Window or Chrome Prompt API unavailable in current environment`).
+- **Mobile Platforms Notice**: *Android and iOS implementations in `apps/android` and `apps/ios` are offline-relay scaffolds and architectural blueprints; active Firebase AI Logic hybrid inference is implemented and demonstrated on Web/Chrome.*
 
 ---
 

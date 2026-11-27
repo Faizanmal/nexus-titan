@@ -20,7 +20,7 @@ export async function requestFirebaseInference(
   const { ai } = firebaseClient();
   const model = getGenerativeModel(ai, {
     mode: InferenceMode[mode],
-    inCloudParams: { model: process.env.NEXT_PUBLIC_FIREBASE_CLOUD_MODEL || "gemini-2.0-flash" },
+    inCloudParams: { model: process.env.NEXT_PUBLIC_FIREBASE_CLOUD_MODEL || "gemini-3.5-flash-lite" },
   });
   if (mode !== "ONLY_IN_CLOUD") {
     onProgress("Checking / preparing device model…");

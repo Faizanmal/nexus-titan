@@ -1,3 +1,4 @@
+// Android/iOS are offline-relay scaffolds; Firebase AI Logic hybrid inference is implemented on Web/Chrome.
 import Foundation
 import NexusTitanContracts
 
@@ -133,14 +134,14 @@ public final class FirebaseAiLogicAdapter: Sendable {
             guard appleIntelligenceAvailable else {
                 throw FirebaseAiLogicError.onDeviceUnavailable
             }
-            let triage = executeDeterministicTriage(assetId: assetId, text: combinedText, isMock: false)
+            let triage = executeDeterministicTriage(assetId: assetId, text: combinedText, isMock: true)
             let elapsed = Int64(Date().timeIntervalSince(startTime) * 1000)
             return InferenceResponse(
-                source: .onDeviceSystem,
-                modelUsed: "apple-intelligence-system",
+                source: .mock,
+                modelUsed: "scaffold-relay-fixture",
                 result: triage,
                 latencyMs: elapsed,
-                isFallback: false
+                isFallback: true
             )
 
         case .onlyInCloud:
@@ -150,97 +151,33 @@ public final class FirebaseAiLogicAdapter: Sendable {
             guard cloudApprovalGranted else {
                 throw FirebaseAiLogicError.cloudApprovalRequired
             }
-            let triage = executeDeterministicTriage(assetId: assetId, text: combinedText, isMock: false)
-            let elapsed = Int64(Date().timeIntervalSince(startTime) * 1000)
-            return InferenceResponse(
-                source: .inCloud,
-                modelUsed: cloudModelName,
-                result: triage,
-                latencyMs: elapsed,
-                isFallback: false
-            )
-
-        case .preferOnDevice:
-            if appleIntelligenceAvailable {
-                let triage = executeDeterministicTriage(assetId: assetId, text: combinedText, isMock: false)
-                let elapsed = Int64(Date().timeIntervalSince(startTime) * 1000)
-                return InferenceResponse(
-                    source: .onDeviceSystem,
-                    modelUsed: "apple-intelligence-system",
-                    result: triage,
-                    latencyMs: elapsed,
-                    isFallback: false
-                )
-            }
-
-            // Fallback path: check restricted boundary
-            if isRestricted {
-                // Restricted data cannot fall back to cloud! Must stay local/mock.
-                let triage = executeDeterministicTriage(assetId: assetId, text: combinedText, isMock: true)
-                let elapsed = Int64(Date().timeIntervalSince(startTime) * 1000)
-                return InferenceResponse(
-                    source: .mock,
-                    modelUsed: "local-restricted-triage-fallback",
-                    result: triage,
-                    latencyMs: elapsed,
-                    isFallback: true
-                )
-            }
-
-            // Non-restricted fallback: if operator consented to cloud, use cloud
-            if cloudApprovalGranted {
-                let triage = executeDeterministicTriage(assetId: assetId, text: combinedText, isMock: false)
-                let elapsed = Int64(Date().timeIntervalSince(startTime) * 1000)
-                return InferenceResponse(
-                    source: .inCloud,
-                    modelUsed: cloudModelName,
-                    result: triage,
-                    latencyMs: elapsed,
-                    isFallback: true
-                )
-            }
-
-            // Final fallback to mock
             let triage = executeDeterministicTriage(assetId: assetId, text: combinedText, isMock: true)
             let elapsed = Int64(Date().timeIntervalSince(startTime) * 1000)
             return InferenceResponse(
                 source: .mock,
-                modelUsed: "synthetic-deterministic-fixture",
+                modelUsed: "scaffold-relay-fixture",
+                result: triage,
+                latencyMs: elapsed,
+                isFallback: true
+            )
+
+        case .preferOnDevice:
+            let triage = executeDeterministicTriage(assetId: assetId, text: combinedText, isMock: true)
+            let elapsed = Int64(Date().timeIntervalSince(startTime) * 1000)
+            return InferenceResponse(
+                source: .mock,
+                modelUsed: "scaffold-relay-fixture",
                 result: triage,
                 latencyMs: elapsed,
                 isFallback: true
             )
 
         case .preferInCloud:
-            if !isRestricted && cloudApprovalGranted {
-                let triage = executeDeterministicTriage(assetId: assetId, text: combinedText, isMock: false)
-                let elapsed = Int64(Date().timeIntervalSince(startTime) * 1000)
-                return InferenceResponse(
-                    source: .inCloud,
-                    modelUsed: cloudModelName,
-                    result: triage,
-                    latencyMs: elapsed,
-                    isFallback: false
-                )
-            }
-
-            if appleIntelligenceAvailable {
-                let triage = executeDeterministicTriage(assetId: assetId, text: combinedText, isMock: false)
-                let elapsed = Int64(Date().timeIntervalSince(startTime) * 1000)
-                return InferenceResponse(
-                    source: .onDeviceSystem,
-                    modelUsed: "apple-intelligence-system",
-                    result: triage,
-                    latencyMs: elapsed,
-                    isFallback: true
-                )
-            }
-
             let triage = executeDeterministicTriage(assetId: assetId, text: combinedText, isMock: true)
             let elapsed = Int64(Date().timeIntervalSince(startTime) * 1000)
             return InferenceResponse(
                 source: .mock,
-                modelUsed: "synthetic-deterministic-fixture",
+                modelUsed: "scaffold-relay-fixture",
                 result: triage,
                 latencyMs: elapsed,
                 isFallback: true

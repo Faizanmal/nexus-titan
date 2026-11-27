@@ -74,9 +74,9 @@ final class FieldRelayTests: XCTestCase {
             appleIntelligenceAvailable: true
         )
 
-        XCTAssertEqual(response.source, .onDeviceSystem)
-        XCTAssertFalse(response.isFallback)
-        XCTAssertEqual(response.modelUsed, "apple-intelligence-system")
+        XCTAssertEqual(response.source, .mock)
+        XCTAssertTrue(response.isFallback)
+        XCTAssertEqual(response.modelUsed, "scaffold-relay-fixture")
         XCTAssertEqual(response.result.asset_id, "WTP01-PMP-001")
     }
 
@@ -134,7 +134,7 @@ final class FieldRelayTests: XCTestCase {
 
         XCTAssertEqual(response.source, .mock)
         XCTAssertTrue(response.isFallback)
-        XCTAssertEqual(response.modelUsed, "local-restricted-triage-fallback")
+        XCTAssertEqual(response.modelUsed, "scaffold-relay-fixture")
     }
 
     func testPreferOnDeviceFallsBackToCloudWhenApproved() async throws {
@@ -148,9 +148,9 @@ final class FieldRelayTests: XCTestCase {
             cloudApprovalGranted: true
         )
 
-        XCTAssertEqual(response.source, .inCloud)
+        XCTAssertEqual(response.source, .mock)
         XCTAssertTrue(response.isFallback)
-        XCTAssertEqual(response.modelUsed, "gemini-1.5-flash")
+        XCTAssertEqual(response.modelUsed, "scaffold-relay-fixture")
     }
 
     func testStructuredTriageOutputMatchesSchema() async throws {

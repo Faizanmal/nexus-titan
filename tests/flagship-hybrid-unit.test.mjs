@@ -70,7 +70,7 @@ console.log(`[PASS] Offline local leg executed successfully (${localRes.observed
 const cloudRes = await executeCloudLeg(sanitized, true, sanitized.consent_hash);
 assert.equal(cloudRes.incident_id, FLAGSHIP_INCIDENT_ID, "Both legs must share identical Incident ID");
 assert.equal(cloudRes.leg, "cloud_vertex");
-assert.equal(cloudRes.mode, "ONLY_IN_CLOUD");
+assert.equal(cloudRes.mode, "PREFER_ON_DEVICE");
 assert.ok(cloudRes.duration_ms > 0, "Cloud leg duration must be measured");
 assert.equal(cloudRes.canary_absent_verified, true);
 console.log(`[PASS] Approved cloud leg executed successfully (${cloudRes.observed_source}, ${cloudRes.duration_ms} ms).`);

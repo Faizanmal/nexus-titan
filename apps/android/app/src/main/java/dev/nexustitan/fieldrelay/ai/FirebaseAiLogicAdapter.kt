@@ -1,3 +1,4 @@
+// Android/iOS are offline-relay scaffolds; Firebase AI Logic hybrid inference is implemented on Web/Chrome.
 package dev.nexustitan.fieldrelay.ai
 
 import android.graphics.Bitmap
@@ -88,12 +89,13 @@ class FirebaseAiLogicAdapter(
                 if (!deviceAiCoreAvailable) {
                     throw IllegalStateException("ON_DEVICE_UNAVAILABLE: Hardware floor not met or AICore model not downloaded.")
                 }
-                // Execute on-device structured generation
-                val triage = executeDeterministicTriage(assetId, notes, isMock = false)
+                // Scaffolding deterministic output labeled honestly as MOCK
+                val triage = executeDeterministicTriage(assetId, notes, isMock = true)
                 InferenceResponse(
-                    source = InferenceSource.ON_DEVICE,
+                    source = InferenceSource.MOCK,
                     result = triage,
-                    latencyMs = System.currentTimeMillis() - startTime
+                    latencyMs = System.currentTimeMillis() - startTime,
+                    isFallback = true
                 )
             }
 
@@ -101,26 +103,28 @@ class FirebaseAiLogicAdapter(
                 if (!cloudApprovalGranted) {
                     throw IllegalStateException("CLOUD_APPROVAL_REQUIRED: Operator consent required for cloud transmission.")
                 }
-                val triage = executeDeterministicTriage(assetId, notes, isMock = false)
+                val triage = executeDeterministicTriage(assetId, notes, isMock = true)
                 InferenceResponse(
-                    source = InferenceSource.IN_CLOUD,
+                    source = InferenceSource.MOCK,
                     result = triage,
-                    latencyMs = System.currentTimeMillis() - startTime
+                    latencyMs = System.currentTimeMillis() - startTime,
+                    isFallback = true
                 )
             }
 
             HybridMode.PREFER_ON_DEVICE -> {
                 if (deviceAiCoreAvailable) {
-                    val triage = executeDeterministicTriage(assetId, notes, isMock = false)
+                    val triage = executeDeterministicTriage(assetId, notes, isMock = true)
                     InferenceResponse(
-                        source = InferenceSource.ON_DEVICE,
+                        source = InferenceSource.MOCK,
                         result = triage,
-                        latencyMs = System.currentTimeMillis() - startTime
+                        latencyMs = System.currentTimeMillis() - startTime,
+                        isFallback = true
                     )
                 } else if (cloudApprovalGranted) {
-                    val triage = executeDeterministicTriage(assetId, notes, isMock = false)
+                    val triage = executeDeterministicTriage(assetId, notes, isMock = true)
                     InferenceResponse(
-                        source = InferenceSource.IN_CLOUD,
+                        source = InferenceSource.MOCK,
                         result = triage,
                         latencyMs = System.currentTimeMillis() - startTime,
                         isFallback = true
@@ -133,16 +137,17 @@ class FirebaseAiLogicAdapter(
 
             HybridMode.PREFER_IN_CLOUD -> {
                 if (cloudApprovalGranted) {
-                    val triage = executeDeterministicTriage(assetId, notes, isMock = false)
+                    val triage = executeDeterministicTriage(assetId, notes, isMock = true)
                     InferenceResponse(
-                        source = InferenceSource.IN_CLOUD,
+                        source = InferenceSource.MOCK,
                         result = triage,
-                        latencyMs = System.currentTimeMillis() - startTime
+                        latencyMs = System.currentTimeMillis() - startTime,
+                        isFallback = true
                     )
                 } else if (deviceAiCoreAvailable) {
-                    val triage = executeDeterministicTriage(assetId, notes, isMock = false)
+                    val triage = executeDeterministicTriage(assetId, notes, isMock = true)
                     InferenceResponse(
-                        source = InferenceSource.ON_DEVICE,
+                        source = InferenceSource.MOCK,
                         result = triage,
                         latencyMs = System.currentTimeMillis() - startTime,
                         isFallback = true

@@ -18,6 +18,7 @@ import {
   inspectCapabilities,
   prepareGeminiNano,
   type CapabilitySnapshot,
+  type HybridMode,
   type InferenceSource,
   type LeasedInferenceTask,
 } from "@nexus-titan/hybrid-web";
@@ -67,7 +68,7 @@ export interface LegExecutionResult {
   leg: "local_edge" | "cloud_vertex";
   incident_id: string;
   timestamp: string;
-  mode: "ONLY_ON_DEVICE" | "ONLY_IN_CLOUD";
+  mode: HybridMode;
   observed_source: InferenceSource;
   is_simulation_fallback: boolean;
   duration_ms: number;
@@ -77,6 +78,7 @@ export interface LegExecutionResult {
   canary_retained_locally: boolean;
   raw_output?: string;
   error?: string;
+  fallback_reason?: string;
   retry_count: number;
 }
 
@@ -212,6 +214,7 @@ export async function executeOfflineLocalLeg(
 
   // Check if real on-device Chrome Prompt API is ready
   const canRunLocalSdk = caps.desktopChrome && caps.promptApi && caps.modelState === "ready" && caps.foreground;
+  let localErrorReason: string | undefined;
 
   if (canRunLocalSdk) {
     try {
@@ -280,13 +283,16 @@ export async function executeOfflineLocalLeg(
         raw_output: result.summary,
         retry_count: retryCount,
       };
-    } catch {
-      // Fall through to deterministic simulation on SDK failure
+    } catch (err) {
+      localErrorReason = err instanceof Error ? `${err.name}: ${err.message}` : String(err);
     }
+  } else {
+    localErrorReason = `Chrome Prompt API unavailable on host (desktopChrome=${caps.desktopChrome}, promptApi=${caps.promptApi}, modelState=${caps.modelState})`;
   }
 
-  // Graceful deterministic simulation fallback path (preserves exact verification invariants)
+  // Graceful deterministic simulation fallback path with honest reason
   const elapsed = Math.round(performance.now() - start);
+  const reasonText = localErrorReason || "Host GPU/RAM below Chrome Prompt API floor";
   return {
     leg: "local_edge",
     incident_id: evidence.incident_id,
@@ -295,14 +301,14 @@ export async function executeOfflineLocalLeg(
     observed_source: "MOCK",
     is_simulation_fallback: true,
     duration_ms: Math.max(elapsed, 24.5),
+    fallback_reason: reasonText,
     actionable_hypothesis:
       "CONTRADICTION DETECTED: Physical dial gauge reads nominal 410 kPa while telemetry sensor reports 185 kPa. Changed hypothesis: PT-101 transmitter calibration drift / transducer wiring loop error rather than impeller cavitation.",
     recommended_inspection:
       "Perform zero-point loop calibration on pressure transducer PT-101. Inspect junction box for moisture. Defer mechanical pump impeller disassembly.",
     canary_absent_verified: true,
     canary_retained_locally: true,
-    raw_output:
-      "DEVICE_HARDWARE_LIMITATION: Host GPU/RAM below Chrome Prompt API floor; deterministic simulation triage executed. Field physical dial directly contradicts digital alarm. Anomaly isolated to instrumentation loop.",
+    raw_output: `Simulated: ${reasonText}`,
     retry_count: retryCount,
   };
 }
@@ -316,7 +322,8 @@ export async function executeCloudLeg(
   sanitized: SanitizedCloudPayload,
   consentApproved: boolean,
   currentHash: string,
-  retryCount = 0
+  retryCount = 0,
+  mode: HybridMode = "PREFER_ON_DEVICE"
 ): Promise<LegExecutionResult> {
   const start = performance.now();
 
@@ -348,6 +355,8 @@ export async function executeCloudLeg(
   if (serialized.includes(SYNTHETIC_CANARY_TOKEN)) {
     throw new Error("SECURITY_VIOLATION: Restricted synthetic canary detected in outgoing cloud payload!");
   }
+
+  let cloudErrorReason: string | undefined;
 
   // 4. Run real Firebase AI Logic request
   try {
@@ -383,7 +392,7 @@ export async function executeCloudLeg(
         },
         signal: aborter.signal,
         task,
-        mode: "ONLY_IN_CLOUD",
+        mode: mode || "PREFER_ON_DEVICE",
         capabilities: caps,
         privacyDecision: {
           allow: true,
@@ -402,12 +411,13 @@ export async function executeCloudLeg(
       });
 
       const elapsed = Math.round(performance.now() - start);
+      const actualSource = (result.actualSource || observedSource) as InferenceSource;
       return {
         leg: "cloud_vertex",
         incident_id: sanitized.incident_id,
         timestamp: new Date().toISOString(),
-        mode: "ONLY_IN_CLOUD",
-        observed_source: observedSource,
+        mode: mode || "PREFER_ON_DEVICE",
+        observed_source: actualSource,
         is_simulation_fallback: false,
         duration_ms: elapsed,
         actionable_hypothesis:
@@ -419,32 +429,39 @@ export async function executeCloudLeg(
         raw_output: result.summary,
         retry_count: retryCount,
       };
+    } else {
+      if (!process.env.NEXT_PUBLIC_FIREBASE_API_KEY) {
+        cloudErrorReason = "NEXT_PUBLIC_FIREBASE_API_KEY not configured";
+      } else {
+        cloudErrorReason = "Firebase Auth currentUser not signed in";
+      }
     }
   } catch (err) {
-    // If not authenticated or in offline demo test environment, provide explicit labeled simulation
-    if (String(err).includes("APPROVAL_DECLINED") || String(err).includes("CONSENT_INVALIDATED")) {
+    if (String(err).includes("APPROVAL_DECLINED") || String(err).includes("CONSENT_INVALIDATED") || String(err).includes("SECURITY_VIOLATION")) {
       throw err;
     }
+    cloudErrorReason = err instanceof Error ? `${err.name}: ${err.message}` : String(err);
   }
 
   // Labeled simulation fallback when cloud credentials/auth unavailable in local test sandbox
   const elapsed = Math.round(performance.now() - start);
+  const reasonText = cloudErrorReason || "Cloud credentials or provider unavailable in local test sandbox";
   return {
     leg: "cloud_vertex",
     incident_id: sanitized.incident_id,
     timestamp: new Date().toISOString(),
-    mode: "ONLY_IN_CLOUD",
+    mode: mode || "PREFER_ON_DEVICE",
     observed_source: "MOCK",
     is_simulation_fallback: true,
     duration_ms: Math.max(elapsed, 45.2),
+    fallback_reason: reasonText,
     actionable_hypothesis:
       "Cloud Root-Cause Analysis (Sanitized Context): Systemic risk downgraded from CRITICAL to LOW. No hydraulic shock propagation toward Rapid Sand Filter Bed FB-01.",
     recommended_inspection:
       "Dispatch electrical instrumentation crew to recalibrate PT-101 loop. Keep P-101 running at nominal 450 gpm based on physical dial confirmation.",
     canary_absent_verified: true,
     canary_retained_locally: true,
-    raw_output:
-      "Firebase Cloud Vertex AI fixture: Zero restricted tokens transmitted. Canary strictly absent from cloud request context.",
+    raw_output: `Simulated: ${reasonText}`,
     retry_count: retryCount,
   };
 }

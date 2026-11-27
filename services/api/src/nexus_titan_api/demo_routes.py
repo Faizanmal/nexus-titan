@@ -551,33 +551,53 @@ def execute_scenario_step(
 
         duration_ms = _get_duration(payload, step_start)
 
-        if payload.provider_source:
-            mapped = map_inference_source(payload.provider_source)
+        raw_source = payload.provider_source or (
+            payload.provider_response.get("observed_source")
+            or payload.provider_response.get("inferenceSource")
+            if payload.provider_response
+            else None
+        )
+
+        if raw_source:
+            mapped = map_inference_source(raw_source)
+            client_reported_source = mapped
             if mapped == "ON_DEVICE":
                 is_fixture = False
                 actual_source = "ON_DEVICE"
                 inference_source = "ON_DEVICE"
                 reported_source = "ON_DEVICE"
-                device_note = "Actual verified on-device inference executed via Chrome Prompt API."
+                device_note = "SDK-reported source (client): On-device inference executed via Chrome Prompt API."
                 has_prompt_api = True
+            elif mapped == "IN_CLOUD":
+                is_fixture = False
+                actual_source = "IN_CLOUD"
+                inference_source = "IN_CLOUD"
+                reported_source = "IN_CLOUD"
+                device_note = "SDK-reported source (client): Cloud inference executed."
+                has_prompt_api = False
             else:
                 is_fixture = True
                 actual_source = mapped if mapped != "UNKNOWN" else "UNKNOWN"
                 inference_source = "SCRIPTED_LOCAL_EDGE_FIXTURE"
                 reported_source = "MOCK_EXPLICITLY_LABELED"
                 device_note = (
-                    f"Provider source '{payload.provider_source}' mapped to {mapped}; "
-                    "falling back to verified deterministic edge classifier fixture."
+                    f"SDK-reported source (client): Provider source '{raw_source}' mapped to {mapped}; "
+                    "falling back to deterministic edge classifier fixture."
                 )
                 has_prompt_api = False
         else:
+            client_reported_source = None
             is_fixture = True
             actual_source = None
             inference_source = "SCRIPTED_LOCAL_EDGE_FIXTURE"
             reported_source = "MOCK_EXPLICITLY_LABELED"
+            fallback_reason = (
+                payload.provider_response.get("fallback_reason")
+                if payload.provider_response
+                else None
+            )
             device_note = (
-                "DEVICE_HARDWARE_LIMITATION: Host GPU/RAM below Chrome Prompt API floor; "
-                "fallback to verified local deterministic edge classifier with explicit mock label."
+                f"SDK-reported source (client): Simulated: {fallback_reason or 'DEVICE_HARDWARE_LIMITATION: Host GPU/RAM below Chrome Prompt API floor; fallback to deterministic edge classifier with explicit mock label.'}"
             )
             has_prompt_api = False
 
@@ -588,6 +608,7 @@ def execute_scenario_step(
             "source": reported_source,
             "actual_source": actual_source,
             "inference_source": inference_source,
+            "client_reported_source": client_reported_source,
             "device_type": "edge_on_device_runtime",
             "duration_ms": duration_ms,
             "event_id": f"ev-locai-{uuid4().hex[:8]}",
@@ -611,6 +632,7 @@ def execute_scenario_step(
             "inference_source": inference_source,
             "actual_source": actual_source,
             "reported_source": reported_source,
+            "client_reported_source": client_reported_source,
             "is_fixture": is_fixture,
             "scripted_lifecycle_output": is_fixture,
             "device_status_note": device_note,
@@ -761,35 +783,43 @@ def execute_scenario_step(
         # Derive attribution strictly from provider response via SDK mapping; never from configuration
         raw_source = payload.provider_source or (
             payload.provider_response.get("inferenceSource")
+            or payload.provider_response.get("observed_source")
             if payload.provider_response
             else None
         )
+        client_reported_source = raw_source
 
         if raw_source is not None:
             mapped = map_inference_source(raw_source)
+            client_reported_source = mapped
             if mapped == "IN_CLOUD":
                 actual_source = "IN_CLOUD"
                 reported_source = "IN_CLOUD"
                 is_fixture = False
-                cloud_note = "Actual Firebase Vertex AI / Gemini 3.5 Flash cloud inference executed and verified by provider response."
+                cloud_note = "SDK-reported source (client): Firebase AI Logic (cloud, Gemini) cloud inference executed."
             elif mapped == "ON_DEVICE":
                 actual_source = "ON_DEVICE"
                 reported_source = "ON_DEVICE"
                 is_fixture = False
-                cloud_note = "On-device provider inference executed and verified by provider response."
+                cloud_note = "SDK-reported source (client): On-device provider inference executed."
             else:
                 actual_source = "UNKNOWN"
                 reported_source = "UNKNOWN"
                 is_fixture = False
-                cloud_note = f"Provider response received but inferenceSource attribution was unrecognized ({raw_source!r}); derived attribution is UNKNOWN."
+                cloud_note = f"SDK-reported source (client): Provider response received but attribution was unrecognized ({raw_source!r}); derived attribution is UNKNOWN."
         else:
-            # No provider response supplied: explicitly labeled mock fixture, regardless of environment configuration
+            client_reported_source = None
             actual_source = None
             reported_source = "MOCK_EXPLICITLY_LABELED"
             is_fixture = True
+            fallback_reason = (
+                payload.provider_response.get("fallback_reason")
+                if payload.provider_response
+                else None
+            )
             cloud_note = (
-                "No live provider response was supplied; executing verified deterministic "
-                "cloud fixture with explicit mock attribution. Configuration presence does not claim cloud execution."
+                f"SDK-reported source (client): Simulated: {fallback_reason or 'No live provider response was supplied; executing deterministic cloud fixture with explicit mock attribution.'} "
+                "Configuration presence does not claim cloud execution."
             )
 
         trace_item = {
@@ -799,6 +829,7 @@ def execute_scenario_step(
             "source": reported_source,
             "actual_source": actual_source,
             "reported_source": reported_source,
+            "client_reported_source": client_reported_source,
             "is_fixture": is_fixture,
             "scripted_lifecycle_output": is_fixture,
             "device_type": "cloud_vertex_ai",
@@ -816,6 +847,7 @@ def execute_scenario_step(
             "correlation_id": correlation_id,
             "actual_source": actual_source,
             "reported_source": reported_source,
+            "client_reported_source": client_reported_source,
             "is_fixture": is_fixture,
             "scripted_lifecycle_output": is_fixture,
             "masquerading_prevented": True,

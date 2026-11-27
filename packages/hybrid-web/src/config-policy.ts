@@ -1,7 +1,6 @@
 import type { RuntimeConfig } from "./types.ts";
 
 export const SUPPORTED_CLOUD_MODELS = [
-  "gemini-2.0-flash",
   "gemini-2.5-flash",
   "gemini-3.8-flash",
   "gemini-4-argon",
@@ -10,7 +9,7 @@ export const SUPPORTED_CLOUD_MODELS = [
 ] as const;
 export const SUPPORTED_PROMPT_VERSIONS = ["fixture-qa-v1"] as const;
 export const DEFAULT_RUNTIME_CONFIG: RuntimeConfig = {
-  model: (typeof process !== "undefined" && process.env?.NEXT_PUBLIC_FIREBASE_CLOUD_MODEL) || "gemini-2.0-flash",
+  model: (typeof process !== "undefined" && process.env?.NEXT_PUBLIC_FIREBASE_CLOUD_MODEL) || "gemini-3.5-flash-lite",
   promptVersion: "fixture-qa-v1",
   maxOutputTokens: 512,
   cloudEnabled: false,
