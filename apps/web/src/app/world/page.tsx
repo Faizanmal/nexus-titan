@@ -103,9 +103,18 @@ export default function WorldPage() {
   useEffect(() => {
     const controller = new AbortController();
     Promise.all([
-      fetch("/fixtures/TITAN-WTP-01/world.json", { signal: controller.signal }).then((r) => r.json()),
-      fetch("/fixtures/TITAN-WTP-01/scene.json", { signal: controller.signal }).then((r) => r.json()),
-      fetch("/fixtures/TITAN-WTP-01/events.json", { signal: controller.signal }).then((r) => r.json()),
+      fetch("/fixtures/TITAN-WTP-01/world.json", { signal: controller.signal }).then((r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      }),
+      fetch("/fixtures/TITAN-WTP-01/scene.json", { signal: controller.signal }).then((r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      }),
+      fetch("/fixtures/TITAN-WTP-01/events.json", { signal: controller.signal }).then((r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      }),
     ])
       .then(([data, manifest, log]) => {
         setWorld(data as World);
@@ -115,6 +124,81 @@ export default function WorldPage() {
       .catch((reason: unknown) => {
         if (reason instanceof Error && reason.name !== "AbortError") {
           setError(reason.message);
+          // Graceful fallback fixtures so the page degrades cleanly if API or static fetch fails/503s
+          setWorld({
+            fixture_id: "TITAN-WTP-01",
+            schema_version: "1.0.0",
+            seed: 42,
+            assets: [
+              {
+                asset_id: "WTP01-PMP-001",
+                fixture_id: "TITAN-WTP-01",
+                label: "Intake Pump P-101",
+                asset_type: "pump",
+                site_id: "titan-wtp-01",
+                subsystem_id: "intake",
+                critical: true,
+                serial_number: "SN-PMP-001",
+                measurement_unit: "kPa",
+                capacity_constraint: { metric: "pressure", minimum: 0, maximum: 600, unit: "kPa" },
+                position: [0, 0, 0],
+                coordinate_system: "TITAN_LOCAL_PLANT_GRID_V1",
+                dependencies: [{ relation: "FEEDS", target_asset_id: "WTP01-VLV-101" }],
+              },
+              {
+                asset_id: "WTP01-VLV-101",
+                fixture_id: "TITAN-WTP-01",
+                label: "Bypass Valve V-101",
+                asset_type: "valve",
+                site_id: "titan-wtp-01",
+                subsystem_id: "intake",
+                critical: false,
+                serial_number: "SN-VLV-101",
+                measurement_unit: "pct",
+                capacity_constraint: { metric: "position", minimum: 0, maximum: 100, unit: "pct" },
+                position: [5, 0, 0],
+                coordinate_system: "TITAN_LOCAL_PLANT_GRID_V1",
+                dependencies: [],
+              },
+            ],
+            relations: [
+              {
+                relation_id: "REL-001",
+                source_asset_id: "WTP01-PMP-001",
+                target_asset_id: "WTP01-VLV-101",
+                relation_type: "FEEDS",
+                fixture_id: "TITAN-WTP-01",
+              },
+            ],
+          });
+          setScene({
+            scene_version: "1.0.0",
+            coordinate_system: "plant_grid",
+            coordinate_transform: { from: "plant_grid", to: "three_rhs", mapping: "east->x,north->-z,elevation->y" },
+            entities: [
+              {
+                asset_id: "WTP01-PMP-001",
+                geometry_ref: "pump",
+                transform: { position: [0, 0, 0], rotation_degrees: [0, 0, 0], scale: [1, 1, 1] },
+              },
+              {
+                asset_id: "WTP01-VLV-101",
+                geometry_ref: "valve",
+                transform: { position: [5, 0, 0], rotation_degrees: [0, 0, 0], scale: [1, 1, 1] },
+              },
+            ],
+            pipe_paths: [
+              {
+                path_id: "PIPE-001",
+                source_asset_id: "WTP01-PMP-001",
+                target_asset_id: "WTP01-VLV-101",
+                points: [[0, 0, 0], [5, 0, 0]],
+              },
+            ],
+            markers: [],
+            render_budget: { textures: 0, mesh_instances: 2 },
+          });
+          setEvents([]);
         }
       });
 
@@ -471,12 +555,25 @@ export default function WorldPage() {
                 crossSectionEast={crossSectionEast}
                 onSelect={setSelectedId}
               />
-            ) : (
+            ) : !webgl ? (
               <div className="grid h-full place-items-center p-8 text-center text-slate-100">
                 <div>
                   <h3 className="text-lg font-semibold text-amber-300">WebGL Acceleration Unavailable</h3>
                   <p className="mt-2 max-w-md text-sm text-slate-300">
                     Your current browser session does not support WebGL or 3D canvas context. The full accessible 2D topology and asset table remain fully functional below.
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div className="grid h-full place-items-center p-8 text-center text-slate-100">
+                <div>
+                  <h3 className="text-lg font-semibold text-amber-300">
+                    {error ? "Digital Twin Offline (Degraded Mode)" : "Loading Digital Twin Scene…"}
+                  </h3>
+                  <p className="mt-2 max-w-md text-sm text-slate-300">
+                    {error
+                      ? `Upstream fixture service error (${error}). The 2D topological schematic and fallback state remain operational below.`
+                      : "Connecting to digital twin model…"}
                   </p>
                 </div>
               </div>

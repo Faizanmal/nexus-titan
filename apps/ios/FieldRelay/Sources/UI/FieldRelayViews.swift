@@ -241,7 +241,7 @@ public struct LocalInferenceView: View {
                         Text("Apple Intelligence: Standby / Supported")
                             .font(.caption)
                         Spacer()
-                        Text("Model: gemini-1.5-flash fallback")
+                        Text("Model: scaffold-relay-fixture")
                             .font(.caption2)
                             .foregroundColor(.secondary)
                     }

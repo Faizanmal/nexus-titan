@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ErrorState } from "@/components/command-center-primitives";
 import { firebaseAppCheckClient, firebaseAuthClient } from "@/lib/firebase/client";
 import { inspectCapabilities, type CapabilitySnapshot, type HybridMode } from "@nexus-titan/hybrid-web";
@@ -10,8 +10,14 @@ import {
   executeCloudLeg,
   INITIAL_FLAGSHIP_EVIDENCE,
   sanitizeFlagshipPayload,
-  SYNTHETIC_CANARY_TOKEN,
 } from "@/lib/hybrid/flagship-hybrid-scenario";
+import {
+  SYNTHETIC_CANARY_TOKEN,
+  SCADA_TELEMETRY_PRESSURE_KPA,
+  PHYSICAL_DIAL_PRESSURE_CONTRADICTION_KPA,
+  PHYSICAL_DIAL_PRESSURE_AGREEING_KPA,
+  PHYSICAL_CASING_TEMP_AMBIENT_C,
+} from "@/lib/hybrid/scenario-constants";
 import { getToken } from "firebase/app-check";
 import {
   createUserWithEmailAndPassword,
@@ -215,6 +221,9 @@ async function callDemoApi<T>(path: string, init: RequestInit = {}): Promise<T> 
 
   const response = await fetch(new URL(path, base), { ...init, headers, cache: "no-store" });
   if (!response.ok) {
+    if (response.status === 429) {
+      throw new Error("Rate limit exceeded (HTTP 429). Please wait before retrying.");
+    }
     const body = (await response.json().catch(() => ({}))) as { error?: { message?: string; code?: string } };
     throw new Error(body?.error?.message ?? `API error HTTP ${response.status}`);
   }
@@ -265,6 +274,11 @@ export default function DemoPage() {
   // Judge Onboarding state
   const [judgeSession, setJudgeSession] = useState<JudgeSession | null>(null);
   const [judgeAlias, setJudgeAlias] = useState<string>("contest-judge-alpha");
+  const [stage3ConsentGranted, setStage3ConsentGranted] = useState<boolean>(true);
+
+  // In-flight guard and onboarding deduplication ref
+  const stepInFlightRef = useRef(false);
+  const onboardedUidRef = useRef<string | null>(null);
 
   // Replay scrubbing
   const [replayIndex, setReplayIndex] = useState<number>(10);
@@ -286,12 +300,27 @@ export default function DemoPage() {
   // Execute scenario step
   const runStep = useCallback(
     async (targetStep: ScenarioStep, overrideSessionId?: string, overrideCorrId?: string) => {
+      if (stepInFlightRef.current) {
+        return;
+      }
+      stepInFlightRef.current = true;
       setBusy(true);
       setError("");
       setInfoMessage("");
+
+      // Dev-mode assertion: one click equals exactly one step POST
+      if (typeof window !== "undefined" && process.env.NODE_ENV !== "production") {
+        const w = window as unknown as { __stepPostCount?: number };
+        w.__stepPostCount = (w.__stepPostCount || 0) + 1;
+      }
+
       const currentSess = overrideSessionId || sessionId;
       const currentCorr = overrideCorrId || correlationId;
       try {
+        if (targetStep === "cloud_inference" && isOffline) {
+          throw new Error("NETWORK_OFFLINE: Cloud inference blocked while in offline simulation. Switch network to online to proceed.");
+        }
+
         let providerResponse: Record<string, unknown> | undefined = undefined;
         let providerSource: string | undefined = undefined;
         let executionDurationMs: number | undefined = undefined;
@@ -302,10 +331,10 @@ export default function DemoPage() {
             physical_observation: {
               ...INITIAL_FLAGSHIP_EVIDENCE.physical_observation,
               contradiction_detected: evidenceType === "disagreeing",
-              dial_pressure_kpa: evidenceType === "agreeing" ? 185 : 410,
+              dial_pressure_kpa: evidenceType === "agreeing" ? PHYSICAL_DIAL_PRESSURE_AGREEING_KPA : PHYSICAL_DIAL_PRESSURE_CONTRADICTION_KPA,
               raw_observation: evidenceType === "agreeing"
-                ? `Field physical dial gauge confirms anomalous pressure drop (185 kPa). Impeller casing hot to touch; cavitation chattering audible. Vault token ${SYNTHETIC_CANARY_TOKEN}.`
-                : `Field physical dial gauge shows steady nominal 410 kPa. Impeller casing ambient cool. Discrepancy indicates telemetry sensor or wiring loop calibration error. Inspected by TECH-8821 with vault token ${SYNTHETIC_CANARY_TOKEN}.`,
+                ? `Field physical dial gauge confirms anomalous pressure drop (${PHYSICAL_DIAL_PRESSURE_AGREEING_KPA} kPa). Impeller casing hot to touch; cavitation chattering audible. Vault token ${SYNTHETIC_CANARY_TOKEN}.`
+                : `Field physical dial gauge shows steady nominal ${PHYSICAL_DIAL_PRESSURE_CONTRADICTION_KPA} kPa, contradicting the SCADA telemetry transmitter (${SCADA_TELEMETRY_PRESSURE_KPA} kPa). Impeller casing ambient cool (${PHYSICAL_CASING_TEMP_AMBIENT_C}°C). Discrepancy indicates telemetry sensor or wiring loop calibration error. Inspected by TECH-8821 with vault token ${SYNTHETIC_CANARY_TOKEN}.`,
             },
           };
           const localResult = await executeOfflineLocalLeg(ev, capabilities ?? undefined);
@@ -327,11 +356,11 @@ export default function DemoPage() {
             physical_observation: {
               ...INITIAL_FLAGSHIP_EVIDENCE.physical_observation,
               contradiction_detected: evidenceType === "disagreeing",
-              dial_pressure_kpa: evidenceType === "agreeing" ? 185 : 410,
+              dial_pressure_kpa: evidenceType === "agreeing" ? PHYSICAL_DIAL_PRESSURE_AGREEING_KPA : PHYSICAL_DIAL_PRESSURE_CONTRADICTION_KPA,
             },
           };
           const sanitized = await sanitizeFlagshipPayload(ev);
-          const cloudResult = await executeCloudLeg(sanitized, true, sanitized.consent_hash, 0, stage3Mode);
+          const cloudResult = await executeCloudLeg(sanitized, stage3ConsentGranted, sanitized.consent_hash, 0, stage3Mode);
           providerSource = cloudResult.observed_source;
           executionDurationMs = cloudResult.duration_ms;
           providerResponse = {
@@ -388,10 +417,11 @@ export default function DemoPage() {
         });
         setError(err instanceof Error ? err.message : "Failed to execute scenario step.");
       } finally {
+        stepInFlightRef.current = false;
         setBusy(false);
       }
     },
-    [sessionId, correlationId, judgeSession, faultType, evidenceType, selectedPlan, isOffline, capabilities, stage3Mode]
+    [sessionId, correlationId, judgeSession, faultType, evidenceType, selectedPlan, isOffline, capabilities, stage3Mode, stage3ConsentGranted]
   );
 
   // High-level guided stage runner
@@ -450,15 +480,16 @@ export default function DemoPage() {
         setInfoMessage(
           `Onboarded as Contest Judge: ${res.alias} (Role: ${res.role}, Quota: ${res.quota.simulation_units_allocated} simulation units)`
         );
-        // Start baseline immediately upon successful onboarding
-        void runStep("baseline", res.session_id, corr);
+        if (typeof window !== "undefined") {
+          window.dispatchEvent(new Event("nexus-profile-updated"));
+        }
       } catch (err) {
         setError(err instanceof Error ? err.message : "Judge onboarding failed.");
       } finally {
         setBusy(false);
       }
     },
-    [judgeAlias, runStep]
+    [judgeAlias]
   );
 
   // Dedicated test sign-in for evaluator sandbox entry
@@ -470,8 +501,9 @@ export default function DemoPage() {
     const evaluatorEmail = process.env.NEXT_PUBLIC_DEMO_EVALUATOR_EMAIL || "evaluator@nexus-titan.test";
     const evaluatorPassword = process.env.NEXT_PUBLIC_DEMO_EVALUATOR_PASSWORD || "EvaluatorPass2026!";
 
+    let userCred = null;
     try {
-      await signInWithEmailAndPassword(auth, evaluatorEmail, evaluatorPassword);
+      userCred = await signInWithEmailAndPassword(auth, evaluatorEmail, evaluatorPassword);
     } catch (err: unknown) {
       const code = (err as { code?: string })?.code;
       if (
@@ -480,23 +512,32 @@ export default function DemoPage() {
         code === "auth/invalid-login-credentials"
       ) {
         try {
-          await createUserWithEmailAndPassword(auth, evaluatorEmail, evaluatorPassword);
-        } catch (createErr: unknown) {
+          userCred = await createUserWithEmailAndPassword(auth, evaluatorEmail, evaluatorPassword);
+        } catch {
           try {
-            await signInAnonymously(auth);
-          } catch {
-            setAuthError((createErr as Error)?.message || "Dedicated sign-in failed. Please use custom credentials.");
+            userCred = await signInAnonymously(auth);
+          } catch (anonErr) {
+            setAuthError((anonErr as Error)?.message || "Dedicated sign-in failed. Please use custom credentials.");
           }
         }
       } else {
         try {
-          await signInAnonymously(auth);
-        } catch {
-          setAuthError((err as Error)?.message || "Sign-in failed.");
+          userCred = await signInAnonymously(auth);
+        } catch (anonErr) {
+          setAuthError((anonErr as Error)?.message || "Sign-in failed.");
         }
       }
     } finally {
       setAuthBusy(false);
+    }
+
+    if (userCred?.user) {
+      setCurrentUser(userCred.user);
+      const defaultAlias = userCred.user.email ? userCred.user.email.split("@")[0] : "contest-judge-alpha";
+      void onboardJudge(defaultAlias);
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new Event("nexus-profile-updated"));
+      }
     }
   }
 
@@ -560,7 +601,7 @@ export default function DemoPage() {
     setInfoMessage("Signed out from evaluator sandbox.");
   }
 
-  // Auth state listener: resolve auth before baseline request
+  // Auth state listener: onboard once per uid, NEVER auto-post scenario steps
   useEffect(() => {
     let active = true;
     const { auth } = firebaseAuthClient();
@@ -569,6 +610,11 @@ export default function DemoPage() {
       setCurrentUser(user);
       if (user) {
         setAuthError("");
+        if (onboardedUidRef.current === user.uid) {
+          return;
+        }
+        onboardedUidRef.current = user.uid;
+
         const saved = sessionStorage.getItem("nexus_judge_session_v1");
         if (saved) {
           try {
@@ -576,7 +622,9 @@ export default function DemoPage() {
             setJudgeSession(parsed);
             setSessionId(parsed.session_id);
             if (parsed.correlation_id) setCorrelationId(parsed.correlation_id);
-            void runStep("baseline", parsed.session_id, parsed.correlation_id);
+            if (typeof window !== "undefined") {
+              window.dispatchEvent(new Event("nexus-profile-updated"));
+            }
             return;
           } catch {
             sessionStorage.removeItem("nexus_judge_session_v1");
@@ -585,6 +633,7 @@ export default function DemoPage() {
         const defaultAlias = user.email ? user.email.split("@")[0] : "contest-judge-alpha";
         void onboardJudge(defaultAlias);
       } else {
+        onboardedUidRef.current = null;
         setJudgeSession(null);
       }
     });
@@ -593,7 +642,7 @@ export default function DemoPage() {
       active = false;
       unsubscribe();
     };
-  }, [onboardJudge, runStep]);
+  }, [onboardJudge]);
 
   // Isolated session reset
   async function resetSession() {
@@ -889,9 +938,9 @@ export default function DemoPage() {
               </button>
             </div>
 
-            {/* Model Readiness (Gemini Nano 4) */}
+            {/* Model Readiness (Gemini Nano) */}
             <div className="flex items-center gap-2">
-              <span className="font-semibold text-slate-600">Gemini Nano 4 Readiness:</span>
+              <span className="font-semibold text-slate-600">Gemini Nano (Chrome built-in) Readiness:</span>
               <span className={`rounded px-2 py-0.5 font-mono text-[11px] font-semibold ${
                 capabilities?.modelState === "ready"
                   ? "bg-emerald-100 text-emerald-800"
@@ -1069,11 +1118,11 @@ export default function DemoPage() {
                       <span className="text-[10px] text-red-600">Threshold 4.5 mm/s</span>
                     </div>
                     <div className="rounded bg-slate-50 p-2.5">
-                      <span className="text-slate-500">Discharge Flow</span>
-                      <p className="text-xl font-bold font-mono text-amber-700">
-                        {stepData["fault_injection"]?.metrics?.flow_rate_gpm ?? "285.0"} gpm
+                      <span className="text-slate-500">SCADA Pressure</span>
+                      <p className="text-xl font-bold font-mono text-red-700">
+                        {stepData["fault_injection"]?.metrics?.discharge_pressure_kpa ?? "185.0"} kPa
                       </p>
-                      <span className="text-[10px] text-amber-600">-36% Nominal</span>
+                      <span className="text-[10px] text-red-600">Severe Drop (Nominal 410)</span>
                     </div>
                   </div>
                   <p className="text-xs text-slate-600">
@@ -1094,7 +1143,7 @@ export default function DemoPage() {
                   <div className="rounded-md border border-slate-200 bg-slate-50 p-3 text-xs">
                     <span className="font-semibold text-slate-700">Technician Dial Observation:</span>
                     <p className="mt-1 text-sm font-serif italic text-slate-800">
-                      &ldquo;{stepData["evidence_capture"]?.observation_text ?? (evidenceType === "disagreeing" ? "Scanned marker QR-PUMP-101-DISCHARGE. Physical dial gauge reads 390 kPa with normal casing vibration. Digital sensor shows severe pressure drop." : "Scanned marker QR-PUMP-101-DISCHARGE. Physical dial gauge confirms pressure drop to 242 kPa and anomalous vibration.")}&rdquo;
+                      &ldquo;{stepData["evidence_capture"]?.observation_text ?? (evidenceType === "disagreeing" ? "Scanned marker QR-PUMP-101-DISCHARGE. Physical dial gauge reads 410 kPa with normal casing vibration. Digital sensor shows severe pressure drop." : "Scanned marker QR-PUMP-101-DISCHARGE. Physical dial gauge confirms pressure drop to 185 kPa and anomalous vibration.")}&rdquo;
                     </p>
                   </div>
                   {(evidenceType === "disagreeing" || stepData["evidence_capture"]?.contradiction_detected) ? (
@@ -1153,7 +1202,7 @@ export default function DemoPage() {
                           Catastrophic Impeller Cavitation Seizure & Motor Stall (Assumes sensor infallible)
                         </td>
                         <td className="p-3 text-emerald-800 font-sans font-bold">
-                          Transducer PT-101 Wiring Loop Drift & Calibration Fault (Physical dial reads nominal 390 kPa)
+                          Transducer PT-101 Wiring Loop Drift & Calibration Fault (Physical dial reads nominal 410 kPa)
                         </td>
                       </tr>
                       <tr>
@@ -1248,10 +1297,10 @@ export default function DemoPage() {
                   </div>
                   <ul className="space-y-1 list-disc list-inside text-amber-900">
                     <li>
-                      <strong>What Changes in the Investigation:</strong> Incorporating the technician&apos;s physical dial reading (390 kPa normal) falsifies the mechanical pump seizure hypothesis. The causal root cause shifts from mechanical impeller cavitation to an electrical 4-20mA transducer loop drift, preventing an unnecessary $65,400 pump teardown.
+                      <strong>What Changes in the Investigation:</strong> Incorporating the technician&apos;s physical dial reading (410 kPa normal) falsifies the mechanical pump seizure hypothesis. The causal root cause shifts from mechanical impeller cavitation to an electrical 4-20mA transducer loop drift, preventing an unnecessary $65,400 pump teardown.
                     </li>
                     <li>
-                      <strong>What Evidence Supports the Change:</strong> Physical Bourdon tube pressure dial reading (390 kPa), manual casing tactile vibration inspection, and scanned asset marker QR code.
+                      <strong>What Evidence Supports the Change:</strong> Physical Bourdon tube pressure dial reading (410 kPa), manual casing tactile vibration inspection, and scanned asset marker QR code.
                     </li>
                     <li>
                       <strong>What Still Requires Supervisor Review:</strong> Overriding the SCADA low-pressure safety interlock, switching raw intake to standby pump P-102, altering bypass valve actuator setpoints, and officially deferring scheduled mechanical overhaul. Enforced via simulator-only safety reducer (<code className="font-mono">no_actuator_path: true</code>).
@@ -1325,7 +1374,7 @@ export default function DemoPage() {
                   <div className="space-y-2 text-xs">
                     <div>
                       <span className="text-slate-500">Technician Badge Token (Restricted):</span>
-                      <p className="font-mono text-slate-800 font-semibold">TECH-CANARY-SECRET-VAULT-TOKEN-9942</p>
+                      <p className="font-mono text-slate-800 font-semibold">SYNTHETIC-CANARY-001</p>
                     </div>
                     <div>
                       <span className="text-slate-500">Classification:</span>
@@ -1364,6 +1413,11 @@ export default function DemoPage() {
                       <p className="text-xs font-mono text-amber-900 bg-amber-50 p-2.5 rounded border border-amber-200">
                         Simulated: {String(stepData["local_ai_offline"].client_provider_response.fallback_reason)}
                       </p>
+                    ) : (stepData["local_ai_offline"]?.client_provider_response?.observed_source === "ON_DEVICE" || stepData["local_ai_offline"]?.client_reported_source === "ON_DEVICE") && stepData["local_ai_offline"]?.client_provider_response?.summary ? (
+                      <div className="rounded border border-emerald-300 bg-emerald-50 p-2.5 text-xs text-emerald-950 space-y-1">
+                        <div className="font-bold text-emerald-900">Firebase AI Logic (Gemini Nano):</div>
+                        <p className="font-medium">{String(stepData["local_ai_offline"].client_provider_response.summary)}</p>
+                      </div>
                     ) : (
                       <p className="text-sm font-bold text-indigo-950">
                         {stepData["local_ai_offline"]?.diagnosis?.primary_hypothesis ?? "Cavitation & Suction Strainer Clogging"}
@@ -1407,15 +1461,24 @@ export default function DemoPage() {
                 </p>
                 <div className="flex flex-wrap items-center gap-3 pt-2 font-mono text-[11px]">
                   <span>Network: <strong className="text-emerald-700">ONLINE (Reconnected)</strong></span>
-                  <span>Consent State: <strong className="text-emerald-700">Approved & Cryptographically Signed</strong></span>
+                  <span>Consent State: <strong className={stage3ConsentGranted ? "text-emerald-700" : "text-amber-700"}>{stage3ConsentGranted ? "Approved & Cryptographically Signed" : "Consent Withheld (Cloud Blocked)"}</strong></span>
                   <span>Cloud Mode: <strong className="text-indigo-900">{stage3Mode}</strong></span>
                 </div>
               </div>
 
               {/* Action Bar */}
               <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3">
-                <div className="flex flex-wrap items-center gap-3">
-                  <span className="text-xs text-slate-600 font-mono">
+                <div className="flex flex-wrap items-center gap-4">
+                  <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-slate-800">
+                    <input
+                      type="checkbox"
+                      checked={stage3ConsentGranted}
+                      onChange={(e) => setStage3ConsentGranted(e.target.checked)}
+                      className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                    />
+                    <span>Authorize Egress of Sanitized Telemetry</span>
+                  </label>
+                  <span className="text-xs text-slate-500 font-mono">
                     Classification: RESTRICTED → SANITIZED_SHARE
                   </span>
                   <div className="flex items-center gap-1.5 text-xs">
@@ -1498,14 +1561,17 @@ export default function DemoPage() {
 
                   <div className="rounded-md border border-indigo-100 bg-indigo-50/50 p-3.5 space-y-2">
                     <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-950">
-                      {stepData["cloud_inference"]?.actual_source === "IN_CLOUD"
-                        ? "Actual Firebase AI Logic (cloud, Gemini)"
-                        : "Firebase AI Logic (cloud, Gemini)"}
+                      Firebase AI Logic (cloud, gemini-3.5-flash-lite)
                     </h4>
                     {stepData["cloud_inference"]?.client_provider_response?.fallback_reason ? (
                       <p className="text-xs font-mono text-amber-900 bg-amber-50 p-2.5 rounded border border-amber-200">
                         Simulated: {String(stepData["cloud_inference"].client_provider_response.fallback_reason)}
                       </p>
+                    ) : (stepData["cloud_inference"]?.client_provider_response?.observed_source === "IN_CLOUD" || stepData["cloud_inference"]?.client_reported_source === "IN_CLOUD") && stepData["cloud_inference"]?.client_provider_response?.summary ? (
+                      <div className="rounded border border-blue-300 bg-blue-50 p-2.5 text-xs text-blue-950 space-y-1">
+                        <div className="font-bold text-blue-900">Firebase AI Logic (cloud, gemini-3.5-flash-lite):</div>
+                        <p className="font-medium">{String(stepData["cloud_inference"].client_provider_response.summary)}</p>
+                      </div>
                     ) : (
                       <p className="text-sm font-bold text-indigo-950">
                         {stepData["cloud_inference"]?.root_cause_analysis?.primary_defect ?? "Impeller Cavitation Erosion & Acoustic Vibration Wave Propagation"}
@@ -1665,7 +1731,7 @@ export default function DemoPage() {
                 </p>
                 <div className="flex flex-wrap items-center gap-3 pt-2 font-mono text-[11px]">
                   <span>Twin Projection: <strong className="text-emerald-700">Version #{stepData["twin_update"]?.projection_version ?? "2"}</strong></span>
-                  <span>Cryptographic Digest: <strong className="text-indigo-900">{stepData["replay"]?.deterministic_replay_hash?.substring(0, 16) ?? "8f9a2e3b1c4d5e6f"}…</strong></span>
+                  <span>Cryptographic Digest: <strong className="text-indigo-900">{stepData["replay"]?.deterministic_replay_hash ? `${stepData["replay"].deterministic_replay_hash.substring(0, 16)}…` : "—"}</strong></span>
                 </div>
               </div>
 
@@ -1772,7 +1838,14 @@ export default function DemoPage() {
                     </div>
                   )}
 
-                  <div className="pt-2 text-right">
+                  <div className="pt-2 flex flex-wrap items-center justify-between gap-2">
+                    <button
+                      onClick={() => void resetSession()}
+                      disabled={busy}
+                      className="rounded border border-indigo-300 bg-white px-3 py-1 text-xs font-semibold text-indigo-700 hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
+                    >
+                      Reset Demo Run (Isolated)
+                    </button>
                     <span className="text-xs text-emerald-700 font-semibold">
                       ✓ End-to-End Incident Walkthrough Successfully Completed
                     </span>

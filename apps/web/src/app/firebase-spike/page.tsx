@@ -32,7 +32,11 @@ function persist(proof: Proof) {
 }
 
 export default function FirebaseSpikePage() {
-  const [message, setMessage] = useState("Not configured. Add local Firebase web config and App Check site key.");
+  const [message, setMessage] = useState(
+    process.env.NEXT_PUBLIC_FIREBASE_API_KEY
+      ? "Configured with live Firebase AI Logic"
+      : "Not configured. Add local Firebase web config and App Check site key."
+  );
   const [busy, setBusy] = useState(false);
   const [download, setDownload] = useState("Not initialized");
   const [output, setOutput] = useState("");
@@ -104,7 +108,6 @@ export default function FirebaseSpikePage() {
 
   return (
     <main className="mx-auto max-w-3xl space-y-6 p-8">
-      <p className="font-semibold tracking-widest text-teal-700">NEXUS TITAN · PHASE 02</p>
       <h1 className="text-3xl font-bold">Firebase AI Logic hybrid spike</h1>
       <p>
         This page uses real Firebase SDK requests with a public, non-sensitive text fixture. An emulator does not

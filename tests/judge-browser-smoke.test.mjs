@@ -350,12 +350,23 @@ async function runTestHarness() {
   } finally {
     if (serverProcess) {
       console.log("[CLEANUP] Stopping spawned API server...");
-      serverProcess.kill();
+      try {
+        if (process.platform === "win32" && serverProcess.pid) {
+          const { execSync } = await import("node:child_process");
+          execSync(`taskkill /pid ${serverProcess.pid} /t /f`, { stdio: "ignore" });
+        } else {
+          serverProcess.kill();
+        }
+      } catch {
+        serverProcess.kill();
+      }
     }
   }
 }
 
-runTestHarness().catch((err) => {
+runTestHarness().then(() => {
+  process.exit(0);
+}).catch((err) => {
   console.error("\n[FAIL] Smoke test failed:", err);
   process.exit(1);
 });

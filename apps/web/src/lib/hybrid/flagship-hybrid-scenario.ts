@@ -23,11 +23,29 @@ import {
   type LeasedInferenceTask,
 } from "@nexus-titan/hybrid-web";
 import { firebaseAppCheckClient, firebaseAuthClient } from "../firebase/client.ts";
+import {
+  FLAGSHIP_INCIDENT_ID,
+  FLAGSHIP_ASSET_ID,
+  FLAGSHIP_FACILITY,
+  SYNTHETIC_CANARY_TOKEN,
+  SCADA_TELEMETRY_PRESSURE_KPA,
+  SCADA_TELEMETRY_VIBRATION_MMS,
+  PHYSICAL_DIAL_PRESSURE_CONTRADICTION_KPA,
+  PHYSICAL_CASING_TEMP_AMBIENT_C,
+  CONFIG_CLOUD_MODEL,
+} from "./scenario-constants.ts";
 
-export const FLAGSHIP_INCIDENT_ID = "INC-TITAN-WTP01-P101-202611";
-export const FLAGSHIP_ASSET_ID = "P-101";
-export const FLAGSHIP_FACILITY = "TITAN-WTP-01";
-export const SYNTHETIC_CANARY_TOKEN = "TECH-CANARY-SECRET-VAULT-TOKEN-9942";
+export {
+  FLAGSHIP_INCIDENT_ID,
+  FLAGSHIP_ASSET_ID,
+  FLAGSHIP_FACILITY,
+  SYNTHETIC_CANARY_TOKEN,
+  SCADA_TELEMETRY_PRESSURE_KPA,
+  SCADA_TELEMETRY_VIBRATION_MMS,
+  PHYSICAL_DIAL_PRESSURE_CONTRADICTION_KPA,
+  PHYSICAL_CASING_TEMP_AMBIENT_C,
+  CONFIG_CLOUD_MODEL,
+};
 
 export interface FlagshipEvidencePayload {
   incident_id: string;
@@ -106,23 +124,41 @@ export const INITIAL_FLAGSHIP_EVIDENCE: FlagshipEvidencePayload = {
   technician_id: "TECH-8821",
   qr_marker: "QR-TITAN-WTP-01-P-101",
   scada_telemetry: {
-    discharge_pressure_kpa: 185.0,
-    vibration_mms: 8.42,
+    discharge_pressure_kpa: SCADA_TELEMETRY_PRESSURE_KPA,
+    vibration_mms: SCADA_TELEMETRY_VIBRATION_MMS,
     initial_hypothesis: "Severe hydraulic impeller cavitation & suction starve",
   },
   physical_observation: {
-    dial_pressure_kpa: 410.0,
-    casing_temp_c: 42.0,
+    dial_pressure_kpa: PHYSICAL_DIAL_PRESSURE_CONTRADICTION_KPA,
+    casing_temp_c: PHYSICAL_CASING_TEMP_AMBIENT_C,
     casing_state: "ambient cool, zero cavitation chattering audible",
     contradiction_detected: true,
-    raw_observation: `Field physical dial gauge shows steady nominal 410 kPa. Impeller casing ambient cool (42°C). Discrepancy indicates telemetry sensor or wiring loop calibration error. Inspected by TECH-8821 with vault token ${SYNTHETIC_CANARY_TOKEN}.`,
+    raw_observation: `Field physical dial gauge shows steady nominal ${PHYSICAL_DIAL_PRESSURE_CONTRADICTION_KPA} kPa, contradicting the SCADA telemetry transmitter (${SCADA_TELEMETRY_PRESSURE_KPA} kPa). Impeller casing ambient cool (${PHYSICAL_CASING_TEMP_AMBIENT_C}°C). Discrepancy indicates telemetry sensor or wiring loop calibration error. Inspected by TECH-8821 with vault token ${SYNTHETIC_CANARY_TOKEN}.`,
   },
   restricted_canary: SYNTHETIC_CANARY_TOKEN,
   classification: "restricted",
 };
 
 export const CONSENT_EXPLANATION =
-  "Consent covers ONLY the de-identified public telemetry payload (pressure comparison, contradiction flag, and asset ID) for cloud root-cause analysis via Firebase AI Logic / Gemini 3.5 Flash. It strictly EXCLUDES technician PII, employee badge bytes, and local security canary tokens. Any subsequent payload modification immediately invalidates this consent and requires re-approval.";
+  `Consent covers ONLY the de-identified public telemetry payload (pressure comparison, contradiction flag, and asset ID) for cloud root-cause analysis via Firebase AI Logic / ${CONFIG_CLOUD_MODEL}. It strictly EXCLUDES technician PII, employee badge bytes, and local security canary tokens. Any subsequent payload modification immediately invalidates this consent and requires re-approval.`;
+
+/**
+ * Extracts strictly the canonical base fields of a payload with deterministic,
+ * stable key order, excluding consent_hash, sanitized_at, timestamps, and nonces.
+ */
+export function extractBasePayload(data: Record<string, unknown> | SanitizedCloudPayload): Record<string, unknown> {
+  const d = data as Record<string, unknown>;
+  return {
+    asset_id: String(d.asset_id ?? ""),
+    classification: String(d.classification ?? "public"),
+    contradiction_confirmed: Boolean(d.contradiction_confirmed),
+    deidentified_summary: String(d.deidentified_summary ?? ""),
+    facility: String(d.facility ?? ""),
+    incident_id: String(d.incident_id ?? ""),
+    physical_dial_kpa: Number(d.physical_dial_kpa ?? 0),
+    scada_pressure_kpa: Number(d.scada_pressure_kpa ?? 0),
+  };
+}
 
 /**
  * Computes deterministic SHA-256 hash string for payload consent verification.
@@ -143,6 +179,14 @@ export async function computePayloadHash(data: unknown): Promise<string> {
     hash |= 0;
   }
   return `hash-${Math.abs(hash).toString(16).padStart(8, "0")}`;
+}
+
+/**
+ * Computes canonical hash over base fields only (ignoring consent_hash, sanitized_at, etc.)
+ */
+export async function canonicalHash(data: Record<string, unknown> | SanitizedCloudPayload): Promise<string> {
+  const base = extractBasePayload(data);
+  return computePayloadHash(base);
 }
 
 /**
@@ -173,7 +217,7 @@ export async function sanitizeFlagshipPayload(
     classification: "public" as const,
   };
 
-  const hash = await computePayloadHash(baseData);
+  const hash = await canonicalHash(baseData);
   return {
     ...baseData,
     consent_hash: hash,
@@ -333,16 +377,7 @@ export async function executeCloudLeg(
   }
 
   // 2. Tamper Gate: Verify payload content matches the exact hash that was approved
-  const computedHash = await computePayloadHash({
-    incident_id: sanitized.incident_id,
-    asset_id: sanitized.asset_id,
-    facility: sanitized.facility,
-    contradiction_confirmed: sanitized.contradiction_confirmed,
-    physical_dial_kpa: sanitized.physical_dial_kpa,
-    scada_pressure_kpa: sanitized.scada_pressure_kpa,
-    deidentified_summary: sanitized.deidentified_summary,
-    classification: sanitized.classification,
-  });
+  const computedHash = await canonicalHash(sanitized);
 
   if (computedHash !== currentHash || sanitized.consent_hash !== currentHash) {
     throw new Error(
@@ -421,7 +456,7 @@ export async function executeCloudLeg(
         is_simulation_fallback: false,
         duration_ms: elapsed,
         actionable_hypothesis:
-          "Cloud Vertex AI verified: Plant-wide hydraulic stability preserved. Discrepancy confirmed as instrumentation calibration anomaly; zero systemic risk to Filter Bed FB-01.",
+          result.summary || "Firebase AI Logic (cloud): Plant-wide hydraulic stability preserved. Discrepancy confirmed as instrumentation calibration anomaly; zero systemic risk to Filter Bed FB-01.",
         recommended_inspection:
           "Recalibrate PT-101 transmitter loop (estimated resolution time: 30 minutes). Avoid switchover to standby pump P-102.",
         canary_absent_verified: true,

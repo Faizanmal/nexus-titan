@@ -38,11 +38,11 @@ NEXUS TITAN includes a dedicated **Judge Sandbox** designed for frictionless, 1-
 
 Nexus Titan implements genuine hybrid edge-cloud intelligence following the Firebase AI Logic SDK patterns:
 
-- [client.ts](file:///apps/web/src/lib/firebase/client.ts): Initializes Firebase App Check with reCAPTCHA Enterprise, Anonymous Authentication, Firestore, and Remote Config.
-- [provider.ts](file:///apps/web/src/lib/firebase/provider.ts): Integrates `@firebase/ai` (Vertex AI in Firebase) with model switching, dynamic parameters from Remote Config, and fallback handling.
-- [firebase-adapter.ts](file:///packages/hybrid-web/src/firebase-adapter.ts): Implements the hybrid runtime adapter managing `initializeDeviceModel`, prompt execution, and schema-constrained JSON extraction.
-- [remote-config.ts](file:///packages/hybrid-web/src/remote-config.ts): Provides live remote configuration for dynamic model selection (`gemini-3.5-flash-lite`), prompt versions, and threshold parameters without redeployment.
-- [flagship-hybrid-scenario.ts](file:///apps/web/src/lib/hybrid/flagship-hybrid-scenario.ts): Coordinates the two-leg incident investigation:
+- [client.ts](apps/web/src/lib/firebase/client.ts): Initializes Firebase App Check with reCAPTCHA Enterprise, Anonymous Authentication, Firestore, and Remote Config.
+- [provider.ts](apps/web/src/lib/firebase/provider.ts): Integrates `@firebase/ai` (Vertex AI in Firebase) with model switching, dynamic parameters from Remote Config, and fallback handling.
+- [firebase-adapter.ts](packages/hybrid-web/src/firebase-adapter.ts): Implements the hybrid runtime adapter managing `initializeDeviceModel`, prompt execution, and schema-constrained JSON extraction.
+- [remote-config.ts](packages/hybrid-web/src/remote-config.ts): Provides live remote configuration for dynamic model selection (`gemini-3.5-flash-lite`), prompt versions, and threshold parameters without redeployment.
+- [flagship-hybrid-scenario.ts](apps/web/src/lib/hybrid/flagship-hybrid-scenario.ts): Coordinates the two-leg incident investigation:
   - **4 Hybrid Inference Modes**:
     1. `PREFER_ON_DEVICE`: Tries on-device Gemini Nano Prompt API first; seamlessly falls back to cloud Gemini via Firebase AI Logic if unavailable or on failure (default for Stage 3 sanitized data).
     2. `ONLY_ON_DEVICE`: Strictly restricts execution to on-device hardware. Prohibits network egress for sensitive/restricted field notes (used in Stage 2).

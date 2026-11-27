@@ -56,7 +56,7 @@ assert.ok(demoContent.includes("What to do at Stage 3"), "Must guide user at Sta
 assert.ok(demoContent.includes("What to do at Stage 4"), "Must guide user at Stage 4");
 assert.ok(demoContent.includes("What to do at Stage 5"), "Must guide user at Stage 5");
 
-assert.ok(demoContent.includes("Gemini Nano 4 Readiness"), "Must surface Gemini Nano 4 model readiness");
+assert.ok(demoContent.includes("Gemini Nano (Chrome built-in)") || demoContent.includes("Gemini Nano 4 Readiness"), "Must surface Gemini Nano model readiness");
 assert.ok(demoContent.includes("inspectCapabilities"), "Must query on-device capabilities");
 assert.ok(demoContent.includes("Toggle network online or offline"), "Must provide network connection toggle with accessible label");
 console.log("[PASS] Guidance and connection/model/identity state indicators verified.");

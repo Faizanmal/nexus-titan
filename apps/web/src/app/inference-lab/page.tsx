@@ -21,7 +21,7 @@ import {
   FLAGSHIP_FACILITY,
   INITIAL_FLAGSHIP_EVIDENCE,
   CONSENT_EXPLANATION,
-  computePayloadHash,
+  canonicalHash,
   sanitizeFlagshipPayload,
   executeOfflineLocalLeg,
   executeCloudLeg,
@@ -60,7 +60,7 @@ export default function InferenceLabPage() {
   const [consentApproved, setConsentApproved] = useState<boolean>(false);
   const [cloudResult, setCloudResult] = useState<LegExecutionResult | null>(null);
   const [isOffline, setIsOffline] = useState<boolean>(false);
-  const [nanoStatus, setNanoStatus] = useState<string>("Checking Gemini Nano 4 capability…");
+  const [nanoStatus, setNanoStatus] = useState<string>("Checking Gemini Nano (Chrome built-in) capability…");
   const [nanoReady, setNanoReady] = useState<boolean>(false);
   const [flagshipBusy, setFlagshipBusy] = useState<boolean>(false);
   const [flagshipError, setFlagshipError] = useState<string>("");
@@ -139,7 +139,7 @@ export default function InferenceLabPage() {
   // Handle Gemini Nano preparation trigger
   const handlePrepareNano = async () => {
     setFlagshipBusy(true);
-    setFlagshipInfo("Preparing Gemini Nano 4 model (verifying Chrome Prompt API)…");
+    setFlagshipInfo("Preparing Gemini Nano (Chrome built-in) model (verifying Chrome Prompt API)…");
     try {
       const prep = await prepareGeminiNano((fraction) => {
         setFlagshipInfo(`Gemini Nano downloading: ${Math.round(fraction * 100)}%`);
@@ -209,7 +209,7 @@ export default function InferenceLabPage() {
       ...sanitizedPayload,
       deidentified_summary: newText,
     };
-    const newHash = await computePayloadHash(updatedBase);
+    const newHash = await canonicalHash(updatedBase);
 
     // If text modified from original consent, invalidate consent!
     if (consentApproved && newHash !== consentHash) {
@@ -244,7 +244,7 @@ export default function InferenceLabPage() {
     }
 
     // Tamper gate: verify consent hash matches current payload
-    const currentComputedHash = await computePayloadHash({
+    const currentComputedHash = await canonicalHash({
       ...sanitizedPayload,
       deidentified_summary: editableSanitizedText,
     });
@@ -488,7 +488,7 @@ export default function InferenceLabPage() {
           <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm space-y-3">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-sm font-bold text-slate-900">Gemini Nano 4 On-Device Readiness</h3>
+                <h3 className="text-sm font-bold text-slate-900">Gemini Nano (Chrome built-in) On-Device Readiness</h3>
                 <p className="text-xs text-slate-500">
                   Evaluates Chrome Desktop 139+ Prompt API availability and local model download state.
                 </p>
@@ -644,13 +644,22 @@ export default function InferenceLabPage() {
                   type="checkbox"
                   checked={consentApproved}
                   onChange={(e) => {
-                    setConsentApproved(e.target.checked);
-                    if (e.target.checked) setFlagshipError("");
+                    const checked = e.target.checked;
+                    setConsentApproved(checked);
+                    if (checked) {
+                      setFlagshipError("");
+                      if (sanitizedPayload) {
+                        void canonicalHash({
+                          ...sanitizedPayload,
+                          deidentified_summary: editableSanitizedText,
+                        }).then((h) => setConsentHash(h));
+                      }
+                    }
                   }}
                   className="mt-0.5 h-4 w-4 rounded border-slate-300 text-indigo-600"
                 />
                 <label htmlFor="consent-checkbox" className="text-xs font-semibold text-slate-800 cursor-pointer">
-                  I grant explicit consent to send this de-identified public telemetry payload to Cloud Vertex AI for root-cause analysis.
+                  I grant explicit consent to send this de-identified public telemetry payload to Firebase AI Logic (cloud) for root-cause analysis.
                 </label>
               </div>
             </section>

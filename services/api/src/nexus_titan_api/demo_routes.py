@@ -416,7 +416,7 @@ def execute_scenario_step(
         if fault_type == "cavitation":
             fault_metrics = {
                 "vibration_mms": 8.42,
-                "discharge_pressure_kpa": 242.0,
+                "discharge_pressure_kpa": 185.0,
                 "flow_rate_gpm": 285.0,
                 "cavitation_index": 0.38,
                 "bearing_temp_c": 52.3,
@@ -575,9 +575,23 @@ def execute_scenario_step(
                 reported_source = "IN_CLOUD"
                 device_note = "SDK-reported source (client): Cloud inference executed."
                 has_prompt_api = False
+            elif mapped == "MOCK":
+                is_fixture = True
+                actual_source = None
+                inference_source = "SCRIPTED_LOCAL_EDGE_FIXTURE"
+                reported_source = "MOCK"
+                fallback_reason = (
+                    payload.provider_response.get("fallback_reason")
+                    if payload.provider_response
+                    else None
+                )
+                device_note = (
+                    f"SDK-reported source (client): Simulated: {fallback_reason or 'Deterministic edge classifier fixture.'}"
+                )
+                has_prompt_api = False
             else:
                 is_fixture = True
-                actual_source = mapped if mapped != "UNKNOWN" else "UNKNOWN"
+                actual_source = "UNKNOWN"
                 inference_source = "SCRIPTED_LOCAL_EDGE_FIXTURE"
                 reported_source = "MOCK_EXPLICITLY_LABELED"
                 device_note = (
@@ -793,15 +807,25 @@ def execute_scenario_step(
             mapped = map_inference_source(raw_source)
             client_reported_source = mapped
             if mapped == "IN_CLOUD":
-                actual_source = "IN_CLOUD"
+                actual_source = None  # Browser reported, keep as client_reported_source only
                 reported_source = "IN_CLOUD"
                 is_fixture = False
                 cloud_note = "SDK-reported source (client): Firebase AI Logic (cloud, Gemini) cloud inference executed."
             elif mapped == "ON_DEVICE":
-                actual_source = "ON_DEVICE"
+                actual_source = None
                 reported_source = "ON_DEVICE"
                 is_fixture = False
                 cloud_note = "SDK-reported source (client): On-device provider inference executed."
+            elif mapped == "MOCK":
+                actual_source = None
+                reported_source = "MOCK"
+                is_fixture = True
+                fallback_reason = (
+                    payload.provider_response.get("fallback_reason")
+                    if payload.provider_response
+                    else None
+                )
+                cloud_note = f"SDK-reported source (client): Simulated: {fallback_reason or 'Explicit mock attribution from client.'}"
             else:
                 actual_source = "UNKNOWN"
                 reported_source = "UNKNOWN"

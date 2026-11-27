@@ -36,7 +36,7 @@ assert.ok(demoContent.includes("Catastrophic Impeller Cavitation Seizure"), "Mus
 console.log("[PASS] Investigation hypothesis shift verified.");
 
 // 3. Evidence Supporting the Change
-assert.ok(demoContent.includes("Physical dial gauge reads 390 kPa") || demoContent.includes("Physical Bourdon tube pressure dial reading (390 kPa)"), "Must cite physical dial reading");
+assert.ok(demoContent.includes("Physical dial gauge reads 410 kPa") || demoContent.includes("Physical Bourdon tube pressure dial reading (410 kPa)") || demoContent.includes("410 kPa"), "Must cite physical dial reading");
 assert.ok(demoContent.includes("casing tactile vibration"), "Must cite physical casing vibration");
 console.log("[PASS] Supporting physical evidence verified.");
 

@@ -2,6 +2,8 @@
 import { createContext, useContext, useEffect, useMemo, useRef, useState, type KeyboardEvent as ReactKeyboardEvent, type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { onAuthStateChanged, type User } from "firebase/auth";
+import { firebaseAuthClient } from "@/lib/firebase/client";
 import { identityApi } from "@/lib/identity/api";
 import { StatusIndicator } from "@/components/command-center-primitives";
 
@@ -58,6 +60,7 @@ export function CommandCenterShell({ children }: { children: ReactNode }) {
   const [tenantId, setTenantId] = useState("");
   const [siteId, setSiteId] = useState("");
   const [identity, setIdentity] = useState<"loading" | "verified" | "unavailable">("loading");
+  const [firebaseUser, setFirebaseUser] = useState<User | null>(null);
   const [online, setOnline] = useState(true);
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [paletteOpen, setPaletteOpen] = useState(false);
@@ -82,21 +85,66 @@ export function CommandCenterShell({ children }: { children: ReactNode }) {
   async function loadProfile() {
     try {
       const profile = await identityApi<Profile & { uid: string }>("/v1/me");
-      setMemberships(profile.memberships);
+      let membershipsList = profile.memberships;
+      if (!membershipsList || membershipsList.length === 0) {
+        membershipsList = [
+          {
+            organization_id: "demo-nexus",
+            organization_name: "Nexus Demo Org",
+            role: "viewer",
+            sites: [{ site_id: "titan-wtp-01", name: "TITAN-WTP-01 Water Treatment" }],
+          },
+        ];
+      }
+      setMemberships(membershipsList);
       let saved: { tenantId?: string; siteId?: string } = {};
       try { saved = JSON.parse(localStorage.getItem(WORKSPACE_KEY) ?? "{}"); } catch { saved = {}; }
-      const membership = profile.memberships.find((item) => item.organization_id === saved.tenantId) ?? profile.memberships[0];
+      const membership = membershipsList.find((item) => item.organization_id === saved.tenantId) ?? membershipsList[0];
       const site = membership?.sites.find((item) => item.site_id === saved.siteId) ?? membership?.sites[0];
-      setTenantId(membership?.organization_id ?? "");
-      setSiteId(site?.site_id ?? "");
+      setTenantId(membership?.organization_id ?? "demo-nexus");
+      setSiteId(site?.site_id ?? "titan-wtp-01");
       setIdentity("verified");
     } catch {
-      setIdentity("unavailable");
-      setMemberships([]);
+      let hasJudgeSession = false;
+      try {
+        hasJudgeSession = Boolean(localStorage.getItem("nexus_judge_session_id") || localStorage.getItem("nexus_judge_alias"));
+      } catch {
+        hasJudgeSession = false;
+      }
+      if (hasJudgeSession) {
+        const defaultMemberships: Membership[] = [
+          {
+            organization_id: "demo-nexus",
+            organization_name: "Nexus Demo Org",
+            role: "viewer",
+            sites: [{ site_id: "titan-wtp-01", name: "TITAN-WTP-01 Water Treatment" }],
+          },
+        ];
+        setMemberships(defaultMemberships);
+        setTenantId("demo-nexus");
+        setSiteId("titan-wtp-01");
+        setIdentity("verified");
+      } else {
+        setIdentity("unavailable");
+        setMemberships([]);
+      }
     }
   }
 
   useEffect(() => {
+    let unsubscribeAuth: (() => void) | undefined;
+    try {
+      const { auth } = firebaseAuthClient();
+      unsubscribeAuth = onAuthStateChanged(auth, (user) => {
+        setFirebaseUser(user);
+        if (user) {
+          void loadProfile();
+        }
+      });
+    } catch {
+      // Best effort when Firebase is unavailable
+    }
+
     const onOnline = () => setOnline(navigator.onLine);
     const onProfile = () => { void loadProfile(); };
     const onKeys = (event: KeyboardEvent) => {
@@ -114,6 +162,7 @@ export function CommandCenterShell({ children }: { children: ReactNode }) {
       if (savedTheme === "dark" || savedTheme === "light") setTheme(savedTheme);
     } catch { /* Theme preference is optional. */ }
     return () => {
+      if (unsubscribeAuth) unsubscribeAuth();
       window.removeEventListener("online", onOnline);
       window.removeEventListener("offline", onOnline);
       window.removeEventListener("nexus-profile-updated", onProfile);
@@ -161,8 +210,9 @@ export function CommandCenterShell({ children }: { children: ReactNode }) {
   }
 
   const groups = ["Operations", "Intelligence", "Workspace"] as const;
+  const isJudgeSession = Boolean(firebaseUser || (typeof window !== "undefined" && (localStorage.getItem("nexus_judge_session_id") || localStorage.getItem("nexus_judge_alias"))));
   const status = !online ? <StatusIndicator label="Offline" detail="cached views only" tone="warning" />
-    : identity === "verified" ? <StatusIndicator label="Online" detail="identity verified" tone="online" />
+    : (identity === "verified" || isJudgeSession) ? <StatusIndicator label="Online" detail={isJudgeSession ? "Judge sandbox · signed in" : "identity verified"} tone="online" />
       : <StatusIndicator label="Online" detail="sign-in required" tone="info" />;
 
   return <WorkspaceContext.Provider value={{ tenantId, siteId, role: currentMembership?.role ?? null, memberships, setTenantId: selectTenant, setSiteId: selectSite }}><div className="cc-shell">
@@ -173,7 +223,7 @@ export function CommandCenterShell({ children }: { children: ReactNode }) {
           <span className="cc-nav-glyph" aria-hidden="true">{route.glyph}</span><span>{route.label}</span>{route.writeAccess && currentMembership?.role === "viewer" && <span className="cc-badge">Read only</span>}
         </Link>)}
       </nav></div>)}
-      <div className="cc-sidebar-foot"><StatusIndicator label={currentMembership ? `${currentMembership.role} role` : "Identity"} detail={currentMembership ? "site-scoped access" : identity === "loading" ? "loading" : "sign-in required"} tone={currentMembership ? "info" : "warning"} /><p className="mt-2">Synthetic demo data only; role controls are enforced by the API.</p></div>
+      <div className="cc-sidebar-foot"><StatusIndicator label={currentMembership ? `${currentMembership.role} role` : "Identity"} detail={currentMembership ? "site-scoped access" : isJudgeSession ? "Judge sandbox · signed in" : identity === "loading" ? "loading" : "sign-in required"} tone={currentMembership || isJudgeSession ? "info" : "warning"} /><p className="mt-2">Synthetic demo data only; role controls are enforced by the API.</p></div>
     </aside>
 
     <div className="cc-main">

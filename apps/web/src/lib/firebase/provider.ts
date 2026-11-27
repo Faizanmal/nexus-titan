@@ -1,6 +1,7 @@
 import { getGenerativeModel } from "firebase/ai";
 import { firebaseClient, InferenceMode, type SpikeMode } from "./client";
 import { mapReportedInferenceSource } from "./inference-source";
+import { readHybridRemoteConfig } from "@nexus-titan/hybrid-web";
 
 export type FirebaseInferenceResult = {
   text: string;
@@ -17,10 +18,20 @@ export async function requestFirebaseInference(
   prompt: string,
   onProgress: (label: string) => void,
 ): Promise<FirebaseInferenceResult> {
-  const { ai } = firebaseClient();
+  const { app, ai } = firebaseClient();
+  let cloudModel = process.env.NEXT_PUBLIC_FIREBASE_CLOUD_MODEL || "gemini-3.5-flash-lite";
+  try {
+    const runtimeConfig = await readHybridRemoteConfig(app);
+    if (runtimeConfig?.model) {
+      cloudModel = runtimeConfig.model;
+    }
+  } catch {
+    // Fall back to configured cloudModel
+  }
+
   const model = getGenerativeModel(ai, {
     mode: InferenceMode[mode],
-    inCloudParams: { model: process.env.NEXT_PUBLIC_FIREBASE_CLOUD_MODEL || "gemini-3.5-flash-lite" },
+    inCloudParams: { model: cloudModel },
   });
   if (mode !== "ONLY_IN_CLOUD") {
     onProgress("Checking / preparing device model…");

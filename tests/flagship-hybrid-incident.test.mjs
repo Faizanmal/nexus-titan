@@ -12,6 +12,7 @@ import {
   sanitizeFlagshipPayload,
   executeOfflineLocalLeg,
   executeCloudLeg,
+  canonicalHash,
 } from "../apps/web/src/lib/hybrid/flagship-hybrid-scenario.ts";
 
 console.log("=== Flagship Hybrid Incident Behavioral & Provenance Verification ===");
@@ -56,7 +57,7 @@ await assert.rejects(
 );
 console.log("[PASS] Declined approval strictly blocks cloud leg.");
 
-// 4. Behavior test: Tampered payload invalidates consent
+// 4. Behavior test: Tampered payload invalidates consent; transient fields preserve consent
 console.log("Testing tamper invalidation...");
 const tampered = {
   ...sanitized,
@@ -70,6 +71,20 @@ await assert.rejects(
   "Tampered payload must reject with CONSENT_INVALIDATED"
 );
 console.log("[PASS] Tampered payload immediately invalidates consent.");
+
+// 4b. Transient update test: Updating sanitized_at or adding consent_hash directly does not invalidate canonicalHash
+console.log("Testing canonicalHash determinism and transient field tolerance...");
+const withUpdatedTimestamp = {
+  ...sanitized,
+  sanitized_at: new Date(Date.now() + 10000).toISOString(),
+  consent_hash: "transient-hash-should-be-excluded",
+};
+assert.equal(
+  await canonicalHash(withUpdatedTimestamp),
+  sanitized.consent_hash,
+  "canonicalHash must be identical regardless of sanitized_at or consent_hash fields"
+);
+console.log("[PASS] canonicalHash stable under transient mutations.");
 
 // 5. Behavior test: Cloud leg fixture run must yield MOCK plus fallback_reason
 console.log("Testing cloud leg execution...");

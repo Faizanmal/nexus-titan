@@ -96,7 +96,7 @@ def test_successful_provider_output_derives_correct_attribution(client):
     )
     assert resp_cloud.status_code == 200
     d_cloud = resp_cloud.json()
-    assert d_cloud["actual_source"] == "IN_CLOUD"
+    assert d_cloud["actual_source"] is None, "Don't set actual_source to IN_CLOUD from browser's word"
     assert d_cloud["reported_source"] == "IN_CLOUD"
     assert d_cloud["client_reported_source"] == "IN_CLOUD"
     assert d_cloud["is_fixture"] is False
