@@ -618,7 +618,7 @@ def execute_scenario_step(
                 else None
             )
             device_note = (
-                f"SDK-reported source (client): Simulated: {fallback_reason or 'DEVICE_HARDWARE_LIMITATION: Host GPU/RAM below Chrome Prompt API floor; fallback to deterministic edge classifier with explicit mock label.'}"
+                f"SDK-reported source (client): Simulated: {fallback_reason or 'On-device model not available'}"
             )
             has_prompt_api = False
 

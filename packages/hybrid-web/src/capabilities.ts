@@ -59,6 +59,7 @@ export interface GeminiNanoPreparation {
 export async function prepareGeminiNano(
   onProgress?: (fraction: number) => void
 ): Promise<GeminiNanoPreparation> {
+  void onProgress;
   if (typeof window === "undefined" || typeof navigator === "undefined") {
     return {
       supported: false,
@@ -76,7 +77,7 @@ export async function prepareGeminiNano(
       supported: false,
       modelState: "unavailable",
       ready: false,
-      status: "Not desktop Chrome",
+      status: "Gemini Nano unavailable — desktop Chrome required (simulated fallback)",
     };
   }
 
@@ -85,7 +86,7 @@ export async function prepareGeminiNano(
       supported: false,
       modelState: "unavailable",
       ready: false,
-      status: "Chrome Prompt API (LanguageModel) not available in this browser",
+      status: "Gemini Nano unavailable — simulated fallback",
     };
   }
 
@@ -97,7 +98,7 @@ export async function prepareGeminiNano(
         expectedInputs: [{ type: "text", languages: ["en"] }],
         expectedOutputs: [{ type: "text", languages: ["en"] }],
       });
-      if (avail === "available" || avail === "ready") {
+      if (avail === "available" || avail === "ready" || avail === "readily") {
         return {
           supported: true,
           modelState: "ready",
@@ -105,29 +106,35 @@ export async function prepareGeminiNano(
           status: "Gemini Nano ready for offline on-device inference.",
         };
       }
-      if (avail === "downloadable" || avail === "downloading") {
+      if (avail === "downloadable" || avail === "downloading" || avail === "after-download") {
         return {
           supported: true,
-          modelState: avail === "downloadable" ? "downloadable" : "downloading",
+          modelState: avail === "downloading" ? "downloading" : "downloadable",
           ready: false,
-          status: `Gemini Nano requires download (${avail}). Trigger download from user interaction.`,
+          status: `Gemini Nano downloadable (${avail}) — simulated fallback`,
         };
       }
+      return {
+        supported: false,
+        modelState: "unavailable",
+        ready: false,
+        status: "Gemini Nano unavailable — simulated fallback",
+      };
     }
-  } catch (err) {
+  } catch {
     return {
-      supported: true,
+      supported: false,
       modelState: "unavailable",
       ready: false,
-      status: `Gemini Nano preparation query error: ${err instanceof Error ? err.message : String(err)}`,
+      status: "Gemini Nano unavailable — simulated fallback",
     };
   }
 
   return {
-    supported: true,
-    modelState: "unknown",
+    supported: false,
+    modelState: "unavailable",
     ready: false,
-    status: "Chrome Prompt API detected; model status checking.",
+    status: "Gemini Nano unavailable — simulated fallback",
   };
 }
 
@@ -148,10 +155,10 @@ export async function getNanoStatus(
     prepareGeminiNano(onProgress),
   ]);
   const badgeLabel = prep.ready
-    ? "Prompt API Ready"
-    : prep.modelState === "downloadable"
-    ? "Downloadable"
-    : "Unavailable — simulated fallback";
+    ? "Gemini Nano Ready"
+    : prep.modelState === "downloadable" || prep.modelState === "downloading"
+    ? "Gemini Nano downloadable — simulated fallback"
+    : "Gemini Nano unavailable — simulated fallback";
 
   return {
     supported: prep.supported,

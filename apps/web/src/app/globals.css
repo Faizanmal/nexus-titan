@@ -58,19 +58,30 @@ a:hover { color: var(--accent); }
 
 /* Dark/light token bridges for existing route-level Tailwind UI. */
 [class~="bg-white"] { background-color: var(--surface-1) !important; }
-[class~="bg-slate-50"], [class~="bg-slate-100"] { background-color: var(--surface-2) !important; }
-[class~="text-slate-900"], [class~="text-slate-800"], [class~="text-black"] { color: var(--foreground) !important; }
-[class~="text-slate-700"], [class~="text-slate-600"], [class~="text-slate-500"] { color: var(--text-muted) !important; }
+[class~="bg-slate-50"], [class~="bg-slate-100"], [class~="bg-slate-50/50"] { background-color: var(--surface-2) !important; }
+[class~="text-slate-950"], [class~="text-slate-900"], [class~="text-slate-800"], [class~="text-black"] { color: var(--foreground) !important; }
+[class~="text-slate-700"], [class~="text-slate-600"], [class~="text-slate-500"], [class~="text-slate-400"] { color: var(--text-muted) !important; }
 [class~="border"], [class*="border-slate-"] { border-color: var(--border) !important; }
 [class~="bg-slate-900"] { background-color: var(--surface-3) !important; color: var(--foreground) !important; }
 [class~="text-teal-700"] { color: var(--accent) !important; }
-[class~="text-blue-800"] { color: var(--info) !important; }
-[class~="text-amber-800"] { color: var(--warning) !important; }
-[class~="bg-amber-50"] { background-color: color-mix(in srgb, var(--warning) 13%, var(--surface-1)) !important; color: var(--foreground) !important; }
+[class~="text-teal-950"], [class~="text-teal-900"] { color: var(--foreground) !important; }
+[class~="bg-teal-50"] { background-color: color-mix(in srgb, var(--accent) 12%, var(--surface-1)) !important; color: var(--foreground) !important; }
+[class~="text-blue-800"], [class~="text-indigo-800"], [class~="text-indigo-700"] { color: var(--info) !important; }
+[class~="text-blue-950"], [class~="text-blue-900"], [class~="text-indigo-950"], [class~="text-indigo-900"] { color: var(--foreground) !important; }
+[class~="bg-blue-50"], [class~="bg-indigo-50"], [class~="bg-indigo-50/50"], [class~="bg-indigo-50/70"], [class~="bg-indigo-50/80"] { background-color: color-mix(in srgb, var(--info) 12%, var(--surface-1)) !important; color: var(--foreground) !important; }
+[class~="bg-blue-100"], [class~="bg-indigo-100"], [class~="bg-indigo-200"] { background-color: color-mix(in srgb, var(--info) 18%, var(--surface-1)) !important; color: var(--foreground) !important; }
+[class~="text-amber-800"], [class~="text-amber-700"] { color: var(--warning) !important; }
+[class~="text-amber-950"], [class~="text-amber-900"] { color: var(--foreground) !important; }
+[class~="bg-amber-50"], [class~="bg-amber-50/60"], [class~="bg-amber-50/70"] { background-color: color-mix(in srgb, var(--warning) 13%, var(--surface-1)) !important; color: var(--foreground) !important; }
 [class~="bg-amber-100"] { background-color: color-mix(in srgb, var(--warning) 20%, var(--surface-1)) !important; color: var(--foreground) !important; }
+[class~="text-emerald-800"], [class~="text-emerald-700"], [class~="text-emerald-600"] { color: var(--online) !important; }
+[class~="text-emerald-950"], [class~="text-emerald-900"] { color: var(--foreground) !important; }
+[class~="bg-emerald-50"], [class~="bg-emerald-50/40"], [class~="bg-emerald-50/60"], [class~="bg-emerald-50/70"] { background-color: color-mix(in srgb, var(--online) 12%, var(--surface-1)) !important; color: var(--foreground) !important; }
+[class~="bg-emerald-100"] { background-color: color-mix(in srgb, var(--online) 18%, var(--surface-1)) !important; color: var(--foreground) !important; }
 [class~="bg-red-50"] { background-color: color-mix(in srgb, var(--fault) 13%, var(--surface-1)) !important; color: var(--foreground) !important; }
+[class~="bg-red-100"] { background-color: color-mix(in srgb, var(--fault) 18%, var(--surface-1)) !important; color: var(--foreground) !important; }
 [class~="text-red-800"] { color: var(--fault) !important; }
-[class~="text-red-900"], [class~="text-red-700"] { color: var(--fault) !important; }
+[class~="text-red-900"], [class~="text-red-700"], [class~="text-red-600"] { color: var(--fault) !important; }
 
 .cc-shell { min-height: 100vh; background: var(--background); color: var(--foreground); }
 .cc-sidebar { position: fixed; inset: 0 auto 0 0; z-index: 30; display: flex; width: 248px; flex-direction: column; border-right: 1px solid var(--border); background: var(--surface-1); padding: 18px 14px; }

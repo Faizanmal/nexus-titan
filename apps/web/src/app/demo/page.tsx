@@ -264,7 +264,8 @@ export default function DemoPage() {
 
   // Model capability & runtime state
   const [capabilities, setCapabilities] = useState<CapabilitySnapshot | null>(null);
-  const [nanoStatusText, setNanoStatusText] = useState<string>("");
+  const [nanoStatusText, setNanoStatusText] = useState<string>("Gemini Nano unavailable — simulated fallback");
+  const [nanoBadgeText, setNanoBadgeText] = useState<string>("Gemini Nano unavailable — simulated fallback");
 
   // Selectable scenario configurations
   const [faultType, setFaultType] = useState<FaultType>("cavitation");
@@ -272,6 +273,25 @@ export default function DemoPage() {
   const [selectedPlan, setSelectedPlan] = useState<PlanType>("plan_a");
   const [isOffline, setIsOffline] = useState<boolean>(false);
   const [stage3Mode, setStage3Mode] = useState<HybridMode>("PREFER_ON_DEVICE");
+
+  const handleSetOffline = useCallback((nextOffline: boolean) => {
+    setIsOffline(nextOffline);
+    setError((prev) => (prev.includes("NETWORK_OFFLINE") ? "" : prev));
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("nexus-network-simulation", { detail: { isOffline } }));
+    }
+  }, [isOffline]);
+
+  useEffect(() => {
+    return () => {
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("nexus-network-simulation", { detail: { isOffline: false } }));
+      }
+    };
+  }, []);
 
   // Judge Onboarding state
   const [judgeSession, setJudgeSession] = useState<JudgeSession | null>(null);
@@ -295,10 +315,13 @@ export default function DemoPage() {
     void getNanoStatus().then((nano) => {
       setCapabilities(nano.capabilities);
       setNanoStatusText(nano.status);
+      setNanoBadgeText(nano.badgeLabel);
     }).catch(() => {
       // capabilities check fallback: inspectCapabilities
       void inspectCapabilities().then((cap) => {
         setCapabilities(cap);
+        setNanoStatusText("Gemini Nano unavailable — simulated fallback");
+        setNanoBadgeText("Gemini Nano unavailable — simulated fallback");
       }).catch(() => {});
     });
   }, []);
@@ -475,7 +498,7 @@ export default function DemoPage() {
   const onboardJudge = useCallback(
     async (aliasToUse?: string) => {
       setBusy(true);
-      setError("");
+      setError((prev) => (prev.includes("NETWORK_OFFLINE") ? prev : ""));
       const alias = aliasToUse || judgeAlias || "contest-judge-alpha";
       try {
         const res = await callDemoApi<JudgeSession & { correlation_id?: string }>("/v1/demo/judge/onboard", {
@@ -547,8 +570,11 @@ export default function DemoPage() {
 
     if (userCred?.user) {
       setCurrentUser(userCred.user);
-      const defaultAlias = userCred.user.email ? userCred.user.email.split("@")[0] : "contest-judge-alpha";
-      void onboardJudge(defaultAlias);
+      if (onboardedUidRef.current !== userCred.user.uid) {
+        onboardedUidRef.current = userCred.user.uid;
+        const defaultAlias = userCred.user.email ? userCred.user.email.split("@")[0] : "contest-judge-alpha";
+        void onboardJudge(defaultAlias);
+      }
       if (typeof window !== "undefined") {
         window.dispatchEvent(new Event("nexus-profile-updated"));
       }
@@ -945,7 +971,7 @@ export default function DemoPage() {
             <div className="flex items-center gap-2">
               <span className="font-semibold text-slate-600">Connection State:</span>
               <button
-                onClick={() => setIsOffline(!isOffline)}
+                onClick={() => handleSetOffline(!isOffline)}
                 aria-label="Toggle network online or offline"
                 className={`rounded px-2.5 py-1 text-xs font-bold transition focus:outline-none focus:ring-2 focus:ring-offset-1 ${
                   isOffline
@@ -967,11 +993,7 @@ export default function DemoPage() {
                   ? "bg-blue-100 text-blue-800"
                   : "bg-amber-100 text-amber-800"
               }`}>
-                {capabilities?.modelState === "ready"
-                  ? "Prompt API Ready"
-                  : capabilities?.modelState === "downloadable"
-                  ? "Downloadable"
-                  : "Unavailable — simulated fallback"}
+                {nanoBadgeText}
               </span>
             </div>
 
@@ -991,7 +1013,7 @@ export default function DemoPage() {
       </section>
 
       {/* PRIMARY 5-STAGE GUIDED SEQUENCE */}
-      <section className="space-y-4 rounded-xl border-2 border-indigo-500/30 bg-gradient-to-b from-indigo-50/30 to-white p-4 md:p-6 shadow-sm" aria-label="Guided Incident Sequence">
+      <section className="space-y-4 rounded-xl border-2 border-indigo-500/30 bg-white p-4 md:p-6 shadow-sm" aria-label="Guided Incident Sequence">
         <div className="flex flex-wrap items-center justify-between gap-2 border-b border-indigo-100 pb-3">
           <div>
             <span className="rounded bg-indigo-600 px-2.5 py-0.5 text-xs font-bold text-white uppercase tracking-wider">
@@ -1036,12 +1058,12 @@ export default function DemoPage() {
                   isCurrent
                     ? "border-indigo-600 bg-indigo-600 text-white shadow-md"
                     : hasData
-                    ? "border-emerald-300 bg-emerald-50/60 text-slate-800 hover:bg-emerald-50"
-                    : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+                    ? "border-emerald-400 bg-emerald-50 text-slate-900 hover:bg-emerald-100"
+                    : "border-slate-200 bg-white text-slate-800 hover:bg-slate-50"
                 }`}
               >
                 <div className="flex w-full items-center justify-between text-xs">
-                  <span className={`font-mono font-bold ${isCurrent ? "text-indigo-100" : "text-slate-500"}`}>
+                  <span className={`font-mono font-bold ${isCurrent ? "text-indigo-100" : "text-slate-700"}`}>
                     {item.num}
                   </span>
                   {hasData && (
@@ -1053,7 +1075,7 @@ export default function DemoPage() {
                 <strong className={`mt-1 text-sm font-bold ${isCurrent ? "text-white" : "text-slate-900"}`}>
                   {item.title}
                 </strong>
-                <span className={`text-[11px] ${isCurrent ? "text-indigo-100" : "text-slate-500"}`}>
+                <span className={`text-[11px] ${isCurrent ? "text-indigo-100" : "text-slate-600"}`}>
                   {item.sub}
                 </span>
               </button>
@@ -1366,7 +1388,7 @@ export default function DemoPage() {
               <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3">
                 <div className="flex items-center gap-2">
                   <button
-                    onClick={() => setIsOffline(true)}
+                    onClick={() => handleSetOffline(true)}
                     className={`rounded px-3 py-1.5 text-xs font-bold ${
                       isOffline ? "bg-amber-600 text-white" : "border border-slate-300 bg-white text-slate-700"
                     }`}
@@ -1374,7 +1396,7 @@ export default function DemoPage() {
                     Simulate Disconnected Field (OFFLINE)
                   </button>
                   <button
-                    onClick={() => setIsOffline(false)}
+                    onClick={() => handleSetOffline(false)}
                     className={`rounded px-3 py-1.5 text-xs font-bold ${
                       !isOffline ? "bg-emerald-600 text-white" : "border border-slate-300 bg-white text-slate-700"
                     }`}
@@ -1414,8 +1436,8 @@ export default function DemoPage() {
                       <p className="font-mono text-red-700 font-semibold">RESTRICTED_FIELD_LEVEL (Local Keychain Only)</p>
                     </div>
                     <div>
-                      <span className="text-slate-500">Hardware Capability Floor:</span>
-                      <p className="text-slate-700">{stepData["local_ai_offline"]?.device_status_note ?? (nanoStatusText || "—")}</p>
+                      <span className="text-slate-500">On-Device Model Readiness:</span>
+                      <p className="text-slate-800">{stepData["local_ai_offline"]?.device_status_note ?? nanoStatusText}</p>
                     </div>
                   </div>
                   <div className="rounded bg-emerald-50 border border-emerald-200 p-2.5 text-xs text-emerald-800 font-mono">
@@ -1542,6 +1564,12 @@ export default function DemoPage() {
                   {runningStage === 3 ? "Running Stage 3…" : "Execute Stage 3: Consent & Cloud Handoff"}
                 </button>
               </div>
+
+              {error && error.includes("NETWORK_OFFLINE") && (
+                <div className="rounded-lg border border-red-700 bg-red-50 p-3.5 text-xs text-slate-900 font-semibold" role="alert">
+                  {error}
+                </div>
+              )}
 
               {/* Side-by-Side: Approved Fields & Consent vs Cloud Model Source & Root Cause */}
               <div className="grid gap-4 md:grid-cols-2">
@@ -1687,7 +1715,7 @@ export default function DemoPage() {
               <div className="space-y-4">
                 <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm space-y-3">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-sm font-extrabold text-slate-950">
+                    <h3 className="text-sm font-extrabold text-slate-900">
                       Physics Hydraulic Solver: Baseline vs Counterfactual vs Failure Branch
                     </h3>
                     <span className="rounded bg-slate-100 px-2 py-0.5 text-xs font-mono text-slate-600">
@@ -1731,8 +1759,8 @@ export default function DemoPage() {
                   <div className="grid gap-3 sm:grid-cols-2 pt-2 text-xs">
                     <div className="rounded border border-amber-300 bg-amber-50 p-3 space-y-1">
                       <div className="flex items-center justify-between">
-                        <strong className="text-amber-950 font-bold">Concurrency Safety Gate:</strong>
-                        <span className="font-mono text-amber-950 font-bold bg-amber-100 px-2 py-0.5 rounded border border-amber-300">
+                        <strong className="text-slate-900 font-bold">Concurrency Safety Gate:</strong>
+                        <span className="font-mono text-slate-900 font-bold bg-amber-100 px-2 py-0.5 rounded border border-amber-300">
                           {stepData["stale_approval_test"]?.stale_validation?.http_status
                             ? `HTTP ${stepData["stale_approval_test"].stale_validation.http_status} CONFLICT`
                             : stepData["stale_approval_test"]
@@ -1740,7 +1768,7 @@ export default function DemoPage() {
                             : "—"}
                         </span>
                       </div>
-                      <p className="text-amber-950 text-xs font-medium">
+                      <p className="text-slate-900 text-xs font-medium">
                         {stepData["stale_approval_test"]?.stale_validation?.message
                           ? `${stepData["stale_approval_test"].status}: ${stepData["stale_approval_test"].stale_validation.message}`
                           : "—"}
@@ -1749,14 +1777,14 @@ export default function DemoPage() {
 
                     <div className="rounded border border-emerald-200 bg-emerald-50 p-3 space-y-1">
                       <div className="flex items-center justify-between">
-                        <strong className="text-emerald-950">Approved Supervisor Plan:</strong>
+                        <strong className="text-slate-900">Approved Supervisor Plan:</strong>
                         <span className="font-mono text-emerald-800 font-bold">
                           {stepData["supervisor_approval"]?.selected_plan
                             ? `${stepData["supervisor_approval"].selected_plan.toUpperCase()} (Approved)`
                             : "—"}
                         </span>
                       </div>
-                      <p className="text-emerald-800 text-[11px]">
+                      <p className="text-slate-800 text-[11px]">
                         Approved by supervisor. Enforced safety reducer: <code className="font-mono">no_actuator_path: true</code>.
                       </p>
                     </div>
@@ -1812,10 +1840,10 @@ export default function DemoPage() {
                 {/* Left: Spatial Digital Twin Modifications */}
                 <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="rounded bg-slate-100 px-2 py-0.5 text-xs font-bold text-slate-800">
+                    <h4 className="rounded bg-slate-100 px-2 py-0.5 text-xs font-bold text-slate-900">
                       Spatial Digital Twin Reconciled State
-                    </span>
-                    <span className="font-mono text-xs text-slate-500">
+                    </h4>
+                    <span className="font-mono text-xs text-slate-600">
                       Projection: {stepData["twin_update"]?.projection_version !== undefined ? `#${stepData["twin_update"].projection_version}` : "—"}
                     </span>
                   </div>

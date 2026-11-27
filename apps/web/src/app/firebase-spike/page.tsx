@@ -50,6 +50,8 @@ export default function FirebaseSpikePage() {
     setOutput("");
     setSource("No inference observed");
     setElapsed(null);
+    setMessage(mode === "ONLY_IN_CLOUD" ? "Running cloud inference request…" : "Checking device model…");
+    setDownload(mode === "ONLY_IN_CLOUD" ? "Not checked (cloud-only mode)" : "Checking device model…");
     const start = monotonicMs();
     let actualSource: string | null = null;
     const providerMode = process.env.NEXT_PUBLIC_INFERENCE_PROVIDER ?? "firebase";

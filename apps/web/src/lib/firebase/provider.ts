@@ -34,14 +34,9 @@ export async function requestFirebaseInference(
     inCloudParams: { model: cloudModel },
   });
   if (mode === "ONLY_IN_CLOUD") {
-    try {
-      const prep = await prepareGeminiNano();
-      onProgress(prep.ready ? "Device model available (bypassed in cloud-only mode)" : prep.status);
-    } catch {
-      onProgress("On-device model check skipped (cloud-only mode)");
-    }
+    onProgress("Not checked (cloud-only mode)");
   } else {
-    onProgress("Checking / preparing device model…");
+    onProgress("Checking device model…");
     try {
       const prep = await prepareGeminiNano();
       if (!prep.supported || prep.modelState === "unavailable") {
@@ -49,19 +44,19 @@ export async function requestFirebaseInference(
           onProgress("Device model unavailable or initialization failed");
           throw new Error("Device model unavailable: Chrome Prompt API missing or model unavailable");
         }
-        onProgress("Device model unavailable, fell back to cloud");
-      } else {
-        await model.initializeDeviceModel((progress) =>
-          onProgress(`Device model progress: ${Math.round(progress * 100)}%`),
+      } else if (
+        typeof (model as { initializeDeviceModel?: (cb: (p: number) => void) => Promise<void> }).initializeDeviceModel ===
+        "function"
+      ) {
+        await (model as { initializeDeviceModel: (cb: (p: number) => void) => Promise<void> }).initializeDeviceModel(
+          (progress) => onProgress(`Device model progress: ${Math.round(progress * 100)}%`),
         );
-        onProgress("Device model ready");
       }
     } catch (error) {
       if (mode === "ONLY_ON_DEVICE") {
         onProgress("Device model unavailable or initialization failed");
         throw error;
       }
-      onProgress("Device model unavailable, fell back to cloud");
     }
   }
   const result = await model.generateContent(prompt);
@@ -71,6 +66,8 @@ export async function requestFirebaseInference(
     onProgress("Device model unavailable, fell back to cloud");
   } else if (actualSource === "ON_DEVICE") {
     onProgress("Device model ready");
+  } else if (mode === "ONLY_IN_CLOUD") {
+    onProgress("Not checked (cloud-only mode)");
   }
   return {
     text: result.response.text(),

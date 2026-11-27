@@ -358,7 +358,7 @@ export async function executeOfflineLocalLeg(
 
   // Graceful deterministic simulation fallback path with honest reason
   const elapsed = Math.round(performance.now() - start);
-  const reasonText = localErrorReason || "Host GPU/RAM below Chrome Prompt API floor";
+  const reasonText = localErrorReason || "On-device model not available";
   return {
     leg: "local_edge",
     incident_id: evidence.incident_id,

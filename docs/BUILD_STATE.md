@@ -1448,4 +1448,35 @@ See [phase-17 evidence](evidence/phase-17.md). Final full API pytest: exit 0, 98
 | **Session Expiry & Refresh Rehearsal** | `judge-browser-smoke.test.mjs` | Dynamic response | Session token recovered via 1-click dedicated onboarding | Refresh from `sessionStorage` restores baseline and produces identical replay hash | Replay SHA-256 bit-for-bit identical |
 | **Multi-Judge Isolation** | `test_judge_entry_regression.py`, `judge-browser-smoke.test.mjs` | N/A | Independent session IDs & quotas (`judge-alpha` vs `judge-beta`) | Judge Alpha decrements to 19 runs; Judge Beta isolated at 20 runs | `sess-judge-alpha-...` != `sess-judge-beta-...` |
 
+## Phase 32 — Judge retest polish: Neutral fallback labels, WCAG AA dark/light contrast, persistent offline Stage 3 notice, top-bar network sync, and accurate Nano readiness
+
+- **Status: PASS**
+- **Date:** 2026-11-28
+- **Tasks completed:**
+  - **Neutral On-Device Fallback Labels**:
+    - Replaced default `reasonText` in `apps/web/src/lib/hybrid/flagship-hybrid-scenario.ts` (line 361) and fallback `device_note` reason in `services/api/src/nexus_titan_api/demo_routes.py` (line 621) with `"On-device model not available"`.
+    - Updated `services/api/tests/test_demo_flagship_scenario.py` and `tests/judge-browser-smoke.test.mjs` assertions to match `"On-device model not available"`.
+  - **WCAG AA Contrast on `/demo`**:
+    - Extended dark/light semantic token bridges in `apps/web/src/app/globals.css` for `text-slate-950`, `text-amber-950`, `text-amber-900`, `text-emerald-950`, `text-emerald-900`, `text-indigo-950`, `text-indigo-900`, `text-blue-950`, `text-blue-900`, and pastel surface utilities (`bg-emerald-50*`, `bg-indigo-50*`, `bg-amber-50*`, `bg-blue-50*`).
+    - Updated `apps/web/src/app/demo/page.tsx` headings and badges for `"Physics Hydraulic Solver"`, `"Concurrency Safety Gate"` (title, badge, and body), completed stage tab labels, `"Spatial Digital Twin Reconciled State"`, and `"Source-Aware Cryptographic Trace"` so all meet WCAG AA ($\ge 4.5:1$).
+  - **Persistent Offline Stage 3 Notice & Top-Bar Network Pill Sync**:
+    - Prevented background judge onboarding from clearing an active `NETWORK_OFFLINE` notice and deduplicated `handleDedicatedJudgeSignIn` onboarding via `onboardedUidRef`.
+    - Added an inline `NETWORK_OFFLINE` alert banner inside the Stage 3 panel on `/demo` that stays visible until the user changes the network toggle or runs another stage.
+    - Synchronized `apps/web/src/components/command-center-shell.tsx` top-bar `StatusIndicator` with `/demo` via `nexus-network-simulation` custom events so the top-bar pill reflects `Offline · simulated airgap` while `/demo` is set to offline.
+  - **`/firebase-spike`, `/inference-lab`, and `/demo` Stage 2 Readiness**:
+    - Updated `apps/web/src/app/firebase-spike/page.tsx` and `apps/web/src/lib/firebase/provider.ts` to clear previous status/device text at run start, display `"Checking device model…"` while `PREFER_*` requests are in flight without prematurely reporting `"Device model ready"`, and report `"Not checked (cloud-only mode)"` for `ONLY_IN_CLOUD`.
+    - Updated `prepareGeminiNano()` and `getNanoStatus()` in `packages/hybrid-web/src/capabilities.ts` to handle `"unavailable"` explicitly and return `"Gemini Nano unavailable — simulated fallback"` instead of `"Chrome Prompt API detected; model status checking."`
+    - Updated `apps/web/src/app/inference-lab/page.tsx` and `apps/web/src/app/demo/page.tsx` Stage 2 readiness displays to render the live `getNanoStatus()` result and badge.
+  - **Evidence Recorded**:
+    - Authored `docs/evidence/judge-retest.md` with the retest checklist and automated command results.
+- **Measured verification results:**
+  - `pnpm -r lint`: exited 0 (0 errors, 0 warnings).
+  - `pnpm -r typecheck`: exited 0 across all workspace packages.
+  - `pnpm --filter @nexus-titan/web build`: exited 0 (all 23 routes compiled).
+  - `pnpm a11y:check`: exited 0 (9/9 suites passed).
+  - `pnpm design:check`: exited 0 (8/8 suites passed).
+  - `pnpm test:suites`: exited 0 (14/14 test suites passed).
+  - `uv run --project services/api pytest`: exited 0 (**182 passed**, 3 warnings in 8.00s).
+
+
 

@@ -130,7 +130,7 @@ def test_flagship_scenario_full_lifecycle(client):
     d4 = r4.json()
     assert d4["network_status"] == "OFFLINE"
     assert d4["privacy_boundary"]["zero_restricted_bytes_egressed"] is True
-    assert "DEVICE_HARDWARE_LIMITATION" in d4["device_status_note"]
+    assert "On-device model not available" in d4["device_status_note"]
 
     # 5. Redaction Approval
     r5 = client.post(

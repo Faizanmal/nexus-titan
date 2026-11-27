@@ -16,6 +16,7 @@
  */
 
 import { spawn } from "node:child_process";
+import { existsSync } from "node:fs";
 import { strict as assert } from "node:assert";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -44,17 +45,23 @@ async function ensureApiServer() {
 
   console.log(`[INIT] Spawning local API server on ${API_BASE}...`);
   const env = { ...process.env, PYTHONPATH: path.join(ROOT, "services", "api", "src") };
-  const serverProc = spawn("uv", [
-    "run", "--project", "services/api",
-    "uvicorn", "nexus_titan_api.main:app",
-    "--app-dir", "services/api/src",
-    "--host", "127.0.0.1",
-    "--port", "8000",
-  ], { cwd: ROOT, env, stdio: ["ignore", "pipe", "pipe"] });
+  const winPython = path.join(ROOT, "services", "api", ".venv", "Scripts", "python.exe");
+  const unixPython = path.join(ROOT, "services", "api", ".venv", "bin", "python");
+  const serverProc = existsSync(winPython)
+    ? spawn(winPython, ["-m", "uvicorn", "nexus_titan_api.main:app", "--app-dir", "services/api/src", "--host", "127.0.0.1", "--port", "8000"], { cwd: ROOT, env, stdio: ["ignore", "pipe", "pipe"] })
+    : existsSync(unixPython)
+    ? spawn(unixPython, ["-m", "uvicorn", "nexus_titan_api.main:app", "--app-dir", "services/api/src", "--host", "127.0.0.1", "--port", "8000"], { cwd: ROOT, env, stdio: ["ignore", "pipe", "pipe"] })
+    : spawn("uv", [
+        "run", "--project", "services/api",
+        "uvicorn", "nexus_titan_api.main:app",
+        "--app-dir", "services/api/src",
+        "--host", "127.0.0.1",
+        "--port", "8000",
+      ], { cwd: ROOT, env, stdio: ["ignore", "pipe", "pipe"] });
 
   let serverReady = false;
   const start = Date.now();
-  while (Date.now() - start < 15000) {
+  while (Date.now() - start < 30000) {
     try {
       const res = await fetch(`${API_BASE}/health`, { signal: AbortSignal.timeout(1000) });
       if (res.ok) {
@@ -277,7 +284,7 @@ async function runTestHarness() {
     console.log("\n[4/7] Rehearsing Unsupported-Device Floor & False Provenance Rejection...");
     const unsupportedCheck = await execStepV1("local_ai_offline", { is_offline: true });
     assert.equal(unsupportedCheck.is_fixture, true);
-    assert.ok(unsupportedCheck.device_status_note.includes("Prompt API"));
+    assert.ok(unsupportedCheck.device_status_note.includes("On-device model not available"));
     assert.equal(unsupportedCheck.actual_source, null, "Unsupported device must never claim real hardware acceleration");
     console.log("  ✓ Unsupported device floor safely falls back to deterministic fixture without false hardware claims");
 

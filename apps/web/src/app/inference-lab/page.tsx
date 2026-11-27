@@ -62,6 +62,7 @@ export default function InferenceLabPage() {
   const [cloudResult, setCloudResult] = useState<LegExecutionResult | null>(null);
   const [isOffline, setIsOffline] = useState<boolean>(false);
   const [nanoStatus, setNanoStatus] = useState<string>("Checking Gemini Nano (Chrome built-in) capability…");
+  const [nanoBadge, setNanoBadge] = useState<string>("Checking Gemini Nano…");
   const [nanoReady, setNanoReady] = useState<boolean>(false);
   const [flagshipBusy, setFlagshipBusy] = useState<boolean>(false);
   const [flagshipError, setFlagshipError] = useState<string>("");
@@ -75,6 +76,7 @@ export default function InferenceLabPage() {
     setCapability(nano.capabilities);
     setNanoReady(nano.ready);
     setNanoStatus(nano.status);
+    setNanoBadge(nano.badgeLabel);
   }, []);
 
   useEffect(() => {
@@ -160,6 +162,7 @@ export default function InferenceLabPage() {
       setCapability(nano.capabilities);
       setNanoReady(nano.ready);
       setNanoStatus(nano.status);
+      setNanoBadge(nano.badgeLabel);
       setFlagshipInfo(nano.status);
     } catch (err) {
       setFlagshipError(`Preparation failed: ${err instanceof Error ? err.message : String(err)}`);
@@ -520,10 +523,10 @@ export default function InferenceLabPage() {
               </div>
               <span
                 className={`rounded px-2.5 py-0.5 text-xs font-bold ${
-                  nanoReady ? "bg-emerald-100 text-emerald-800" : "bg-slate-100 text-slate-700"
+                  nanoReady ? "bg-emerald-100 text-emerald-800" : "bg-amber-100 text-amber-800"
                 }`}
               >
-                {nanoReady ? "GEMINI NANO READY" : "SIMULATION PATH READY"}
+                {nanoBadge}
               </span>
             </div>
 

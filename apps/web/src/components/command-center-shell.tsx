@@ -63,6 +63,7 @@ export function CommandCenterShell({ children }: { children: ReactNode }) {
   const [firebaseUser, setFirebaseUser] = useState<User | null>(null);
   const [isJudgeSession, setIsJudgeSession] = useState(false);
   const [online, setOnline] = useState(true);
+  const [simulatedOffline, setSimulatedOffline] = useState(false);
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [paletteQuery, setPaletteQuery] = useState("");
@@ -147,6 +148,10 @@ export function CommandCenterShell({ children }: { children: ReactNode }) {
     }
 
     const onOnline = () => setOnline(navigator.onLine);
+    const onSimulatedNetwork = (event: Event) => {
+      const custom = event as CustomEvent<{ isOffline?: boolean }>;
+      setSimulatedOffline(Boolean(custom.detail?.isOffline));
+    };
     const onProfile = () => { void loadProfile(); };
     const onKeys = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") { event.preventDefault(); setPaletteOpen((open) => !open); }
@@ -155,6 +160,7 @@ export function CommandCenterShell({ children }: { children: ReactNode }) {
     setOnline(navigator.onLine);
     window.addEventListener("online", onOnline);
     window.addEventListener("offline", onOnline);
+    window.addEventListener("nexus-network-simulation", onSimulatedNetwork);
     window.addEventListener("nexus-profile-updated", onProfile);
     window.addEventListener("keydown", onKeys);
     void loadProfile();
@@ -166,6 +172,7 @@ export function CommandCenterShell({ children }: { children: ReactNode }) {
       if (unsubscribeAuth) unsubscribeAuth();
       window.removeEventListener("online", onOnline);
       window.removeEventListener("offline", onOnline);
+      window.removeEventListener("nexus-network-simulation", onSimulatedNetwork);
       window.removeEventListener("nexus-profile-updated", onProfile);
       window.removeEventListener("keydown", onKeys);
     };
@@ -211,7 +218,8 @@ export function CommandCenterShell({ children }: { children: ReactNode }) {
   }
 
   const groups = ["Operations", "Intelligence", "Workspace"] as const;
-  const status = !online ? <StatusIndicator label="Offline" detail="cached views only" tone="warning" />
+  const effectiveOnline = online && !simulatedOffline;
+  const status = !effectiveOnline ? <StatusIndicator label="Offline" detail={simulatedOffline ? "simulated airgap" : "cached views only"} tone="warning" />
     : (identity === "verified" || isJudgeSession) ? <StatusIndicator label="Online" detail={isJudgeSession ? "Judge sandbox · signed in" : "identity verified"} tone="online" />
       : <StatusIndicator label="Online" detail="sign-in required" tone="info" />;
 
