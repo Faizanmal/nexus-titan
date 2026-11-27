@@ -1,12 +1,12 @@
 import { getGenerativeModel } from "firebase/ai";
 import { firebaseClient, InferenceMode, type SpikeMode } from "./client";
 import { mapReportedInferenceSource } from "./inference-source";
-import { readHybridRemoteConfig } from "@nexus-titan/hybrid-web";
+import { readHybridRemoteConfig, prepareGeminiNano } from "@nexus-titan/hybrid-web";
 
 export type FirebaseInferenceResult = {
   text: string;
   /** Actual source is exclusively the SDK response; callers cannot inject/override it. */
-  actualSource: "ON_DEVICE" | "IN_CLOUD" | null;
+  actualSource: "ON_DEVICE" | "IN_CLOUD" | "IN_CLOUD (inferred from mode)" | null;
 };
 
 /**
@@ -33,7 +33,14 @@ export async function requestFirebaseInference(
     mode: InferenceMode[mode],
     inCloudParams: { model: cloudModel },
   });
-  if (mode !== "ONLY_IN_CLOUD") {
+  if (mode === "ONLY_IN_CLOUD") {
+    try {
+      const prep = await prepareGeminiNano();
+      onProgress(prep.ready ? "Device model available (bypassed in cloud-only mode)" : prep.status);
+    } catch {
+      onProgress("On-device model check skipped (cloud-only mode)");
+    }
+  } else {
     onProgress("Checking / preparing device model…");
     try {
       await model.initializeDeviceModel((progress) =>
@@ -47,7 +54,7 @@ export async function requestFirebaseInference(
   }
   const result = await model.generateContent(prompt);
   const reportedSource = mapReportedInferenceSource(result.response.inferenceSource);
-  const actualSource = reportedSource ?? (mode === "ONLY_IN_CLOUD" ? "IN_CLOUD" : null);
+  const actualSource = reportedSource ?? (mode === "ONLY_IN_CLOUD" ? "IN_CLOUD (inferred from mode)" : null);
   return {
     text: result.response.text(),
     actualSource,

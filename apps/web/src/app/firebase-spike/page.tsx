@@ -72,7 +72,7 @@ export default function FirebaseSpikePage() {
     }
     try {
       const result = await requestFirebaseInference(mode, fixture.prompt, setDownload);
-      actualSource = result.actualSource || (mode === "ONLY_IN_CLOUD" ? "IN_CLOUD" : null);
+      actualSource = result.actualSource || (mode === "ONLY_IN_CLOUD" ? "IN_CLOUD (inferred from mode)" : null);
       setSource(actualSource ?? "SDK did not report inferenceSource");
       setOutput(result.text);
       const duration = Math.round(monotonicMs() - start);

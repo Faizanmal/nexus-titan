@@ -8,19 +8,22 @@ export async function inspectCapabilities(modality: Modality = "text", quota: Ca
       online: false, quota, checkedAt: new Date().toISOString() };
   }
   const desktopChrome = /Chrome\//.test(navigator.userAgent) && !/Android|Mobile/.test(navigator.userAgent);
-  const promptApi = "LanguageModel" in window;
+  const promptApi = "LanguageModel" in window || ("ai" in window && "languageModel" in (window as unknown as { ai: Record<string, unknown> }).ai);
   let modelState: ModelState = promptApi ? "unknown" : "unavailable";
   if (promptApi) {
     try {
-      const languageModel = (window as unknown as { LanguageModel: PromptLanguageModel }).LanguageModel;
-      const availability = await languageModel.availability?.({
-        expectedInputs: modality === "text" ? [{ type: "text", languages: ["en"] }] : [{ type: "image" }],
-        expectedOutputs: [{ type: "text", languages: ["en"] }],
-      });
-      if (availability === "available") modelState = "ready";
-      else if (availability === "downloadable") modelState = "downloadable";
-      else if (availability === "downloading") modelState = "downloading";
-      else if (availability === "unavailable") modelState = "unavailable";
+      const languageModel = (window as unknown as { LanguageModel?: PromptLanguageModel; ai?: { languageModel?: PromptLanguageModel } }).LanguageModel ||
+        (window as unknown as { ai?: { languageModel?: PromptLanguageModel } }).ai?.languageModel;
+      if (typeof languageModel?.availability === "function") {
+        const availability = await languageModel.availability({
+          expectedInputs: modality === "text" ? [{ type: "text", languages: ["en"] }] : [{ type: "image" }],
+          expectedOutputs: [{ type: "text", languages: ["en"] }],
+        });
+        if (availability === "available" || availability === "ready") modelState = "ready";
+        else if (availability === "downloadable") modelState = "downloadable";
+        else if (availability === "downloading") modelState = "downloading";
+        else if (availability === "unavailable") modelState = "unavailable";
+      }
     } catch {
       modelState = "unavailable";
     }

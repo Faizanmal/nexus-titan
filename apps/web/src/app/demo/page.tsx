@@ -300,9 +300,9 @@ export default function DemoPage() {
 
   // Execute scenario step
   const runStep = useCallback(
-    async (targetStep: ScenarioStep, overrideSessionId?: string, overrideCorrId?: string) => {
+    async (targetStep: ScenarioStep, overrideSessionId?: string, overrideCorrId?: string): Promise<boolean> => {
       if (stepInFlightRef.current) {
-        return;
+        return false;
       }
       stepInFlightRef.current = true;
       setBusy(true);
@@ -410,6 +410,7 @@ export default function DemoPage() {
         if (res.judge_quota && judgeSession) {
           setJudgeSession((prev) => (prev ? { ...prev, quota: res.judge_quota as JudgeSession["quota"] } : null));
         }
+        return true;
       } catch (err) {
         // Ensure errors and cancellations cannot reuse a prior successful trace row
         setStepData((prev) => {
@@ -418,6 +419,7 @@ export default function DemoPage() {
           return next;
         });
         setError(err instanceof Error ? err.message : "Failed to execute scenario step.");
+        return false;
       } finally {
         stepInFlightRef.current = false;
         setBusy(false);
@@ -426,29 +428,38 @@ export default function DemoPage() {
     [sessionId, correlationId, judgeSession, faultType, evidenceType, selectedPlan, isOffline, capabilities, stage3Mode, stage3ConsentGranted]
   );
 
-  // High-level guided stage runner: exactly 1 POST per click
+  // High-level guided stage runner: runs full stage steps sequentially with await under stepInFlightRef guard
   const runStage = useCallback(
     async (stage: GuidedStage) => {
-      if (stepInFlightRef.current || busy) return;
+      if (stepInFlightRef.current || busy || runningStage !== null) return;
       setActiveStage(stage);
       setRunningStage(stage);
       try {
         if (stage === 1) {
+          if (!(await runStep("baseline"))) return;
+          if (!(await runStep("fault_injection"))) return;
           await runStep("evidence_capture");
         } else if (stage === 2) {
           await runStep("local_ai_offline");
         } else if (stage === 3) {
+          if (!(await runStep("redaction_approval"))) return;
+          if (!(await runStep("peer_transfer"))) return;
+          if (!(await runStep("canonical_sync"))) return;
           await runStep("cloud_inference");
         } else if (stage === 4) {
+          if (!(await runStep("causal_agent_dag"))) return;
+          if (!(await runStep("solver_scenarios"))) return;
+          if (!(await runStep("stale_approval_test"))) return;
           await runStep("supervisor_approval");
         } else if (stage === 5) {
+          if (!(await runStep("twin_update"))) return;
           await runStep("replay");
         }
       } finally {
         setRunningStage(null);
       }
     },
-    [runStep, busy]
+    [runStep, busy, runningStage]
   );
 
   // Judge onboarding action
@@ -590,6 +601,8 @@ export default function DemoPage() {
     setJudgeSession(null);
     setStepData({});
     setTraceHistory([]);
+    setStage3ConsentGranted(false);
+    setIsOffline(false);
     setActiveStep("baseline");
     setActiveStage(1);
     setInfoMessage("Signed out from evaluator sandbox.");
@@ -653,6 +666,8 @@ export default function DemoPage() {
       setCorrelationId(newCorr);
       setStepData({});
       setTraceHistory([]);
+      setStage3ConsentGranted(false);
+      setIsOffline(false);
       setActiveStep("baseline");
       setActiveStage(1);
       setInfoMessage("Demo run session reset. Global workspace and database state preserved.");
@@ -1106,14 +1121,14 @@ export default function DemoPage() {
                     <div className="rounded bg-slate-50 p-2.5">
                       <span className="text-slate-500">Digital Vibration</span>
                       <p className="text-xl font-bold font-mono text-red-700">
-                        {stepData["fault_injection"]?.metrics?.vibration_mms ?? "8.42"} mm/s
+                        {stepData["fault_injection"]?.metrics?.vibration_mms !== undefined ? `${stepData["fault_injection"].metrics.vibration_mms} mm/s` : "—"}
                       </p>
                       <span className="text-[10px] text-red-600">Threshold 4.5 mm/s</span>
                     </div>
                     <div className="rounded bg-slate-50 p-2.5">
                       <span className="text-slate-500">SCADA Pressure</span>
                       <p className="text-xl font-bold font-mono text-red-700">
-                        {stepData["fault_injection"]?.metrics?.discharge_pressure_kpa ?? "185.0"} kPa
+                        {stepData["fault_injection"]?.metrics?.discharge_pressure_kpa !== undefined ? `${stepData["fault_injection"].metrics.discharge_pressure_kpa} kPa` : "—"}
                       </p>
                       <span className="text-[10px] text-red-600">Severe Drop (Nominal 410)</span>
                     </div>
@@ -1130,16 +1145,26 @@ export default function DemoPage() {
                       Physical Inspection Evidence
                     </span>
                     <span className="font-mono text-xs text-slate-500">
-                      Event ID: {stepData["evidence_capture"]?.evidence_id ?? "EV-STAGE1-CAPT"}
+                      Event ID: {stepData["evidence_capture"]?.evidence_id ?? "—"}
                     </span>
                   </div>
                   <div className="rounded-md border border-slate-200 bg-slate-50 p-3 text-xs">
                     <span className="font-semibold text-slate-700">Technician Dial Observation:</span>
-                    <p className="mt-1 text-sm font-serif italic text-slate-800">
-                      &ldquo;{stepData["evidence_capture"]?.observation_text ?? (evidenceType === "disagreeing" ? "Scanned marker QR-PUMP-101-DISCHARGE. Physical dial gauge reads 410 kPa with normal casing vibration. Digital sensor shows severe pressure drop." : "Scanned marker QR-PUMP-101-DISCHARGE. Physical dial gauge confirms pressure drop to 185 kPa and anomalous vibration.")}&rdquo;
-                    </p>
+                    {stepData["evidence_capture"]?.observation_text ? (
+                      <p className="mt-1 text-sm font-serif italic text-slate-800">
+                        &ldquo;{stepData["evidence_capture"].observation_text}&rdquo;
+                      </p>
+                    ) : (
+                      <p className="mt-1 text-xs text-slate-500 italic">
+                        Not run yet (click Execute Stage 1 to trigger alarm &amp; capture evidence)
+                      </p>
+                    )}
                   </div>
-                  {(evidenceType === "disagreeing" || stepData["evidence_capture"]?.contradiction_detected) ? (
+                  {!stepData["evidence_capture"] ? (
+                    <div className="rounded border border-slate-200 bg-slate-50 p-2.5 text-xs text-slate-500 italic">
+                      Inspection pending execution.
+                    </div>
+                  ) : stepData["evidence_capture"]?.contradiction_detected ? (
                     <div className="rounded border border-amber-300 bg-amber-50 p-2.5 text-xs text-amber-950 font-medium">
                       ⚠️ Sensor / Observation Discrepancy Detected: Physical gauge does NOT match digital telemetry. Flagged for transducer wiring loop inspection.
                     </div>
@@ -1222,7 +1247,11 @@ export default function DemoPage() {
                           ~45.2 ms (Cloud batch telemetry model execution)
                         </td>
                         <td className="p-3 font-bold text-slate-900">
-                          {stepData["local_ai_offline"]?.source_trace?.duration_ms ?? "14.2"} ms (Local on-device) + {stepData["cloud_inference"]?.source_trace?.duration_ms ?? "18.6"} ms (Sanitized cloud)
+                          {stepData["local_ai_offline"] && stepData["cloud_inference"] ? (
+                            `${stepData["local_ai_offline"]?.source_trace?.duration_ms ?? "—"} ms (Local on-device) + ${stepData["cloud_inference"]?.source_trace?.duration_ms ?? "—"} ms (Sanitized cloud)`
+                          ) : (
+                            "Measured on-device local + sanitized cloud execution (pending run)"
+                          )}
                         </td>
                       </tr>
                       <tr>
@@ -1249,7 +1278,7 @@ export default function DemoPage() {
                           Correlation: {correlationId} · Event: ev-scada-trip-raw
                         </td>
                         <td className="p-3 font-mono text-slate-700">
-                          Event ID: {stepData["evidence_capture"]?.evidence_id ?? "EV-STAGE1-CAPT"} · Ed25519 Verified
+                          Event ID: {stepData["evidence_capture"]?.evidence_id ?? "—"} · Ed25519 Verified
                         </td>
                       </tr>
                     </tbody>
@@ -1388,45 +1417,71 @@ export default function DemoPage() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-bold text-slate-700">Source:</span>
-                      <InferenceBadge source={String(stepData["local_ai_offline"]?.client_provider_response?.observed_source || stepData["local_ai_offline"]?.client_reported_source || stepData["local_ai_offline"]?.actual_source || (stepData["local_ai_offline"]?.is_fixture ? "MOCK" : "ON_DEVICE"))} />
+                      <InferenceBadge source={String(stepData["local_ai_offline"]?.client_provider_response?.observed_source || stepData["local_ai_offline"]?.client_reported_source || stepData["local_ai_offline"]?.actual_source || (stepData["local_ai_offline"] ? (stepData["local_ai_offline"]?.is_fixture ? "MOCK" : "ON_DEVICE") : "—"))} />
                       <span className="text-[11px] font-mono text-slate-500">
-                        SDK: {String(stepData["local_ai_offline"]?.client_provider_response?.observed_source || stepData["local_ai_offline"]?.client_reported_source || (stepData["local_ai_offline"]?.inference_source ?? "ON_DEVICE"))}
+                        SDK: {stepData["local_ai_offline"] ? String(stepData["local_ai_offline"]?.client_provider_response?.observed_source || stepData["local_ai_offline"]?.client_reported_source || (stepData["local_ai_offline"]?.inference_source ?? "MOCK")) : "—"}
                       </span>
                     </div>
                     <span className="font-mono text-xs text-slate-500">
-                      Latency: {stepData["local_ai_offline"]?.client_provider_response?.latency !== undefined ? Math.round(Number(stepData["local_ai_offline"].client_provider_response.latency)) : (stepData["local_ai_offline"]?.source_trace?.duration_ms ?? "14")} ms
+                      Latency: {stepData["local_ai_offline"] ? (stepData["local_ai_offline"]?.client_provider_response?.latency !== undefined ? Math.round(Number(stepData["local_ai_offline"].client_provider_response.latency)) : (stepData["local_ai_offline"]?.source_trace?.duration_ms ?? "—")) : "—"} ms
                     </span>
                   </div>
 
-                  <div className="rounded-md border border-indigo-100 bg-indigo-50/50 p-3.5 space-y-2">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-950">
-                      On-Device Edge Triage Result
-                    </h4>
-                    {stepData["local_ai_offline"]?.client_provider_response?.fallback_reason ? (
-                      <p className="text-xs font-mono text-amber-900 bg-amber-50 p-2.5 rounded border border-amber-200">
-                        Simulated: {String(stepData["local_ai_offline"].client_provider_response.fallback_reason)}
-                      </p>
-                    ) : (stepData["local_ai_offline"]?.client_provider_response?.observed_source === "ON_DEVICE" || stepData["local_ai_offline"]?.client_reported_source === "ON_DEVICE") && stepData["local_ai_offline"]?.client_provider_response?.summary ? (
-                      <div className="rounded border border-emerald-300 bg-emerald-50 p-2.5 text-xs text-emerald-950 space-y-1">
-                        <div className="font-bold text-emerald-900">Firebase AI Logic (Gemini Nano):</div>
-                        <p className="font-medium">{String(stepData["local_ai_offline"].client_provider_response.summary)}</p>
-                      </div>
-                    ) : (
-                      <p className="text-sm font-bold text-indigo-950">
-                        {stepData["local_ai_offline"]?.diagnosis?.primary_hypothesis ?? "Cavitation & Suction Strainer Clogging"}
-                      </p>
-                    )}
-                    <div className="text-xs text-slate-700">
-                      <span>Confidence: </span>
-                      <strong className="text-indigo-950">{Math.round((stepData["local_ai_offline"]?.diagnosis?.confidence ?? 0.89) * 100)}%</strong>
+                  {!stepData["local_ai_offline"] ? (
+                    <div className="rounded-md border border-slate-200 bg-slate-50 p-4 text-xs text-slate-500 italic">
+                      Not run yet (click Execute Stage 2 to run offline local AI triage)
                     </div>
-                    <div className="text-xs text-slate-600">
-                      <span>Suggested Actions: </span>
-                      <span className="font-medium text-slate-900">
-                        {stepData["local_ai_offline"]?.diagnosis?.suggested_actions?.join(" · ") ?? "Throttle bypass valve · Verify suction strainer · Check sensor wiring loop"}
-                      </span>
+                  ) : (
+                    <div className="rounded-md border border-indigo-100 bg-indigo-50/50 p-3.5 space-y-2">
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-950">
+                        On-Device Edge Triage Result
+                      </h4>
+                      {stepData["local_ai_offline"]?.client_provider_response?.is_simulation_fallback || stepData["local_ai_offline"]?.is_fixture ? (
+                        <div className="space-y-2">
+                          <p className="text-xs font-mono text-amber-900 bg-amber-50 p-2.5 rounded border border-amber-200">
+                            Status: Simulated (Gemini Nano not supported in this browser)
+                          </p>
+                          <div className="text-xs text-slate-700">
+                            <span className="font-semibold text-slate-800">Example output (simulated): </span>
+                            <span className="text-slate-900 font-medium">{stepData["local_ai_offline"]?.diagnosis?.primary_hypothesis ?? "Cavitation & Suction Strainer Clogging"}</span>
+                          </div>
+                        </div>
+                      ) : (stepData["local_ai_offline"]?.client_provider_response?.observed_source === "ON_DEVICE" || stepData["local_ai_offline"]?.client_reported_source === "ON_DEVICE") && stepData["local_ai_offline"]?.client_provider_response?.summary ? (
+                        <div className="space-y-2">
+                          <div className="rounded border border-emerald-300 bg-emerald-50 p-2.5 text-xs text-emerald-950 space-y-1">
+                            <div className="font-bold text-emerald-900">Firebase AI Logic (Gemini Nano):</div>
+                            <p className="font-medium">{String(stepData["local_ai_offline"].client_provider_response.summary)}</p>
+                          </div>
+                          <div className="text-xs text-slate-700">
+                            <span>Confidence: </span>
+                            <strong className="text-indigo-950">{Math.round((stepData["local_ai_offline"]?.diagnosis?.confidence ?? 0.89) * 100)}%</strong>
+                          </div>
+                          <div className="text-xs text-slate-600">
+                            <span>Suggested Actions: </span>
+                            <span className="font-medium text-slate-900">
+                              {stepData["local_ai_offline"]?.diagnosis?.suggested_actions?.join(" · ") ?? "Throttle bypass valve · Verify suction strainer · Check sensor wiring loop"}
+                            </span>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="space-y-2">
+                          <p className="text-sm font-bold text-indigo-950">
+                            {stepData["local_ai_offline"]?.diagnosis?.primary_hypothesis ?? "Cavitation & Suction Strainer Clogging"}
+                          </p>
+                          <div className="text-xs text-slate-700">
+                            <span>Confidence: </span>
+                            <strong className="text-indigo-950">{Math.round((stepData["local_ai_offline"]?.diagnosis?.confidence ?? 0.89) * 100)}%</strong>
+                          </div>
+                          <div className="text-xs text-slate-600">
+                            <span>Suggested Actions: </span>
+                            <span className="font-medium text-slate-900">
+                              {stepData["local_ai_offline"]?.diagnosis?.suggested_actions?.join(" · ") ?? "Throttle bypass valve · Verify suction strainer · Check sensor wiring loop"}
+                            </span>
+                          </div>
+                        </div>
+                      )}
                     </div>
-                  </div>
+                  )}
 
                   <div className="flex justify-end pt-1">
                     <button
@@ -1450,10 +1505,10 @@ export default function DemoPage() {
                   What to do at Stage 3: Authorize De-identified Handoff & Run Firebase AI Logic (cloud, Gemini)
                 </strong>
                 <p className="text-indigo-900">
-                  Review the stripped restricted fields versus permitted telemetry fields. Authorize operator consent with cryptographic SHA-256 consent digest, verify exactly-once Ed25519 canonical synchronization, and run Firebase AI Logic (cloud, Gemini) for systemic root cause analysis. Masquerading Prevented: provenance is mapped directly to SDK-reported client source.
+                  Review the stripped restricted fields versus permitted telemetry fields. Authorize operator consent with cryptographic SHA-256 consent digest, verify exactly-once Ed25519 canonical synchronization, and run Firebase AI Logic (cloud, Gemini) for systemic root cause analysis.{stepData["cloud_inference"] ? ` Masquerading Prevented: verified via SDK-reported client provenance (${String(stepData["cloud_inference"].client_provider_response?.observed_source || stepData["cloud_inference"].client_reported_source || "IN_CLOUD")}).` : " Masquerading Prevented: provenance is mapped directly to SDK-reported client source."}
                 </p>
                 <div className="flex flex-wrap items-center gap-3 pt-2 font-mono text-[11px]">
-                  <span>Network: <strong className="text-emerald-700">ONLINE (Reconnected)</strong></span>
+                  <span>Network: <strong className={isOffline ? "text-amber-800" : "text-emerald-700"}>{isOffline ? "OFFLINE (Airgapped / Isolated)" : "ONLINE (Reconnected)"}</strong></span>
                   <span>Consent State: <strong className={stage3ConsentGranted ? "text-emerald-700" : "text-amber-700"}>{stage3ConsentGranted ? "Approved & Cryptographically Signed" : "Consent Withheld (Cloud Blocked)"}</strong></span>
                   <span>Cloud Mode: <strong className="text-indigo-900">{stage3Mode}</strong></span>
                 </div>
@@ -1505,7 +1560,7 @@ export default function DemoPage() {
                       Approved De-Identification & Consent
                     </span>
                     <span className="rounded bg-indigo-100 px-2 py-0.5 text-xs font-mono text-indigo-800">
-                      Ed25519 Canonical Sync #{stepData["canonical_sync"]?.assigned_sequence ?? "104"}
+                      Ed25519 Canonical Sync {stepData["canonical_sync"]?.assigned_sequence ? `#${stepData["canonical_sync"].assigned_sequence}` : "—"}
                     </span>
                   </div>
 
@@ -1538,39 +1593,45 @@ export default function DemoPage() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-bold text-slate-700">Source:</span>
-                      <InferenceBadge source={String(stepData["cloud_inference"]?.client_provider_response?.observed_source || stepData["cloud_inference"]?.client_reported_source || stepData["cloud_inference"]?.actual_source || (stepData["cloud_inference"]?.is_fixture ? "MOCK" : "IN_CLOUD"))} />
+                      <InferenceBadge source={String(stepData["cloud_inference"]?.client_provider_response?.observed_source || stepData["cloud_inference"]?.client_reported_source || stepData["cloud_inference"]?.actual_source || (stepData["cloud_inference"] ? (stepData["cloud_inference"]?.is_fixture ? "MOCK" : "IN_CLOUD") : "—"))} />
                       <span className="text-[11px] font-mono text-slate-500">
-                        SDK: {String(stepData["cloud_inference"]?.client_provider_response?.observed_source || stepData["cloud_inference"]?.client_reported_source || (stepData["cloud_inference"]?.reported_source ?? "MOCK"))}
+                        SDK: {stepData["cloud_inference"] ? String(stepData["cloud_inference"]?.client_provider_response?.observed_source || stepData["cloud_inference"]?.client_reported_source || (stepData["cloud_inference"]?.reported_source ?? "IN_CLOUD")) : "—"}
                       </span>
                     </div>
                     <span className="font-mono text-xs text-slate-500">
-                      Duration: {stepData["cloud_inference"]?.client_provider_response?.latency !== undefined ? Math.round(Number(stepData["cloud_inference"].client_provider_response.latency)) : (stepData["cloud_inference"]?.source_trace?.duration_ms ?? "18")} ms
+                      Duration: {stepData["cloud_inference"] ? (stepData["cloud_inference"]?.client_provider_response?.latency !== undefined ? Math.round(Number(stepData["cloud_inference"].client_provider_response.latency)) : (stepData["cloud_inference"]?.source_trace?.duration_ms ?? "—")) : "—"} ms
                     </span>
                   </div>
 
-                  <div className="rounded-md border border-indigo-100 bg-indigo-50/50 p-3.5 space-y-2">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-950">
-                      Firebase AI Logic (cloud, {String(stepData["cloud_inference"]?.client_provider_response?.model || "gemini-3.5-flash-lite")})
-                    </h4>
-                    {stepData["cloud_inference"]?.client_provider_response?.fallback_reason ? (
-                      <p className="text-xs font-mono text-amber-900 bg-amber-50 p-2.5 rounded border border-amber-200">
-                        Simulated: {String(stepData["cloud_inference"].client_provider_response.fallback_reason)}
-                      </p>
-                    ) : (stepData["cloud_inference"]?.client_provider_response?.observed_source === "IN_CLOUD" || stepData["cloud_inference"]?.client_reported_source === "IN_CLOUD") && stepData["cloud_inference"]?.client_provider_response?.summary ? (
-                      <div className="rounded border border-blue-300 bg-blue-50 p-2.5 text-xs text-blue-950 space-y-1">
-                        <div className="font-bold text-blue-900">Firebase AI Logic (cloud, gemini-3.5-flash-lite):</div>
-                        <p className="font-medium">{String(stepData["cloud_inference"].client_provider_response.summary)}</p>
-                      </div>
-                    ) : (
-                      <p className="text-sm font-bold text-indigo-950">
-                        {stepData["cloud_inference"]?.root_cause_analysis?.primary_defect ?? "Impeller Cavitation Erosion & Acoustic Vibration Wave Propagation"}
-                      </p>
-                    )}
-                    <div className="grid grid-cols-2 gap-2 text-xs font-mono text-slate-700">
-                      <div>Downstream Risk: <strong className="text-amber-800">{stepData["cloud_inference"]?.root_cause_analysis?.propagation_risk ?? "High (Subsystem Failure)"}</strong></div>
-                      <div>Systemic MTTR: <strong className="text-slate-800">{stepData["cloud_inference"]?.root_cause_analysis?.systemic_mttr_hours ?? "4.5"} hrs</strong></div>
+                  {!stepData["cloud_inference"] ? (
+                    <div className="rounded-md border border-slate-200 bg-slate-50 p-4 text-xs text-slate-500 italic">
+                      Not run yet (click Execute Stage 3 to authorize consent &amp; run cloud inference)
                     </div>
-                  </div>
+                  ) : (
+                    <div className="rounded-md border border-indigo-100 bg-indigo-50/50 p-3.5 space-y-2">
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-950">
+                        Firebase AI Logic (cloud, {String(stepData["cloud_inference"]?.client_provider_response?.model || "gemini-3.5-flash-lite")})
+                      </h4>
+                      {stepData["cloud_inference"]?.client_provider_response?.fallback_reason ? (
+                        <p className="text-xs font-mono text-amber-900 bg-amber-50 p-2.5 rounded border border-amber-200">
+                          Simulated: {String(stepData["cloud_inference"].client_provider_response.fallback_reason)}
+                        </p>
+                      ) : (stepData["cloud_inference"]?.client_provider_response?.observed_source === "IN_CLOUD" || stepData["cloud_inference"]?.client_reported_source === "IN_CLOUD") && stepData["cloud_inference"]?.client_provider_response?.summary ? (
+                        <div className="rounded border border-blue-300 bg-blue-50 p-2.5 text-xs text-blue-950 space-y-1">
+                          <div className="font-bold text-blue-900">Firebase AI Logic (cloud, {String(stepData["cloud_inference"]?.client_provider_response?.model || "gemini-3.5-flash-lite")}):</div>
+                          <p className="font-medium">{String(stepData["cloud_inference"].client_provider_response.summary)}</p>
+                        </div>
+                      ) : (
+                        <p className="text-sm font-bold text-indigo-950">
+                          {stepData["cloud_inference"]?.root_cause_analysis?.primary_defect ?? "Impeller Cavitation Erosion & Acoustic Vibration Wave Propagation"}
+                        </p>
+                      )}
+                      <div className="grid grid-cols-2 gap-2 text-xs font-mono text-slate-700">
+                        <div>Downstream Risk: <strong className="text-amber-800">{stepData["cloud_inference"]?.root_cause_analysis?.propagation_risk ?? "High (Subsystem Failure)"}</strong></div>
+                        <div>Systemic MTTR: <strong className="text-slate-800">{stepData["cloud_inference"]?.root_cause_analysis?.systemic_mttr_hours !== undefined ? `${stepData["cloud_inference"].root_cause_analysis.systemic_mttr_hours} hrs` : "—"}</strong></div>
+                      </div>
+                    </div>
+                  )}
 
                   <div className="flex justify-end pt-1">
                     <button
@@ -1652,21 +1713,21 @@ export default function DemoPage() {
                       <tbody className="divide-y text-slate-800 font-mono">
                         <tr>
                           <td className="p-2.5 font-sans font-medium text-slate-600">Intervention</td>
-                          <td className="p-2.5">{stepData["solver_scenarios"]?.scenarios?.plan_a?.intervention ?? "Throttle bypass to 65% and flush suction strainer"}</td>
-                          <td className="p-2.5">{stepData["solver_scenarios"]?.scenarios?.plan_b?.intervention ?? "Immediate transfer to standby pump P-102"}</td>
-                          <td className="p-2.5 text-red-700">{stepData["solver_scenarios"]?.scenarios?.wrong_plan_no_action?.intervention ?? "Zero intervention; continuous cavitation"}</td>
+                          <td className="p-2.5">{stepData["solver_scenarios"]?.scenarios?.plan_a?.intervention ?? "—"}</td>
+                          <td className="p-2.5">{stepData["solver_scenarios"]?.scenarios?.plan_b?.intervention ?? "—"}</td>
+                          <td className="p-2.5 text-red-700">{stepData["solver_scenarios"]?.scenarios?.wrong_plan_no_action?.intervention ?? "—"}</td>
                         </tr>
                         <tr>
                           <td className="p-2.5 font-sans font-medium text-slate-600">Downtime Duration</td>
-                          <td className="p-2.5 font-bold text-emerald-700">0.75 hrs (45 min)</td>
-                          <td className="p-2.5 font-bold">0.1 hrs (6 min)</td>
-                          <td className="p-2.5 font-bold text-red-700">240.0 hrs (10 Days Motor Replacement)</td>
+                          <td className="p-2.5 font-bold text-emerald-700">{stepData["solver_scenarios"]?.scenarios?.plan_a?.downtime_hours !== undefined ? `${stepData["solver_scenarios"].scenarios.plan_a.downtime_hours} hrs (45 min)` : "—"}</td>
+                          <td className="p-2.5 font-bold">{stepData["solver_scenarios"]?.scenarios?.plan_b?.downtime_hours !== undefined ? `${stepData["solver_scenarios"].scenarios.plan_b.downtime_hours} hrs (6 min)` : "—"}</td>
+                          <td className="p-2.5 font-bold text-red-700">{stepData["solver_scenarios"]?.scenarios?.wrong_plan_no_action?.downtime_hours !== undefined ? `${stepData["solver_scenarios"].scenarios.wrong_plan_no_action.downtime_hours} hrs (10 Days Motor Replacement)` : "—"}</td>
                         </tr>
                         <tr>
                           <td className="p-2.5 font-sans font-medium text-slate-600">Repair Cost</td>
-                          <td className="p-2.5 font-bold text-emerald-700">$1,250</td>
-                          <td className="p-2.5 font-bold">$4,800</td>
-                          <td className="p-2.5 font-bold text-red-700">$65,400</td>
+                          <td className="p-2.5 font-bold text-emerald-700">{stepData["solver_scenarios"]?.scenarios?.plan_a?.repair_cost_usd !== undefined ? `$${stepData["solver_scenarios"].scenarios.plan_a.repair_cost_usd.toLocaleString()}` : "—"}</td>
+                          <td className="p-2.5 font-bold">{stepData["solver_scenarios"]?.scenarios?.plan_b?.repair_cost_usd !== undefined ? `$${stepData["solver_scenarios"].scenarios.plan_b.repair_cost_usd.toLocaleString()}` : "—"}</td>
+                          <td className="p-2.5 font-bold text-red-700">{stepData["solver_scenarios"]?.scenarios?.wrong_plan_no_action?.repair_cost_usd !== undefined ? `$${stepData["solver_scenarios"].scenarios.wrong_plan_no_action.repair_cost_usd.toLocaleString()}` : "—"}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -1676,7 +1737,13 @@ export default function DemoPage() {
                     <div className="rounded border border-amber-300 bg-amber-50 p-3 space-y-1">
                       <div className="flex items-center justify-between">
                         <strong className="text-amber-950">Concurrency Safety Gate:</strong>
-                        <span className="font-mono text-amber-900 font-bold">HTTP 409 CONFLICT</span>
+                        <span className="font-mono text-amber-900 font-bold">
+                          {stepData["stale_approval_test"]?.status === "conflict_detected"
+                            ? "HTTP 409 CONFLICT"
+                            : stepData["stale_approval_test"]
+                            ? "RESOLVED"
+                            : "—"}
+                        </span>
                       </div>
                       <p className="text-amber-800 text-[11px]">
                         Attempted actuator mutation rejected on stale snapshot hash. Prevents race conditions with live plant telemetry.
@@ -1686,7 +1753,11 @@ export default function DemoPage() {
                     <div className="rounded border border-emerald-200 bg-emerald-50 p-3 space-y-1">
                       <div className="flex items-center justify-between">
                         <strong className="text-emerald-950">Approved Supervisor Plan:</strong>
-                        <span className="font-mono text-emerald-800 font-bold">PLAN_A (Approved)</span>
+                        <span className="font-mono text-emerald-800 font-bold">
+                          {stepData["supervisor_approval"]?.selected_plan
+                            ? `${stepData["supervisor_approval"].selected_plan.toUpperCase()} (Approved)`
+                            : "—"}
+                        </span>
                       </div>
                       <p className="text-emerald-800 text-[11px]">
                         Approved by supervisor. Enforced safety reducer: <code className="font-mono">no_actuator_path: true</code>.
@@ -1719,7 +1790,7 @@ export default function DemoPage() {
                   Inspect the spatial digital twin reconciled state reflecting the approved mitigation plan. Use the interactive scrubber slider to step through the complete incident timeline, verified by a deterministic SHA-256 cryptographic digest.
                 </p>
                 <div className="flex flex-wrap items-center gap-3 pt-2 font-mono text-[11px]">
-                  <span>Twin Projection: <strong className="text-emerald-700">Version #{stepData["twin_update"]?.projection_version ?? "2"}</strong></span>
+                  <span>Twin Projection: <strong className="text-emerald-700">{stepData["twin_update"]?.projection_version !== undefined ? `Version #${stepData["twin_update"].projection_version}` : "—"}</strong></span>
                   <span>Cryptographic Digest: <strong className="text-indigo-900">{stepData["replay"]?.deterministic_replay_hash ? `${stepData["replay"].deterministic_replay_hash.substring(0, 16)}…` : "—"}</strong></span>
                 </div>
               </div>
@@ -1748,28 +1819,30 @@ export default function DemoPage() {
                       Spatial Digital Twin Reconciled State
                     </span>
                     <span className="font-mono text-xs text-slate-500">
-                      Projection: #{stepData["twin_update"]?.projection_version ?? "2"}
+                      Projection: {stepData["twin_update"]?.projection_version !== undefined ? `#${stepData["twin_update"].projection_version}` : "—"}
                     </span>
                   </div>
 
                   <div className="grid gap-2 text-xs">
-                    {(stepData["twin_update"]?.twin_modifications ?? [
-                      { asset_id: "PUMP-101", status: "THROTTLED_BYPASS_ACTIVE", flow_gpm: 280, vibration_mms: 2.1, pressure_kpa: 410 },
-                      { asset_id: "PUMP-102", status: "STANDBY_READY", flow_gpm: 0, vibration_mms: 0.2, pressure_kpa: 0 },
-                      { asset_id: "VALVE-101", status: "BYPASS_THROTTLED_65%", position_pct: 65 },
-                    ]).map((mod) => (
-                      <div key={mod.asset_id} className="rounded border border-slate-200 bg-slate-50 p-2.5">
-                        <div className="flex items-center justify-between">
-                          <span className="font-mono font-bold text-slate-900">{mod.asset_id}</span>
-                          <span className="font-semibold text-emerald-700">{mod.status}</span>
+                    {stepData["twin_update"]?.twin_modifications ? (
+                      stepData["twin_update"].twin_modifications.map((mod) => (
+                        <div key={mod.asset_id} className="rounded border border-slate-200 bg-slate-50 p-2.5">
+                          <div className="flex items-center justify-between">
+                            <span className="font-mono font-bold text-slate-900">{mod.asset_id}</span>
+                            <span className="font-semibold text-emerald-700">{mod.status}</span>
+                          </div>
+                          <div className="mt-1 flex flex-wrap gap-3 font-mono text-[11px] text-slate-600">
+                            {mod.flow_gpm !== undefined && <span>Flow: {mod.flow_gpm} gpm</span>}
+                            {mod.vibration_mms !== undefined && <span>Vib: {mod.vibration_mms} mm/s</span>}
+                            {mod.pressure_kpa !== undefined && <span>Pres: {mod.pressure_kpa} kPa{mod.pressure_kpa === 345 || mod.pressure_kpa === 345.0 ? " (after mitigation)" : ""}</span>}
+                          </div>
                         </div>
-                        <div className="mt-1 flex flex-wrap gap-3 font-mono text-[11px] text-slate-600">
-                          {mod.flow_gpm !== undefined && <span>Flow: {mod.flow_gpm} gpm</span>}
-                          {mod.vibration_mms !== undefined && <span>Vib: {mod.vibration_mms} mm/s</span>}
-                          {mod.pressure_kpa !== undefined && <span>Pres: {mod.pressure_kpa} kPa{mod.pressure_kpa === 345 || mod.pressure_kpa === 345.0 ? " (after mitigation)" : ""}</span>}
-                        </div>
-                      </div>
-                    ))}
+                      ))
+                    ) : (
+                      <p className="p-3 text-xs text-slate-500 italic">
+                        Not run yet (click Execute Stage 5 to update digital twin)
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -1796,7 +1869,7 @@ export default function DemoPage() {
                       aria-label="Timeline event scrubber slider"
                       type="range"
                       min="0"
-                      max={(stepData["replay"]?.timeline?.length ?? 14) - 1}
+                      max={Math.max(0, (stepData["replay"]?.timeline?.length ?? 14) - 1)}
                       value={replayIndex}
                       onChange={(e) => setReplayIndex(Number(e.target.value))}
                       className="w-full accent-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -1819,11 +1892,8 @@ export default function DemoPage() {
                       </p>
                     </div>
                   ) : (
-                    <div className="rounded-lg border border-indigo-200 bg-indigo-50/50 p-3.5 text-xs text-indigo-950">
-                      <strong>#11: Stale Approval Actuator Gate</strong>
-                      <p className="mt-1 text-indigo-900">
-                        Actuator mutation rejected due to stale simulation snapshot (HTTP 409).
-                      </p>
+                    <div className="rounded-lg border border-slate-200 bg-slate-50 p-3.5 text-xs text-slate-500 italic">
+                      Replay timeline pending Stage 5 execution.
                     </div>
                   )}
 
@@ -1964,7 +2034,13 @@ export default function DemoPage() {
                   <td className="p-2 text-slate-500">{item.event_id}</td>
                   <td className="p-2">{item.duration_ms} ms</td>
                   <td className="p-2">
-                    {item.network_isolated ? (
+                    {item.step === "local_ai_offline" ? (
+                      item.network_isolated ? (
+                        <span className="rounded bg-amber-100 px-1.5 py-0.5 text-amber-800 font-bold">OFFLINE (Airgapped)</span>
+                      ) : (
+                        <span className="text-slate-500">local-only (no egress)</span>
+                      )
+                    ) : item.network_isolated ? (
                       <span className="rounded bg-amber-100 px-1.5 py-0.5 text-amber-800 font-bold">OFFLINE</span>
                     ) : (
                       <span className="text-slate-400">ONLINE</span>

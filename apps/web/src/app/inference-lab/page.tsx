@@ -558,6 +558,7 @@ export default function InferenceLabPage() {
                 <div>Technician ID: {evidence.technician_id} (Badge PII protected)</div>
                 <div>Physical Dial Gauge: {evidence.physical_observation.dial_pressure_kpa} kPa</div>
                 <div>Casing State: {evidence.physical_observation.casing_state}</div>
+                <div>Casing Temperature: {evidence.physical_observation.casing_temp_c ?? 28.5}°C (ambient cool)</div>
                 <div>Contradiction Detected: TRUE (Telemetry 185 kPa vs Dial 410 kPa)</div>
                 <div className="mt-1 text-red-700 font-semibold">
                   Synthetic Security Canary: {evidence.restricted_canary}

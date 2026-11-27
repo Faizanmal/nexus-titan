@@ -17,6 +17,7 @@ import {
   runFirebaseHybridTask,
   inspectCapabilities,
   prepareGeminiNano,
+  readHybridRemoteConfig,
   type CapabilitySnapshot,
   type HybridMode,
   type InferenceSource,
@@ -250,7 +251,7 @@ function getPromptApiUnavailableReason(caps: CapabilitySnapshot): string {
     return "Desktop Chrome required for built-in Prompt API";
   }
   if (!caps.promptApi) {
-    return "Chrome Prompt API (window.ai) not available on this browser";
+    return "Chrome Prompt API (LanguageModel) not available on this browser";
   }
   if (!caps.foreground) {
     return "Browser tab must be in foreground for on-device inference";
@@ -469,6 +470,7 @@ export async function executeCloudLeg(
 
       const elapsed = Math.round(performance.now() - start);
       const actualSource = (result.actualSource || observedSource) as InferenceSource;
+      const modelUsed = result.config?.model || CONFIG_CLOUD_MODEL;
       return {
         leg: "cloud_vertex",
         incident_id: sanitized.incident_id,
@@ -477,7 +479,7 @@ export async function executeCloudLeg(
         observed_source: actualSource,
         is_simulation_fallback: false,
         duration_ms: elapsed,
-        model: CONFIG_CLOUD_MODEL,
+        model: modelUsed,
         actionable_hypothesis:
           result.summary || "Firebase AI Logic (cloud): Plant-wide hydraulic stability preserved. Discrepancy confirmed as instrumentation calibration anomaly; zero systemic risk to Filter Bed FB-01.",
         recommended_inspection:
@@ -504,6 +506,17 @@ export async function executeCloudLeg(
   // Labeled simulation fallback when cloud credentials/auth unavailable in local test sandbox
   const elapsed = Math.round(performance.now() - start);
   const reasonText = cloudErrorReason || "Cloud credentials or provider unavailable in local test sandbox";
+  let fallbackModel = CONFIG_CLOUD_MODEL;
+  try {
+    const { app } = firebaseAuthClient();
+    const runtimeConfig = await readHybridRemoteConfig(app);
+    if (runtimeConfig?.model) {
+      fallbackModel = runtimeConfig.model;
+    }
+  } catch {
+    // remote config fallback
+  }
+
   return {
     leg: "cloud_vertex",
     incident_id: sanitized.incident_id,
@@ -512,7 +525,7 @@ export async function executeCloudLeg(
     observed_source: "MOCK",
     is_simulation_fallback: true,
     duration_ms: Math.max(elapsed, 45.2),
-    model: CONFIG_CLOUD_MODEL,
+    model: fallbackModel,
     fallback_reason: reasonText,
     actionable_hypothesis:
       "Cloud Root-Cause Analysis (Sanitized Context): Systemic risk downgraded from CRITICAL to LOW. No hydraulic shock propagation toward Rapid Sand Filter Bed FB-01.",

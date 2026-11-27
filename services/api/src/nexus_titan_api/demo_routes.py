@@ -542,7 +542,7 @@ def execute_scenario_step(
 
     elif step == "local_ai_offline":
         # Evaluates local AI while network is isolated
-        is_offline = payload.is_offline or True
+        is_offline = payload.is_offline
         if payload.simulate_provider_failure:
             raise APIError(
                 "LOCAL_PROVIDER_FAILED",
@@ -649,7 +649,7 @@ def execute_scenario_step(
             "status": "offline_triage_complete",
             "session_id": session_id,
             "correlation_id": correlation_id,
-            "network_status": "OFFLINE",
+            "network_status": "OFFLINE" if is_offline else "ONLINE",
             "inference_source": inference_source,
             "actual_source": actual_source,
             "reported_source": reported_source,
@@ -863,7 +863,7 @@ def execute_scenario_step(
             "client_reported_source": client_reported_source,
             "is_fixture": is_fixture,
             "scripted_lifecycle_output": is_fixture,
-            "device_type": "cloud_vertex_ai",
+            "device_type": "cloud_firebase_ai_logic",
             "duration_ms": duration_ms,
             "event_id": f"ev-cld-{uuid4().hex[:8]}",
             "retry_count": payload.retry_count,
@@ -1261,6 +1261,20 @@ def execute_scenario_step(
         ]
         deterministic_replay_hash = _deterministic_hash(timeline_events)
 
+        duration_ms = _get_duration(payload, step_start)
+        trace_item = {
+            "step": "replay",
+            "timestamp": timestamp,
+            "correlation_id": correlation_id,
+            "source": "deterministic_replay_engine",
+            "device_type": "incident_audit_store",
+            "duration_ms": duration_ms,
+            "event_id": f"ev-rpl-{uuid4().hex[:8]}",
+            "is_fixture": True,
+            "scripted_lifecycle_output": True,
+        }
+        session_state["trace"].append(trace_item)
+
         return {
             "step": "replay",
             "status": "replay_verified",
@@ -1268,7 +1282,8 @@ def execute_scenario_step(
             "correlation_id": correlation_id,
             "event_count": len(timeline_events),
             "timeline": timeline_events,
-            "full_source_trace": trace,
+            "full_source_trace": session_state["trace"],
+            "source_trace": trace_item,
             "deterministic_replay_hash": deterministic_replay_hash,
             "replay_integrity_verified": True,
         }
