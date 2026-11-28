@@ -1497,12 +1497,16 @@ See [phase-17 evidence](evidence/phase-17.md). Final full API pytest: exit 0, 98
   - **/demo In-Flight Stage Progress Indicators**:
     - Added reactive `stageProgress` state across all guided stages (e.g. `"Step 1/3: baseline…"`, `"Step 2/4: peer_transfer…"`, etc.).
     - Renders an animated pulse progress indicator in each stage's action bar alongside dynamic execution button labels so judges clearly see in-flight step execution across long-running stages.
+  - **/demo Stage 1 & Stage 5 Polish**:
+    - Stage 1 Card: Digital vibration and SCADA pressure readings now render alongside the physical inspection Event ID simultaneously after the stage finishes (`stepData["evidence_capture"]` present), eliminating premature partial display.
+    - Added HTTP `keepalive: true` to `callDemoApi` to maximize persistent connection reuse across rapid sequential steps.
+    - Stage 5 Scrubber Label: Clarified label to `"Replay event {replayIndex + 1} of {stepData["replay"].timeline.length}"` (e.g. "Replay event 11 of 11"), eliminating visual ambiguity with total scenario trace steps (14 steps).
 - **Measured verification results:**
   - `pnpm -r lint`: exited 0 (0 errors across contracts, hybrid-web, web).
   - `pnpm -r typecheck`: exited 0 (0 errors across contracts, hybrid-web, web).
   - `pnpm --filter @nexus-titan/web build`: exited 0 (all 23 routes static/partial prerendered).
   - `pnpm test:suites`: exited 0 (all 14 test suites passed).
-  - `uv run --project services/api pytest`: exited 0 (**182 passed**, 3 warnings in 6.94s).
+  - `uv run --project services/api pytest`: exited 0 (**182 passed**, 3 warnings in 6.64s).
 
 
 

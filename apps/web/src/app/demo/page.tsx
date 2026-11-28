@@ -219,7 +219,7 @@ async function callDemoApi<T>(path: string, init: RequestInit = {}): Promise<T> 
     headers.set("X-Firebase-AppCheck", "demo-appcheck-token");
   }
 
-  const response = await fetch(new URL(path, base), { ...init, headers, cache: "no-store" });
+  const response = await fetch(new URL(path, base), { ...init, headers, cache: "no-store", keepalive: true });
   if (!response.ok) {
     if (response.status === 429) {
       throw new Error("Rate limit exceeded (HTTP 429). Please wait before retrying.");
@@ -1189,14 +1189,14 @@ export default function DemoPage() {
                     <div className="rounded bg-slate-50 p-2.5">
                       <span className="text-slate-500">Digital Vibration</span>
                       <p className="text-xl font-bold font-mono text-red-700">
-                        {stepData["fault_injection"]?.metrics?.vibration_mms !== undefined ? `${stepData["fault_injection"].metrics.vibration_mms} mm/s` : "—"}
+                        {stepData["evidence_capture"] && stepData["fault_injection"]?.metrics?.vibration_mms !== undefined ? `${stepData["fault_injection"].metrics.vibration_mms} mm/s` : "—"}
                       </p>
                       <span className="text-[10px] text-red-600">Threshold 4.5 mm/s</span>
                     </div>
                     <div className="rounded bg-slate-50 p-2.5">
                       <span className="text-slate-500">SCADA Pressure</span>
                       <p className="text-xl font-bold font-mono text-red-700">
-                        {stepData["fault_injection"]?.metrics?.discharge_pressure_kpa !== undefined ? `${stepData["fault_injection"].metrics.discharge_pressure_kpa} kPa` : "—"}
+                        {stepData["evidence_capture"] && stepData["fault_injection"]?.metrics?.discharge_pressure_kpa !== undefined ? `${stepData["fault_injection"].metrics.discharge_pressure_kpa} kPa` : "—"}
                       </p>
                       <span className="text-[10px] text-red-600">Severe Drop (Nominal 410)</span>
                     </div>
@@ -1964,7 +1964,7 @@ export default function DemoPage() {
                     <div className="flex justify-between text-xs text-slate-600">
                       <span>Timeline Scrubber</span>
                       {stepData["replay"]?.timeline ? (
-                        <span>Event {replayIndex + 1} of {stepData["replay"].timeline.length}</span>
+                        <span>Replay event {replayIndex + 1} of {stepData["replay"].timeline.length}</span>
                       ) : (
                         <span className="text-slate-500 italic">Not run yet</span>
                       )}
