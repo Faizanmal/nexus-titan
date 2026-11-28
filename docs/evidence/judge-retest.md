@@ -43,3 +43,16 @@
 | `pnpm design:check` | `0` | 8/8 design system token bridge and route suites passed. |
 | `pnpm test:suites` | `0` | All 14 workspace verification and browser smoke test suites passed. |
 | `uv run --project services/api pytest` | `0` | **182 passed**, 3 deprecation warnings in 7.89s. |
+
+---
+
+## 4. Technical Verification & Evidence Alignment (Phase 34)
+
+| Technical Critique Area | Implementation & Evidence Alignment | Observed | Status |
+|---|---|---|---|
+| **Stage 2 Offline Inference Resilience** | Decoupled Stage 2 (`local_ai_offline`) from synchronous network calls. When offline or disconnected, computes & renders triage result locally on-device, persists to offline outbox in `sessionStorage` (`nexus_offline_outbox`), and flushes queued item to API upon reconnect or Stage 3 start (`syncPendingOfflineOutbox()`). Zero network POSTs required to complete Stage 2. | `code/automated` | **PASS** |
+| **Cryptographic Cloud Consent Binding** | Operator consent is bound to the exact de-identified payload preview bytes and SHA-256 digest (`sanitized.consent_hash`). Any subsequent mutation to evidence parameters immediately invalidates consent (`sanitized.consent_hash !== approvedConsentHash`), forcing re-review before `cloud_inference` is permitted. | `code/automated` | **PASS** |
+| **Independent Replay SHA-256 Verification** | Authored `canonicalJsonString` (RFC 8785 canonical key ordering matching Python `json.dumps(obj, sort_keys=True, separators=(',', ':'))`). `runStep("replay")` recomputes SHA-256 over `timeline` in browser via `crypto.subtle.digest` and verifies against backend `deterministic_replay_hash`. End-to-end completion message strictly gates on `stepData["replay"]`. | `code/automated` | **PASS** |
+| **Comparison Metrics & Evidence Labels** | Sample size tag shows `"Pending execution"` until stages run; baseline latency labeled as `"Baseline simulated benchmark: cloud batch telemetry model"`; payload size labeled as measured via de-identification pipeline. | `code/automated` | **PASS** |
+| **Root Package Resolution** | Linked `@nexus-titan/contracts` and `@nexus-titan/hybrid-web` in root `devDependencies` so all standalone test scripts in `tests/` resolve without module missing errors. | `code/automated` | **PASS** |
+

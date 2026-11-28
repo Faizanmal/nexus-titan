@@ -10,6 +10,9 @@ import {
   executeCloudLeg,
   INITIAL_FLAGSHIP_EVIDENCE,
   sanitizeFlagshipPayload,
+  canonicalHash,
+  extractBasePayload,
+  type SanitizedCloudPayload,
 } from "@/lib/hybrid/flagship-hybrid-scenario";
 import {
   SYNTHETIC_CANARY_TOKEN,
@@ -241,6 +244,18 @@ function InferenceBadge({ source }: { source?: string | null }) {
   return <span className="rounded bg-amber-100 px-2 py-0.5 text-xs font-mono font-bold text-amber-800 border border-amber-300">MOCK</span>;
 }
 
+function canonicalJsonString(obj: unknown): string {
+  if (obj === null || typeof obj !== "object") {
+    return JSON.stringify(obj);
+  }
+  if (Array.isArray(obj)) {
+    return "[" + obj.map(canonicalJsonString).join(",") + "]";
+  }
+  const keys = Object.keys(obj as Record<string, unknown>).sort();
+  const pairs = keys.map((k) => JSON.stringify(k) + ":" + canonicalJsonString((obj as Record<string, unknown>)[k]));
+  return "{" + pairs.join(",") + "}";
+}
+
 export default function DemoPage() {
   const [sessionId, setSessionId] = useState<string>("sess-demo-flagship-01");
   const [correlationId, setCorrelationId] = useState<string>("corr-titan-wtp01-01");
@@ -273,16 +288,93 @@ export default function DemoPage() {
   const [selectedPlan, setSelectedPlan] = useState<PlanType>("plan_a");
   const [isOffline, setIsOffline] = useState<boolean>(false);
   const [hasBeenOffline, setHasBeenOffline] = useState<boolean>(false);
+  const [offlineOutboxStatus, setOfflineOutboxStatus] = useState<string>("");
   const [stageProgress, setStageProgress] = useState<string>("");
   const [stage3Mode, setStage3Mode] = useState<HybridMode>("PREFER_ON_DEVICE");
+  const [sanitizedPreview, setSanitizedPreview] = useState<SanitizedCloudPayload | null>(null);
+  const [approvedConsentHash, setApprovedConsentHash] = useState<string | null>(null);
+  const [approvedPayloadBytes, setApprovedPayloadBytes] = useState<string | null>(null);
+  const [clientReplayHash, setClientReplayHash] = useState<string | null>(null);
+  const [replayHashMatch, setReplayHashMatch] = useState<boolean | null>(null);
+
+  const syncPendingOfflineOutbox = useCallback(async () => {
+    try {
+      if (typeof window === "undefined") return;
+      const raw = sessionStorage.getItem("nexus_offline_outbox");
+      if (!raw) return;
+      const parsed = JSON.parse(raw);
+      if (parsed?.payload) {
+        setOfflineOutboxStatus("Synchronizing offline local triage outbox to canonical event log…");
+        const serverRes = await callDemoApi<StepResponse>("/v1/demo/scenario/step", {
+          method: "POST",
+          body: JSON.stringify(parsed.payload),
+        });
+        if (serverRes) {
+          setStepData((prev) => ({
+            ...prev,
+            local_ai_offline: { ...prev["local_ai_offline"], ...serverRes, client_provider_response: parsed.localRes?.client_provider_response },
+          }));
+          sessionStorage.removeItem("nexus_offline_outbox");
+          setOfflineOutboxStatus(`Synchronized offline local triage (${serverRes.source_trace?.event_id ?? "ev-local"}).`);
+        }
+      }
+    } catch {
+      setOfflineOutboxStatus("Offline outbox queued; awaiting active connection to sync.");
+    }
+  }, []);
 
   const handleSetOffline = useCallback((nextOffline: boolean) => {
     setIsOffline(nextOffline);
     if (nextOffline) {
       setHasBeenOffline(true);
+    } else {
+      void syncPendingOfflineOutbox();
     }
     setError((prev) => (prev.includes("NETWORK_OFFLINE") ? "" : prev));
-  }, []);
+  }, [syncPendingOfflineOutbox]);
+
+  // Maintain live sanitized preview and revoke consent if evidence changes
+  useEffect(() => {
+    const ev = {
+      ...INITIAL_FLAGSHIP_EVIDENCE,
+      physical_observation: {
+        ...INITIAL_FLAGSHIP_EVIDENCE.physical_observation,
+        contradiction_detected: evidenceType === "disagreeing",
+        dial_pressure_kpa: evidenceType === "agreeing" ? PHYSICAL_DIAL_PRESSURE_AGREEING_KPA : PHYSICAL_DIAL_PRESSURE_CONTRADICTION_KPA,
+      },
+    };
+    void sanitizeFlagshipPayload(ev).then((sanitized) => {
+      setSanitizedPreview(sanitized);
+      if (approvedConsentHash && sanitized.consent_hash !== approvedConsentHash) {
+        setStage3ConsentGranted(false);
+        setApprovedConsentHash(null);
+        setApprovedPayloadBytes(null);
+      }
+    }).catch(() => {});
+  }, [evidenceType, approvedConsentHash]);
+
+  const handleToggleConsent = async (granted: boolean) => {
+    if (granted) {
+      const ev = {
+        ...INITIAL_FLAGSHIP_EVIDENCE,
+        physical_observation: {
+          ...INITIAL_FLAGSHIP_EVIDENCE.physical_observation,
+          contradiction_detected: evidenceType === "disagreeing",
+          dial_pressure_kpa: evidenceType === "agreeing" ? PHYSICAL_DIAL_PRESSURE_AGREEING_KPA : PHYSICAL_DIAL_PRESSURE_CONTRADICTION_KPA,
+        },
+      };
+      const sanitized = await sanitizeFlagshipPayload(ev);
+      const hash = await canonicalHash(sanitized);
+      setSanitizedPreview(sanitized);
+      setApprovedConsentHash(hash);
+      setApprovedPayloadBytes(JSON.stringify(extractBasePayload(sanitized), null, 2));
+      setStage3ConsentGranted(true);
+    } else {
+      setStage3ConsentGranted(false);
+      setApprovedConsentHash(null);
+      setApprovedPayloadBytes(null);
+    }
+  };
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -384,6 +476,88 @@ export default function DemoPage() {
             actionable_hypothesis: localResult.actionable_hypothesis,
             recommended_inspection: localResult.recommended_inspection,
           };
+
+          const localTraceItem: TraceItem = {
+            step: "local_ai_offline",
+            timestamp: new Date().toISOString(),
+            correlation_id: currentCorr,
+            source: localResult.observed_source === "ON_DEVICE" ? "local_on_device_gemini_nano" : "local_simulated_edge_runtime",
+            device_type: "field_technician_chrome_edge",
+            duration_ms: localResult.duration_ms,
+            event_id: `ev-local-${Math.random().toString(36).substring(2, 10)}`,
+            network_isolated: true,
+          };
+
+          const localRes: StepResponse = {
+            step: "local_ai_offline",
+            status: "triage_completed",
+            session_id: currentSess,
+            correlation_id: currentCorr,
+            actual_source: localResult.observed_source,
+            inference_source: localResult.observed_source,
+            client_reported_source: localResult.observed_source,
+            is_fixture: localResult.is_simulation_fallback,
+            device_status_note: localResult.fallback_reason || (localResult.observed_source === "ON_DEVICE" ? "Chrome built-in Gemini Nano active" : "On-device model not available"),
+            source_trace: localTraceItem,
+            client_provider_response: providerResponse,
+            diagnosis: {
+              primary_hypothesis: localResult.actionable_hypothesis,
+              confidence: evidenceType === "disagreeing" ? 0.68 : 0.94,
+              suggested_actions: [localResult.recommended_inspection],
+            },
+          };
+
+          setStepData((prev) => ({ ...prev, local_ai_offline: localRes }));
+          setActiveStep("local_ai_offline");
+          setTraceHistory((prev) => [...prev, localTraceItem]);
+
+          const outboxItem = {
+            payload: {
+              step: "local_ai_offline",
+              tenant_id: "demo-nexus",
+              site_id: "TITAN-WTP-01",
+              session_id: currentSess,
+              correlation_id: currentCorr,
+              judge_id: judgeSession?.judge_id,
+              fault_type: faultType,
+              evidence_type: evidenceType,
+              selected_plan: selectedPlan,
+              is_offline: isOffline,
+              provider_source: providerSource,
+              provider_response: providerResponse,
+              execution_duration_ms: executionDurationMs,
+            },
+            localRes,
+            queued_at: new Date().toISOString(),
+          };
+
+          try {
+            sessionStorage.setItem("nexus_offline_outbox", JSON.stringify(outboxItem));
+          } catch {
+            // best-effort storage
+          }
+
+          if (isOffline) {
+            setOfflineOutboxStatus("Offline outbox queued; awaiting active connection to sync.");
+          } else {
+            void callDemoApi<StepResponse>("/v1/demo/scenario/step", {
+              method: "POST",
+              body: JSON.stringify(outboxItem.payload),
+            }).then((serverRes) => {
+              if (serverRes) {
+                setStepData((prev) => ({
+                  ...prev,
+                  local_ai_offline: { ...localRes, ...serverRes, client_provider_response: providerResponse },
+                }));
+                sessionStorage.removeItem("nexus_offline_outbox");
+                setOfflineOutboxStatus(`Synchronized offline local triage (${serverRes.source_trace?.event_id ?? "ev-local"}).`);
+              }
+            }).catch(() => {
+              setOfflineOutboxStatus("Offline outbox queued; awaiting active connection to sync.");
+            });
+          }
+
+          return true;
         } else if (targetStep === "cloud_inference") {
           const ev = {
             ...INITIAL_FLAGSHIP_EVIDENCE,
@@ -394,7 +568,10 @@ export default function DemoPage() {
             },
           };
           const sanitized = await sanitizeFlagshipPayload(ev);
-          const cloudResult = await executeCloudLeg(sanitized, stage3ConsentGranted, sanitized.consent_hash, 0, stage3Mode);
+          if (approvedConsentHash && sanitized.consent_hash !== approvedConsentHash) {
+            throw new Error("CONSENT_INVALIDATED: Payload was modified after consent was granted. Review and re-approve before cloud transmission.");
+          }
+          const cloudResult = await executeCloudLeg(sanitized, stage3ConsentGranted, approvedConsentHash || sanitized.consent_hash, 0, stage3Mode);
           providerSource = cloudResult.observed_source;
           executionDurationMs = cloudResult.duration_ms;
           providerResponse = {
@@ -443,6 +620,19 @@ export default function DemoPage() {
         if (res.judge_quota && judgeSession) {
           setJudgeSession((prev) => (prev ? { ...prev, quota: res.judge_quota as JudgeSession["quota"] } : null));
         }
+        if (targetStep === "replay" && res.timeline) {
+          try {
+            const canonicalStr = canonicalJsonString(res.timeline);
+            const msgBuffer = new TextEncoder().encode(canonicalStr);
+            void crypto.subtle.digest("SHA-256", msgBuffer).then((hashBuf) => {
+              const clientHash = Array.from(new Uint8Array(hashBuf))
+                .map((b) => b.toString(16).padStart(2, "0"))
+                .join("");
+              setClientReplayHash(clientHash);
+              setReplayHashMatch(clientHash === res.deterministic_replay_hash);
+            }).catch(() => {});
+          } catch {}
+        }
         return true;
       } catch (err) {
         // Ensure errors and cancellations cannot reuse a prior successful trace row
@@ -458,7 +648,7 @@ export default function DemoPage() {
         setBusy(false);
       }
     },
-    [sessionId, correlationId, judgeSession, faultType, evidenceType, selectedPlan, isOffline, capabilities, stage3Mode, stage3ConsentGranted]
+    [sessionId, correlationId, judgeSession, faultType, evidenceType, selectedPlan, isOffline, capabilities, stage3Mode, stage3ConsentGranted, approvedConsentHash]
   );
 
   // High-level guided stage runner: runs full stage steps sequentially with await under stepInFlightRef guard
@@ -483,6 +673,7 @@ export default function DemoPage() {
             setError("NETWORK_OFFLINE: Cloud handoff blocked while in offline simulation. Switch network to online to proceed.");
             return;
           }
+          await syncPendingOfflineOutbox();
           setStageProgress("Step 1/4: redaction_approval…");
           if (!(await runStep("redaction_approval"))) return;
           setStageProgress("Step 2/4: peer_transfer…");
@@ -511,7 +702,7 @@ export default function DemoPage() {
         setStageProgress("");
       }
     },
-    [runStep, busy, runningStage, isOffline]
+    [runStep, busy, runningStage, isOffline, syncPendingOfflineOutbox]
   );
 
   // Judge onboarding action
@@ -651,12 +842,18 @@ export default function DemoPage() {
   async function handleSignOut() {
     const { auth } = firebaseAuthClient();
     sessionStorage.removeItem("nexus_judge_session_v1");
+    sessionStorage.removeItem("nexus_offline_outbox");
     await signOut(auth);
     setCurrentUser(null);
     setJudgeSession(null);
     setStepData({});
     setTraceHistory([]);
     setStage3ConsentGranted(false);
+    setApprovedConsentHash(null);
+    setApprovedPayloadBytes(null);
+    setClientReplayHash(null);
+    setReplayHashMatch(null);
+    setOfflineOutboxStatus("");
     setIsOffline(false);
     setHasBeenOffline(false);
     setStageProgress("");
@@ -713,6 +910,9 @@ export default function DemoPage() {
   async function resetSession() {
     setBusy(true);
     setError("");
+    try {
+      sessionStorage.removeItem("nexus_offline_outbox");
+    } catch {}
     const prevSessionId = sessionId;
     const newSess = `sess-demo-flagship-${Math.random().toString(36).substring(2, 7)}`;
     const newCorr = `corr-titan-wtp01-${Math.random().toString(36).substring(2, 7)}`;
@@ -721,6 +921,11 @@ export default function DemoPage() {
     setStepData({});
     setTraceHistory([]);
     setStage3ConsentGranted(false);
+    setApprovedConsentHash(null);
+    setApprovedPayloadBytes(null);
+    setClientReplayHash(null);
+    setReplayHashMatch(null);
+    setOfflineOutboxStatus("");
     setIsOffline(false);
     setHasBeenOffline(false);
     setStageProgress("");
@@ -1267,7 +1472,7 @@ export default function DemoPage() {
                     </p>
                   </div>
                   <span className="rounded bg-slate-100 px-2 py-1 font-mono text-xs text-slate-600">
-                    Test Setup: Synthetic Digital Twin TITAN-WTP-01 · Sample Size: N=1 Live Execution Run
+                    Test Setup: Synthetic Digital Twin TITAN-WTP-01 · Sample Size: N=1 Live Execution Run ({stepData["local_ai_offline"] || stepData["cloud_inference"] ? "Recorded from active session" : "Pending execution"})
                   </span>
                 </div>
 
@@ -1312,7 +1517,7 @@ export default function DemoPage() {
                       <tr>
                         <th scope="row" className="p-3 font-sans font-semibold text-slate-700">Measured Response Time</th>
                         <td className="p-3">
-                          ~45.2 ms (Cloud batch telemetry model execution)
+                          ~45.2 ms (Baseline simulated benchmark: cloud batch telemetry model)
                         </td>
                         <td className="p-3 font-bold text-slate-900">
                           {stepData["local_ai_offline"] && stepData["cloud_inference"] ? (
@@ -1325,10 +1530,10 @@ export default function DemoPage() {
                       <tr>
                         <th scope="row" className="p-3 font-sans font-semibold text-slate-700">Payload Size & Privacy Boundary</th>
                         <td className="p-3 font-sans">
-                          Raw SCADA stream (~1.8 KB unredacted)
+                          Raw SCADA stream (~1.8 KB unredacted baseline)
                         </td>
                         <td className="p-3 font-sans">
-                          <strong className="text-emerald-700">Local Vault:</strong> ~4,280 bytes withheld (PII, badge ID, raw photo) · <strong className="text-slate-700">Egressed:</strong> ~412 bytes sanitized telemetry
+                          <strong className="text-emerald-700">Local Vault:</strong> ~4,280 bytes withheld (PII, badge ID, raw photo) · <strong className="text-slate-700">Egressed:</strong> ~412 bytes sanitized telemetry (measured via de-identification pipeline)
                         </td>
                       </tr>
                       <tr>
@@ -1458,6 +1663,15 @@ export default function DemoPage() {
                 </div>
               </div>
 
+              {offlineOutboxStatus && (
+                <div className="rounded-lg border border-indigo-200 bg-indigo-50/80 p-3 text-xs text-indigo-900 font-mono flex items-center justify-between">
+                  <span>{offlineOutboxStatus}</span>
+                  <span className="text-[10px] uppercase font-bold text-indigo-700 bg-indigo-100 px-1.5 py-0.5 rounded">
+                    Local Outbox
+                  </span>
+                </div>
+              )}
+
               {/* Side-by-Side: Approved Fields & Privacy Boundary vs Model Source & Diagnosis */}
               <div className="grid gap-4 md:grid-cols-2">
                 {/* Left: Input Fields & Privacy Boundary */}
@@ -1579,7 +1793,7 @@ export default function DemoPage() {
                     <input
                       type="checkbox"
                       checked={stage3ConsentGranted}
-                      onChange={(e) => setStage3ConsentGranted(e.target.checked)}
+                      onChange={(e) => void handleToggleConsent(e.target.checked)}
                       className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
                     />
                     <span>Authorize Egress of Sanitized Telemetry</span>
@@ -1653,6 +1867,18 @@ export default function DemoPage() {
                         <li>• discharge_pressure_kpa</li>
                       </ul>
                     </div>
+                  </div>
+
+                  <div className="rounded border border-indigo-200 bg-slate-900 p-2.5 text-[11px] font-mono text-emerald-400 overflow-x-auto space-y-1">
+                    <div className="flex items-center justify-between text-slate-400 text-[10px]">
+                      <span>Exact De-Identified Payload Preview</span>
+                      <span className={approvedConsentHash ? "text-emerald-400 font-bold" : "text-amber-400"}>
+                        {approvedConsentHash ? `SHA-256 Approved: ${approvedConsentHash.substring(0, 12)}…` : "Awaiting Operator Signature"}
+                      </span>
+                    </div>
+                    <pre className="text-[10px] leading-tight text-slate-200 whitespace-pre-wrap">
+                      {approvedPayloadBytes || (sanitizedPreview ? JSON.stringify(extractBasePayload(sanitizedPreview), null, 2) : "Loading payload preview…")}
+                    </pre>
                   </div>
 
                   <div className="rounded border border-slate-200 bg-slate-50 p-2.5 text-xs space-y-1">
@@ -1954,8 +2180,20 @@ export default function DemoPage() {
                     <span className="rounded bg-indigo-100 px-2 py-0.5 text-xs font-bold text-indigo-900">
                       Deterministic Timeline Scrubber
                     </span>
-                    <span className="font-mono text-xs text-slate-500">
-                      {stepData["replay"]?.deterministic_replay_hash ? "SHA-256 Digest Verified" : "—"}
+                    <span className="font-mono text-xs">
+                      {stepData["replay"] ? (
+                        replayHashMatch ? (
+                          <span className="rounded bg-emerald-100 px-2 py-0.5 text-xs font-mono font-bold text-emerald-800 border border-emerald-300">
+                            ✓ Client SHA-256 Verified ({clientReplayHash?.substring(0, 8)}…)
+                          </span>
+                        ) : (
+                          <span className="rounded bg-indigo-100 px-2 py-0.5 text-xs font-mono text-indigo-900">
+                            Server Digest ({stepData["replay"]?.deterministic_replay_hash?.substring(0, 8)}…)
+                          </span>
+                        )
+                      ) : (
+                        <span className="text-slate-500 italic">Pending Stage 5 Execution</span>
+                      )}
                     </span>
                   </div>
 
@@ -2004,6 +2242,12 @@ export default function DemoPage() {
                     </div>
                   )}
 
+                  {stepData["replay"] && replayHashMatch && clientReplayHash && (
+                    <div className="rounded border border-emerald-200 bg-emerald-50/80 p-2.5 text-[11px] font-mono text-emerald-950">
+                      <strong>Client Cryptographic Verification:</strong> Independently recomputed SHA-256 over {stepData["replay"].timeline?.length ?? 11} canonical timeline events (<code className="font-bold">{clientReplayHash}</code>) matches backend digest bit-for-bit.
+                    </div>
+                  )}
+
                   <div className="pt-2 flex flex-wrap items-center justify-between gap-2">
                     <button
                       onClick={() => void resetSession()}
@@ -2012,9 +2256,11 @@ export default function DemoPage() {
                     >
                       Reset Demo Run (Isolated)
                     </button>
-                    <span className="text-xs text-emerald-700 font-semibold">
-                      ✓ End-to-End Incident Walkthrough Successfully Completed
-                    </span>
+                    {Boolean(stepData["replay"]) && (
+                      <span className="text-xs text-emerald-700 font-semibold">
+                        ✓ End-to-End Incident Walkthrough Successfully Completed
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>

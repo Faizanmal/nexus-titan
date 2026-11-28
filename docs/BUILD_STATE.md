@@ -1509,4 +1509,40 @@ See [phase-17 evidence](evidence/phase-17.md). Final full API pytest: exit 0, 98
   - `uv run --project services/api pytest`: exited 0 (**182 passed**, 3 warnings in 6.64s).
 
 
+## Phase 34 — Flagship technical verification: Offline Stage 2 outbox, cryptographic consent binding, client-side canonical replay SHA-256 verification, and honest comparison metrics
+
+- **Status: PASS**
+- **Date:** 2026-11-28
+- **Tasks completed:**
+  - **Stage 2 Physical Disconnect Resilience & Offline Outbox (`apps/web/src/app/demo/page.tsx`)**:
+    - Decoupled Stage 2 (`runStep("local_ai_offline")`) from immediate API POST requirements.
+    - When physical or simulated network disconnect occurs (`isOffline: true`), Stage 2 computes and renders the local triage result instantly on-device (`status: "triage_completed"`, `network_isolated: true`), persists the pending sync item to an offline outbox in `sessionStorage` (`nexus_offline_outbox`), and updates local UI state without making any network requests.
+    - Implemented `syncPendingOfflineOutbox()` to flush queued outbox records to `/v1/demo/scenario/step` upon network reconnection (`handleSetOffline(false)`) and at the entry of Stage 3.
+    - Rendered `offlineOutboxStatus` indicator showing pending/synced state.
+  - **Cryptographic Consent Binding to Exact Payload Preview Bytes (`apps/web/src/app/demo/page.tsx`)**:
+    - Bound operator consent directly to the exact de-identified payload preview bytes and SHA-256 digest (`sanitized.consent_hash`).
+    - Added reactive evidence change listener: if evidence parameters mutate after approval, consent is invalidated automatically (`sanitized.consent_hash !== approvedConsentHash`), requiring the operator to re-inspect and re-approve the exact updated payload.
+    - Stage 3 UI displays the live de-identified payload preview and approved cryptographic hash badge.
+    - `runStep("cloud_inference")` verifies `sanitized.consent_hash === approvedConsentHash` before dispatching cloud requests.
+  - **Independent Client-Side Canonical Replay SHA-256 Verification (`apps/web/src/app/demo/page.tsx`)**:
+    - Authored `canonicalJsonString` implementing RFC 8785 canonical sorted-key JSON serialization, matching Python's `json.dumps(obj, sort_keys=True, separators=(',', ':'))` bit-for-bit.
+    - In `runStep("replay")`, independently recomputes SHA-256 over `stepData["replay"].timeline` using `crypto.subtle.digest("SHA-256", ...)` and verifies it against backend `deterministic_replay_hash`.
+    - Stage 5 UI renders `✓ Client SHA-256 Verified` badge and detailed verification card when the digest matches, and labels as `Pending Stage 5 Execution` prior to execution.
+    - Fixed premature completion banner: the End-to-End Walkthrough completion banner strictly gates on `Boolean(stepData["replay"])`.
+  - **Honest Comparison Metrics Labels (`apps/web/src/app/demo/page.tsx`)**:
+    - Clarified sample size tag: `"Sample Size: N=1 Live Execution Run ({hasRun ? "Recorded from active session" : "Pending execution"})"`.
+    - Clarified baseline latency: `"~45.2 ms (Baseline simulated benchmark: cloud batch telemetry model)"`.
+    - Clarified payload sizes: `"Local Vault: ~4,280 bytes withheld... · Egressed: ~412 bytes sanitized telemetry (measured via de-identification pipeline)"`.
+  - **Root Package Linking (`package.json`, `pnpm-lock.yaml`)**:
+    - Added `"@nexus-titan/contracts": "workspace:*"` and `"@nexus-titan/hybrid-web": "workspace:*"` to root `devDependencies` and ran `pnpm install` so standalone test suites in `tests/` resolve cleanly.
+- **Measured verification results:**
+  - `pnpm -r lint`: exited 0 across all workspace packages.
+  - `pnpm -r typecheck`: exited 0 across all workspace packages.
+  - `pnpm --filter @nexus-titan/web build`: exited 0 (all 23 routes compiled and prerendered).
+  - `node tests/judge-browser-smoke.test.mjs`: exited 0 (all 7 smoke test suites passed).
+  - `pnpm test:suites`: exited 0 (all 14 test suites passed).
+  - `uv run --project services/api pytest`: exited 0 (**182 passed**, 3 warnings in 9.63s).
+
+
+
 

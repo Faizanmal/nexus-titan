@@ -50,6 +50,8 @@
     "firebase:rules:emulated": "pnpm dlx firebase-tools@15.36.0 emulators:exec --project demo-nexus-identity-rules --only firestore,storage \"pnpm firebase:rules:test\""
   },
   "devDependencies": {
+    "@nexus-titan/contracts": "workspace:*",
+    "@nexus-titan/hybrid-web": "workspace:*",
     "typescript": "^5.9.3"
   }
 }
